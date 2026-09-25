@@ -150,10 +150,8 @@ This relies on standard RetroArch scaling behavior rather than custom coordinate
 A universal shader strategy for a 640p screen relies on two fundamental rendering behaviors built into high-quality modern CRT shaders, allowing a single preset to seamlessly handle both 240p and 480p systems.
 
 **Separation of Mask and Scanlines**
-Modern algorithms project scanlines onto the game's native coordinates (following the game's internal resolution), but project the phosphor/shadow mask onto the screen's absolute physical coordinates (the viewport). This ensures the RGB pixel grid remains perfectly uniform and locked to your physical screen, preventing distortion regardless of whether the game uses strict integer or dynamic non-integer scaling.
 
-**The 480p Scanline Cancellation**
-To properly display black scanline gaps over a 480-line source, a display requires at least 960 physical vertical pixels. On a 640p screen (a 1.33x scale for 480p content), there is physically no room to draw these gaps. Advanced shaders detect this mathematical limit and naturally compress the scanlines. The result is an automatic transition: you get thick, authentic scanlines for 240p games, and a smooth, scanline-free "VGA PC monitor" look for 480p systems (Dreamcast, PS2) without ever changing the shader preset.
+By principle, scanlines are inherently tied to the game's internal resolution (the native lines). This direct link is exactly why non-integer scaling is so problematic for them, as fractional scaling breaks the regular rhythm of the scanlines. Conversely, the phosphor or shadow mask must be locked entirely to your device's physical screen resolution (the viewport). If a shader scales the mask alongside the game geometry, the RGB grid will distort into a chaotic, uneven mess during non-integer scaling. Therefore, I strongly advise against using any shader that fails to observe this strict separation. Rest assured, all the shaders recommended below perfectly adhere to this rule, ensuring the mask remains uniformly locked to your 640p display regardless of how the game itself is scaled.
 
 #### Option 1: `crt-easymode.slangp`
 
