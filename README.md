@@ -197,23 +197,26 @@ video_crop_overscan = "true"
 
 ## Upscaling with fake 240p scanlines
 
-**The Resolution Conflict**
+#### The Resolution Conflict
+
 For 5th-generation 3D consoles (PS1, N64), many users prefer to increase the core's internal resolution to 2x (480p) to achieve clean, anti-aliased polygons, while still maintaining the vintage aesthetic of thick 240p scanlines to hide low-resolution textures.
 
 However, if the emulator outputs a 480p signal, standard CRT shaders will attempt to draw 480 scanlines. As established, a 640p display lacks the physical pixels to render 480 scanlines, causing the shader to naturally compress and cancel them out, resulting in a smooth "VGA Monitor" look that ruins the intended 240p illusion.
 
-**The Solution: Decoupling Geometry from the CRT Grid**
+#### The Solution: Decoupling Geometry from the CRT Grid
+
 To solve this, the 3D geometry (rendered at 480p) must be separated from the CRT scanline grid (which must be mathematically forced to a 240p density). You need a shader capable of rendering scanlines at "half-frequency"—drawing one thick scanline for every two native 3D lines—while still utilizing vertical anti-aliasing to survive the non-integer stretch to your 640p physical screen.
 
-**Adapting the Non-Integer Safe Shaders**
+#### Adapting the Non-Integer Safe Shaders**
 
-* **Option 1: The Unified Solution (`crt-guest-advanced-fast.slangp`)**
+**Option 1: The Unified Solution (`crt-guest-advanced-fast.slangp`)**
 This is the optimal path for total visual consistency across your entire library. You can use the exact same shader preset for your 480p 3D games as your 240p 2D games, retaining the exact same glow, mask, and dithering behavior.
 * **How to apply:** Load the standard `crt-guest-advanced-fast` preset. Open the **Shader Parameters** menu and locate the setting named **`High resolution scanlines`** (or `Scanline Mode`). Changing this parameter forces the algorithm to ignore the 480p input resolution and project a thick, uniform 240p scanline grid over the upscaled 3D models.
 
-* **Option 2: The Dedicated Variant (`crt-hyllian-3d.slangp`)**
+**Option 2: The Dedicated Variant (`crt-hyllian-3d.slangp`)**
 The standard `crt-hyllian-glow` shader is hardcoded to match its input resolution and cannot be toggled via parameters. To get half-frequency scanlines using the Hyllian algorithm, you must switch to its dedicated 3D sister preset.
 * **How to apply:** Load the `crt-hyllian-3d.slangp` preset. It utilizes the same excellent non-integer anti-aliasing math to prevent vertical shimmering on a 640p screen, but is hardcoded to project a 240p grid over 480p sources. The trade-off is that this specific 3D preset lacks the pre-configured glow pass, resulting in a much sharper, clinical image compared to your 2D setup.
 
-**Final Recommendation**
+#### Final Recommendation
+
 If maintaining a cohesive art direction (consistent bloom, shadow mask, and dithering logic) between your 16-bit 2D library and your upscaled 32-bit 3D library is the priority, **`crt-guest-advanced-fast`** is the definitive choice. By utilizing its internal `High resolution scanlines` parameter via a Core Override for DuckStation and Mupen64Plus, you achieve upscaled 3D polygons masked by perfectly aligned, non-integer safe 240p scanlines.
