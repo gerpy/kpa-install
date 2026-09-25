@@ -195,9 +195,7 @@ video_scale_integer = "false"
 video_crop_overscan = "true"
 ```
 
-## Fake 240p scanlines
-
-### Advanced 3D Setup: Upscaling with "Fake 240p" Scanlines
+## Upscaling with fake 240p scanlines
 
 **The Resolution Conflict**
 For 5th-generation 3D consoles (PS1, N64), many users prefer to increase the core's internal resolution to 2x (480p) to achieve clean, anti-aliased polygons, while still maintaining the vintage aesthetic of thick 240p scanlines to hide low-resolution textures.
