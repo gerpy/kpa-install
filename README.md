@@ -139,6 +139,54 @@ video_crop_overscan = "true"
 **Configuration File (.cfg)**
 This relies on standard RetroArch scaling behavior rather than custom coordinate overrides. The `aspect_ratio_index = "0"` value forces RetroArch to strictly use the standard 4:3 aspect ratio block.
 
+## Universal CRT Shader Strategy (Non-Integer Safe)
+
+A universal shader strategy for a 640p screen relies on two fundamental rendering behaviors built into high-quality modern CRT shaders, allowing a single preset to seamlessly handle both 240p and 480p systems.
+
+**Separation of Mask and Scanlines**
+Modern algorithms project scanlines onto the game's native coordinates (following the game's internal resolution), but project the phosphor/shadow mask onto the screen's absolute physical coordinates (the viewport). This ensures the RGB pixel grid remains perfectly uniform and locked to your physical screen, preventing distortion regardless of whether the game uses strict integer or dynamic non-integer scaling.
+
+**The 480p Scanline Cancellation**
+To properly display black scanline gaps over a 480-line source, a display requires at least 960 physical vertical pixels. On a 640p screen (a 1.33x scale for 480p content), there is physically no room to draw these gaps. Advanced shaders detect this mathematical limit and naturally compress the scanlines. The result is an automatic transition: you get thick, authentic scanlines for 240p games, and a smooth, scanline-free "VGA PC monitor" look for 480p systems (Dreamcast, PS2) without ever changing the shader preset.
+
+#### Option 1: `crt-easymode.slangp`
+
+The standard baseline for clean, straightforward CRT emulation on modern handhelds.
+
+* **Pros:**
+* Uses excellent vertical anti-aliasing to subtly adjust scanline opacity on non-integer scales, completely eliminating vertical shimmering and banding.
+* Very lightweight and requires virtually zero configuration out-of-the-box.
+* Delivers a highly sharp, defined pixel-art image.
+
+* **Cons:**
+* Lacks any bloom or glow effect, which can make the image look slightly clinical or "dry" compared to a real glowing phosphor tube.
+* Does not actively blend dithering patterns (checkerboard meshes used for transparencies in Mega Drive and PS1 games remain fully visible).
+
+#### Option 2: `crt-guest-advanced-fast.slangp`
+
+The industry gold standard for CRT accuracy and comprehensive visual features.
+
+* **Pros:**
+* Features a highly accurate, adjustable bloom/halation module that simulates tube glow without crushing colors or washing out the image.
+* Includes excellent built-in, togglable options specifically designed to blend dithering and composite artifacts (fixing waterfalls and transparent shadows).
+* The scanline interpolation algorithm handles dynamic non-integer scaling (PS1/N64) flawlessly.
+
+* **Cons:**
+* Heavier performance cost than the other options (though the `fast` variant mitigates this for most mid-range handhelds).
+* The sheer volume of adjustable parameters in the shader menu can be overwhelming to dial in initially.
+
+#### Option 3: `crt-hyllian-glow.slangp`
+
+A mathematically precise alternative balancing sharpness with a highly controlled glow pass.
+
+* **Pros:**
+* The Hyllian algorithm was mathematically engineered specifically around solving non-integer scaling artifacts, ensuring absolute stability during vertical scrolling.
+* Delivers an incredibly sharp base image, complemented by a soft, lightweight glow pass that adds organic warmth without blurring the pixels.
+
+* **Cons:**
+* The standard glow version does not blend dithering patterns at all. (If dithering blending is a strict priority, you must manually swap to the `crt-hyllian-sgenpt-mix.slangp` variant instead).
+* The glow pass slightly softens the raw razor-sharp edges compared to the purely digital look of `easymode`.
+
 ```ini
 aspect_ratio_index = "0"
 video_scale_integer = "false"
