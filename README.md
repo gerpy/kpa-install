@@ -115,3 +115,32 @@ video_scale_integer = "false"
 video_crop_overscan = "true"
 ```
 
+### Dreamcast & PS2 & GameCube (480i/480p)
+
+**Target Display Settings**
+
+* **Screen:** 960x640 (3:2 ratio).
+* **Source:** 480i / 480p Native 1x (typically rendering at 640x480).
+* **Objective:** 4:3 display maximizing screen space strictly at 1x native resolution, utilizing non-integer scaling to fill the display height.
+
+**Mathematical Logic & Constraints**
+
+* **The Integer Trap:** A 1x vertical integer scale (480p) leaves massive black borders (160 pixels of empty space vertically on your 640p screen). A 2x scale (960p) creates a 320-pixel overflow, amputating exactly one-third of the game screen. Therefore, strict integer scaling is mathematically unviable if you want a playable, full-sized image.
+* **The Non-Integer Fit (1.33x):** Scaling the 480-line source to fit your 640-pixel screen height requires a 1.33x non-integer multiplier. To maintain a 4:3 aspect ratio, the width scales to approximately 853 pixels, leaving small pillar-boxes (black bars) on the left and right sides of your 960px screen.
+* **Dynamic Resolutions (PS2 especially):** Just like the 5th generation, the PS2 is notorious for constantly shifting internal hardware resolutions (e.g., 512x448, 640x448, 640x480, or 1080i in menus). Hardcoded viewport coordinates cannot be used without breaking the image alignment during these shifts.
+
+**Configuration Rules**
+
+1. **Abandon Custom Viewports:** Due to dynamic resolution switching and the impossibility of integer scaling, you must rely on RetroArch's automated aspect ratio geometry.
+2. **Disable Global Integer Scaling:** Mandatory. This allows the emulator to apply the 1.33x multiplier to stretch the 480p image to the absolute maximum physical height of your screen (640p).
+3. **Enforce 4:3 Aspect Ratio:** Lock the aspect ratio globally. RetroArch will automatically calculate the 853px width based on the 640p height, preserving correct geometry for 6th-generation 3D titles.
+4. **Enable Crop Overscan:** Safe and recommended to use. This automatically trims the baked-in black borders often present in these games (especially PAL region PS2 titles), maximizing the usable screen estate before the non-integer stretch is applied.
+
+**Configuration File (.cfg)**
+This relies on standard RetroArch scaling behavior rather than custom coordinate overrides. The `aspect_ratio_index = "0"` value forces RetroArch to strictly use the standard 4:3 aspect ratio block.
+
+```ini
+aspect_ratio_index = "0"
+video_scale_integer = "false"
+video_crop_overscan = "true"
+```
