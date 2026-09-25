@@ -54,6 +54,7 @@ The text file must match the exact name of the targeted ROM folder and be placed
 * **Objective:** 4:3 display perfectly filling the screen horizontally, maintaining strict vertical integer scaling (3x), and ensuring perfect CRT shader alignment.
 
 **Mathematical Logic & The "224p Safe Zone" Justification**
+
 While the NES hardware outputs exactly 240 lines, developers designed games around a **224-line "Safe Zone"**. The top 8 and bottom 8 lines were intended to be hidden by the plastic bezels of 1980s CRT televisions (overscan) and often contain visual garbage, solid colors, or sprite pop-in artifacts.
 
 * **Y-Axis (Vertical):** 240 x 3 = 720 pixels. This creates an 80-pixel overflow relative to your 640p screen height.
@@ -212,10 +213,12 @@ To solve this, the 3D geometry (rendered at 480p) must be separated from the CRT
 #### Adapting the Non-Integer Safe Shaders
 
 **Option 1: The Unified Solution (`crt-guest-advanced-fast.slangp`)**
+
 This is the optimal path for total visual consistency across your entire library. You can use the exact same shader preset for your 480p 3D games as your 240p 2D games, retaining the exact same glow, mask, and dithering behavior.
 * **How to apply:** Load the standard `crt-guest-advanced-fast` preset. Open the **Shader Parameters** menu and locate the setting named **`High resolution scanlines`** (or `Scanline Mode`). Changing this parameter forces the algorithm to ignore the 480p input resolution and project a thick, uniform 240p scanline grid over the upscaled 3D models.
 
 **Option 2: The Dedicated Variant (`crt-hyllian-3d.slangp`)**
+
 The standard `crt-hyllian-glow` shader is hardcoded to match its input resolution and cannot be toggled via parameters. To get half-frequency scanlines using the Hyllian algorithm, you must switch to its dedicated 3D sister preset.
 * **How to apply:** Load the `crt-hyllian-3d.slangp` preset. It utilizes the same excellent non-integer anti-aliasing math to prevent vertical shimmering on a 640p screen, but is hardcoded to project a 240p grid over 480p sources. The trade-off is that this specific 3D preset lacks the pre-configured glow pass, resulting in a much sharper, clinical image compared to your 2D setup.
 
