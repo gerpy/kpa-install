@@ -2,7 +2,7 @@
 
 The KPA has an unusual 3:2 aspect ratio screen which a 640p resolution (960x640), which offers nice possibilities beyond plain integer scaled GBA.
 
-# Retroarch Scaling
+## Retroarch Scaling
 
 ### SNES and Megadrive (224p)
 
