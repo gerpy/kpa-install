@@ -85,3 +85,33 @@ For the Master System (192p) on a 640p display, vertical integer scaling forces 
 
 **Conclusion:** Since a 3x scale leaves large black borders and 4x/5x destroy vital gameplay information, strict vertical integer scaling is unviable. The most practical solution is to adopt **non-integer scaling** to fill the screen height. Because non-integer scales permanently break CRT shader alignment, you must disable scanlines entirely and apply a `sharp-bilinear-simple` interpolation shader across both axes to smooth out the resulting scrolling artifacts.
 
+## PS1 & N64 (240p)
+
+**Target Display Settings**
+
+* **Screen:** 960x640 (3:2 ratio).
+* **Source:** 240p Native 1x (with dynamic hardware shifts to 224p or 480i depending on the game).
+* **Objective:** 4:3 display maximizing screen space without losing any critical UI elements, strictly at 1x native resolution.
+
+**Mathematical Logic & Constraints**
+
+* **Zero Crop Tolerance:** Unlike 8/16-bit games, 5th-generation 3D titles (PS1/N64) push critical HUD elements (minimaps, ammo counters, text boxes) to the absolute edges of the 240-line framebuffer.
+* **Why not strict 3x (720p):** Scaling vertically to 720p creates an 80-pixel overflow. Cropping 26 native lines (13 top, 13 bottom) to fit the 640p physical screen will heavily amputate vital gameplay information.
+* **The Dynamic Resolution Conflict:** PS1 and N64 games frequently switch internal resolutions on the fly (e.g., jumping from 240p during gameplay to 480i in inventory menus). Hardcoded `custom_viewport` coordinates will break entirely during these shifts, instantly throwing the image off-center.
+
+**Configuration Rules**
+
+1. **Abandon Custom Viewports:** Because of dynamic resolution switching and zero crop tolerance, you cannot use fixed coordinate overrides.
+2. **Disable Global Integer Scaling:** Allow RetroArch to dynamically scale the image to fill the maximum physical height of your screen (640p) while automatically maintaining the correct width for a 4:3 ratio (853p).
+3. **Enforce 4:3 Aspect Ratio:** Lock the aspect ratio globally so RetroArch handles the geometry automatically, ignoring the physical 3:2 screen ratio.
+4. **Enable Crop Overscan:** Because we have abandoned strict integer math and fixed viewports, altering the base resolution no longer breaks any shader alignment. Enabling this safely removes the baked-in black borders common in PS1/N64 games (especially PAL regions), allowing the emulator to stretch the actual useful gameplay area to fully utilize your 640p screen height.
+
+**Configuration File (.cfg)**
+This relies on standard RetroArch scaling behavior rather than custom coordinate overrides. The `aspect_ratio_index = "0"` value forces RetroArch to strictly use the standard 4:3 aspect ratio.
+
+```ini
+aspect_ratio_index = "0"
+video_scale_integer = "false"
+video_crop_overscan = "true"
+```
+
