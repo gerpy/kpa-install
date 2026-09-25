@@ -143,6 +143,12 @@ video_crop_overscan = "true"
 **Configuration File (.cfg)**
 This relies on standard RetroArch scaling behavior rather than custom coordinate overrides. The `aspect_ratio_index = "0"` value forces RetroArch to strictly use the standard 4:3 aspect ratio block.
 
+```ini
+aspect_ratio_index = "0"
+video_scale_integer = "false"
+video_crop_overscan = "true"
+```
+
 ## Universal CRT Shader Strategy
 
 ### Non-integer safe
@@ -191,12 +197,6 @@ A mathematically precise alternative balancing sharpness with a highly controlle
 * The standard glow version does not blend dithering patterns at all. (If dithering blending is a strict priority, you must manually swap to the `crt-hyllian-sgenpt-mix.slangp` variant instead).
 * The glow pass slightly softens the raw razor-sharp edges compared to the purely digital look of `easymode`.
 
-```ini
-aspect_ratio_index = "0"
-video_scale_integer = "false"
-video_crop_overscan = "true"
-```
-
 ## Upscaling with fake 240p scanlines
 
 #### The Resolution Conflict
@@ -209,7 +209,7 @@ However, if the emulator outputs a 480p signal, standard CRT shaders will attemp
 
 To solve this, the 3D geometry (rendered at 480p) must be separated from the CRT scanline grid (which must be mathematically forced to a 240p density). You need a shader capable of rendering scanlines at "half-frequency"—drawing one thick scanline for every two native 3D lines—while still utilizing vertical anti-aliasing to survive the non-integer stretch to your 640p physical screen.
 
-#### Adapting the Non-Integer Safe Shaders**
+#### Adapting the Non-Integer Safe Shaders
 
 **Option 1: The Unified Solution (`crt-guest-advanced-fast.slangp`)**
 This is the optimal path for total visual consistency across your entire library. You can use the exact same shader preset for your 480p 3D games as your 240p 2D games, retaining the exact same glow, mask, and dithering behavior.
