@@ -153,12 +153,12 @@ To properly display black scanline gaps over a 480-line source, a display requir
 
 The standard baseline for clean, straightforward CRT emulation on modern handhelds.
 
-* **Pros:**
+**Pros:**
 * Uses excellent vertical anti-aliasing to subtly adjust scanline opacity on non-integer scales, completely eliminating vertical shimmering and banding.
 * Very lightweight and requires virtually zero configuration out-of-the-box.
 * Delivers a highly sharp, defined pixel-art image.
 
-* **Cons:**
+**Cons:**
 * Lacks any bloom or glow effect, which can make the image look slightly clinical or "dry" compared to a real glowing phosphor tube.
 * Does not actively blend dithering patterns (checkerboard meshes used for transparencies in Mega Drive and PS1 games remain fully visible).
 
@@ -166,12 +166,12 @@ The standard baseline for clean, straightforward CRT emulation on modern handhel
 
 The industry gold standard for CRT accuracy and comprehensive visual features.
 
-* **Pros:**
+**Pros:**
 * Features a highly accurate, adjustable bloom/halation module that simulates tube glow without crushing colors or washing out the image.
 * Includes excellent built-in, togglable options specifically designed to blend dithering and composite artifacts (fixing waterfalls and transparent shadows).
 * The scanline interpolation algorithm handles dynamic non-integer scaling (PS1/N64) flawlessly.
 
-* **Cons:**
+**Cons:**
 * Heavier performance cost than the other options (though the `fast` variant mitigates this for most mid-range handhelds).
 * The sheer volume of adjustable parameters in the shader menu can be overwhelming to dial in initially.
 
@@ -179,11 +179,11 @@ The industry gold standard for CRT accuracy and comprehensive visual features.
 
 A mathematically precise alternative balancing sharpness with a highly controlled glow pass.
 
-* **Pros:**
+**Pros:**
 * The Hyllian algorithm was mathematically engineered specifically around solving non-integer scaling artifacts, ensuring absolute stability during vertical scrolling.
 * Delivers an incredibly sharp base image, complemented by a soft, lightweight glow pass that adds organic warmth without blurring the pixels.
 
-* **Cons:**
+**Cons:**
 * The standard glow version does not blend dithering patterns at all. (If dithering blending is a strict priority, you must manually swap to the `crt-hyllian-sgenpt-mix.slangp` variant instead).
 * The glow pass slightly softens the raw razor-sharp edges compared to the purely digital look of `easymode`.
 
