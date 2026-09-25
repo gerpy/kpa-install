@@ -41,7 +41,7 @@ The text file must match the exact name of the targeted ROM folder and be placed
 `RetroArch/config/[Core_Name]/[ROM_Folder_Name].cfg`
 *(Practical example for the Snes9x core and a ROM folder named `snes`: `RetroArch/config/Snes9x/snes.cfg`)*
 
-## NES (not really 240p)
+### NES (not really 240p)
 
 **Target Display Settings**
 
@@ -76,7 +76,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-## Master system (192p)
+### Master system (192p)
 
 For the Master System (192p) on a 640p display, vertical integer scaling forces unacceptable compromises:
 
@@ -85,7 +85,7 @@ For the Master System (192p) on a 640p display, vertical integer scaling forces 
 
 **Conclusion:** Since a 3x scale leaves large black borders and 4x/5x destroy vital gameplay information, strict vertical integer scaling is unviable. The most practical solution is to adopt **non-integer scaling** to fill the screen height. Because non-integer scales permanently break CRT shader alignment, you must disable scanlines entirely and apply a `sharp-bilinear-simple` interpolation shader across both axes to smooth out the resulting scrolling artifacts.
 
-## PS1 & N64 (240p)
+### PS1 & N64 (240p)
 
 **Target Display Settings**
 
