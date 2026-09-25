@@ -1,5 +1,7 @@
 > **NOTHING TESTED YET : STILL WAITING FOR MY KPA**
 
+# Installation preparation for a Konkr Pocket Advance
+
 > The recommendations and technical choices presented here are my own, and I may have made mistakes or oversights. Because English is not my native language, I used Gemini to translate, structure, and format my personal notes into this.
 
 The KPA has an unusual 3:2 aspect ratio screen which a 640p resolution (960x640), which offers nice possibilities beyond plain integer scaled GBA.
