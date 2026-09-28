@@ -484,19 +484,18 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
+## Real-World Display Metrics (Surface Area vs. Perceived Size)
 
-## Real-World Display Metrics (The "Surface Area" Truth)
+When dealing with mixed aspect ratios, measuring screen size by diagonal alone is mathematically misleading. A 3.5-inch 3:2 screen does not display a 4:3 image the same way a 3.5-inch 4:3 screen would. To truly evaluate our configurations, we must look at two distinct metrics: the **Visible Surface Area** (how much of the KPA screen is physically lit up) and the **Perceived Sprite Size** (the equivalent 4:3 display required to render sprites at this exact physical scale).
 
-When dealing with mixed aspect ratios, measuring screen size by diagonal alone is mathematically misleading. The only accurate way to evaluate how much of your device you are actually using is to measure the **physical surface area**.
-
-Because every single configuration in our doctrine is engineered to perfectly fill 100% of the KPA's 640-pixel vertical height (pushing any cropped overscan off the physical screen), the surface area utilization is directly proportional to the horizontal width we defined. 
-
-For reference, the Konkr Pocket Advance features a **3.5-inch, 3:2 screen**. 
+For reference, the Konkr Pocket Advance features a **3.5-inch, 3:2 screen**:
 * Physical Height: ~1.94 inches (4.93 cm)
 * Physical Width: ~2.91 inches (7.40 cm)
 * **Total Physical Surface Area:** ~5.65 sq inches (**36.48 cm²**)
 
-Here is the exact breakdown of the visible game area you get for each system after our surgical cropping and scaling:
+### 1. Visible Surface Utilization
+
+Because every configuration in our doctrine is engineered to perfectly fill 100% of the KPA's 640-pixel vertical height, the physical surface area utilization is directly proportional to the horizontal width we defined. This table shows how much of your actual console screen is being used.
 
 | System / Configuration | Visible Pixels | Target Aspect Ratio | Surface Coverage | Physical Area (cm²) | Resulting Diagonal |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -509,4 +508,25 @@ Here is the exact breakdown of the visible game area you get for each system aft
 | **Super Nintendo** | 832 x 640 | 1.30 (13:10) | **86.7 %** | 31.61 cm² | 3.18" |
 | **NES / PC Engine** | 823 x 640 | 1.28 (~9:7) | **85.7 %** | 31.27 cm² | 3.16" |
 
-*Notice how even our most "constrained" systems (NES and PC Engine) still utilize nearly 86% of the screen's surface area, yielding a highly comfortable 3.16-inch diagonal. Without our Cathodic Correction stretch, a mathematically rigid 1:1 PAR on the NES would have collapsed the screen coverage down to a mere 76%, dropping the usable diagonal below 3 inches.*
+### 2. Perceived Sprite Size (The 4:3 Equivalent)
+
+The table above only tells half the story. Because we purposefully crop the top and bottom margins (pushing them outside the physical bezel), the game is rendered at a much larger scale than the KPA screen can fully display. 
+
+To evaluate the true "Perceived Size" of the gameplay, we must calculate the surface area of the **Full Viewport** (including the hidden overscan areas, but preserving our horizontal stretch). This theoretical area tells us how big a screen would need to be to display our zoomed-in image in its entirety. By converting this theoretical area into a standard 4:3 diagonal, we reveal the ultimate benefit of this doctrine: **how big the sprites actually look to your eyes.**
+
+| System | Full Scaled Viewport (incl. crop) | Viewport Ratio | Theoretical Surface (cm²) | Equivalent 4:3 Screen Diagonal |
+| :--- | :--- | :--- | :--- | :--- |
+| **Mega Drive** | 960 x 672 | 1.42 (~10:7) | 38.30 cm² | **3.52"** |
+| **N64** | 944 x 674 | 1.40 (7:5) | 37.78 cm² | **3.49"** |
+| **PS1 / Saturn** | 928 x 662 | 1.40 (7:5) | 36.48 cm² | **3.43"** |
+| **Amiga** | 924 x 660 | 1.40 (7:5) | 36.21 cm² | **3.42"** |
+| **Arcade / SMS / 6th Gen** * | 896 x 640 | 1.40 (7:5) | 34.04 cm² | **3.32"** |
+| **NES / PC Engine** | 823 x 686 | 1.20 (~6:5) | 33.52 cm² | **3.29"** |
+| **Super Nintendo** | 832 x 672 | 1.23 (~11:9) | 33.20 cm² | **3.27"** |
+
+*\* Since Arcade, Master System, and 6th-gen consoles utilize a Zero Margin configuration (no vertical cropping), their visible surface and full viewport surface are perfectly identical.*
+
+**The 3:2 Cheat Code:**
+Look closely at the Mega Drive. The Konkr Pocket Advance only has a 3.5" diagonal. However, because the 3:2 aspect ratio is physically wider, it allows us to aggressively zoom in vertically while still capturing the full horizontal width. The result? **Playing Mega Drive on the 3.5" KPA provides sprites that are physically as large as if you were playing on a 3.52" standard 4:3 screen.** 
+
+Even the systems with the heaviest Cathodic Correction (Super Nintendo) deliver sprites equivalent to a ~3.3" 4:3 screen, completely negating the usual letterboxing penalty associated with playing 4:3 content on a 3:2 display.
