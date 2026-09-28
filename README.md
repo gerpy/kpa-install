@@ -1,12 +1,24 @@
 > **NOTHING TESTED YET : STILL WAITING FOR MY KPA**
 
-# Installation preparation for a Konkr Pocket Advance
+# Installation Preparation for a Konkr Pocket Advance
 
-> The recommendations and technical choices presented here are my own, and I may have made mistakes or oversights. Because English is not my native language, I used Gemini to translate, structure, and format my personal notes into this.
+> The recommendations and technical choices presented here are my own, and I may have made mistakes or oversights. Because English is not my native language, I used Gemini to translate, structure, and format my personal notes into this document.
 
-The KPA has an unusual 3:2 aspect ratio screen which a 640p resolution (960x640), which offers nice possibilities beyond plain integer scaled GBA.
+## Retroarch Scaling for CRT systems
 
-## Retroarch Scaling
+The Konkr Pocket Advance (KPA) features an unusual 3:2 aspect ratio screen with a 640p resolution (960x640). While this is the absolute perfect format for pixel-perfect Game Boy Advance emulation, it also opens up fantastic possibilities for 8-bit, 16-bit, and 32-bit home consoles—provided you configure it correctly. 
+
+Because 3:2 is wider and shorter than the classic 4:3 CRT TV standard, playing legacy content with default settings usually results in massive black borders (pillarboxing) or poorly scaled scanlines. To solve this and maximize screen real estate, I use a dual-optimization approach: combining a surgical **vertical overscan crop** (hiding empty borders, visual garbage, or less useful background elements at the top and bottom of the original video signal) with a calculated **horizontal stretch** (filling the screen without crossing into visually offensive distortion).
+
+The theoretical foundation, geometric rules, and the empirical HUD mapping that dictate these configurations are fully detailed in my companion document:
+👉 **[Read the KPA Viewport Doctrine & HUD Footprint Reference here](link-to-your-doctrine-doc.md)**
+
+While the companion document explains the *why* and the *rules*, **this document provides the practical implementation**. Below, you will find the precise Viewport coordinates (X, Y, Width, Height) and shader recommendations tailored for each system, along with a brief justification for the chosen compromise.
+
+*(Note on nomenclature: For consistency and ease of integration into modern frontends, all system directories and names listed below strictly follow the **ES-DE (EmulationStation Desktop Edition)** naming convention).*
+
+
+---
 
 ### SNES and Megadrive (224p)
 
