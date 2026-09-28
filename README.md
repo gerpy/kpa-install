@@ -11,7 +11,7 @@ The Konkr Pocket Advance (KPA) features an unusual 3:2 aspect ratio screen with 
 Because 3:2 is wider and shorter than the classic 4:3 CRT TV standard, playing legacy content with default settings usually results in massive black borders (pillarboxing) or poorly scaled scanlines. To solve this and maximize screen real estate, I use a dual-optimization approach: combining a surgical **vertical overscan crop** (hiding empty borders, visual garbage, or less useful background elements at the top and bottom of the original video signal) with a calculated **horizontal stretch** (filling the screen without crossing into visually offensive distortion).
 
 The theoretical foundation, geometric rules, and the empirical HUD mapping that dictate these configurations are fully detailed in my companion document:
-👉 **[Read the KPA Viewport Doctrine & HUD Footprint Reference here](link-to-your-doctrine-doc.md)**
+👉 **[KPA Viewport Doctrine & HUD Footprint Reference](scaling-approach.md)**
 
 While the companion document explains the *why* and the *rules*, **this document provides the practical implementation**. Below, you will find the precise Viewport coordinates (X, Y, Width, Height) and shader recommendations tailored for each system, along with a brief justification for the chosen compromise.
 
