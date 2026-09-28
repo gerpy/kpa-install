@@ -484,3 +484,29 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
+
+## Real-World Display Metrics (The "Surface Area" Truth)
+
+When dealing with mixed aspect ratios, measuring screen size by diagonal alone is mathematically misleading. The only accurate way to evaluate how much of your device you are actually using is to measure the **physical surface area**.
+
+Because every single configuration in our doctrine is engineered to perfectly fill 100% of the KPA's 640-pixel vertical height (pushing any cropped overscan off the physical screen), the surface area utilization is directly proportional to the horizontal width we defined. 
+
+For reference, the Konkr Pocket Advance features a **3.5-inch, 3:2 screen**. 
+* Physical Height: ~1.94 inches (4.93 cm)
+* Physical Width: ~2.91 inches (7.40 cm)
+* **Total Physical Surface Area:** ~5.65 sq inches (**36.48 cm²**)
+
+Here is the exact breakdown of the visible game area you get for each system after our surgical cropping and scaling:
+
+| System / Configuration | Visible Pixels | Target Aspect Ratio | Surface Coverage | Physical Area (cm²) | Resulting Diagonal |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Konkr Pocket Advance (Max)** | 960 x 640 | 1.50 (3:2) | **100 %** | 36.48 cm² | 3.50" |
+| **Mega Drive** | 960 x 640 | 1.50 (3:2) | **100 %** | 36.48 cm² | 3.50" |
+| **N64** | 944 x 640 | 1.47 (59:40) | **98.3 %** | 35.87 cm² | 3.46" |
+| **PS1 / Saturn** | 928 x 640 | 1.45 (29:20) | **96.7 %** | 35.26 cm² | 3.42" |
+| **Amiga** | 924 x 640 | 1.44 (~13:9) | **96.2 %** | 35.11 cm² | 3.41" |
+| **Arcade / Master System / 6th Gen** | 896 x 640 | 1.40 (7:5) | **93.3 %** | 34.04 cm² | 3.34" |
+| **Super Nintendo** | 832 x 640 | 1.30 (13:10) | **86.7 %** | 31.61 cm² | 3.18" |
+| **NES / PC Engine** | 823 x 640 | 1.28 (~9:7) | **85.7 %** | 31.27 cm² | 3.16" |
+
+*Notice how even our most "constrained" systems (NES and PC Engine) still utilize nearly 86% of the screen's surface area, yielding a highly comfortable 3.16-inch diagonal. Without our Cathodic Correction stretch, a mathematically rigid 1:1 PAR on the NES would have collapsed the screen coverage down to a mere 76%, dropping the usable diagonal below 3 inches.*
