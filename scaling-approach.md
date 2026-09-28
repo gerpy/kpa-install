@@ -7,7 +7,13 @@ To achieve this, the setup relies on the strict definition of the **Viewport**. 
 ## HUDs Reference Table
 
 **The "Breathing Room" Concept**
-Before looking at the data, it is crucial to distinguish between the *Croppable Margin* (the absolute maximum overscan we can hide) and the actual crop we apply. If we were to crop 100% of the available margin, the game's UI would be pressed flush against the physical plastic bezel of the KPA, creating a suffocating, unnatural look. To prevent this, our viewport calculations intentionally preserve a **Breathing Room**—typically leaving about 4 native lines of the overscan margin intact—to gracefully frame the HUD.
+Before looking at the data, it is crucial to distinguish between the *Croppable Margin* (the absolute maximum overscan we can hide) and the actual crop we apply. If we were to crop 100% of the available margin, the game's UI would be pressed flush against the physical plastic bezel of the KPA, creating a suffocating, unnatural look. To prevent this, our viewport calculations intentionally preserve a **Breathing Room** to gracefully frame the HUD. 
+
+The exact amount of breathing room applied depends strictly on the system's generation and design philosophy:
+
+* **Zero Margin Systems (Arcade, Neo-Geo, Master System) = 0 lines.** These systems were designed entirely edge-to-edge, with UI elements intentionally touching the absolute physical limits of the screen. Injecting padding here would require artificially shrinking the image and adding letterboxing, which goes against our goal.
+* **Classic 2D & Early 3D Consoles (NES, SNES, Mega Drive, PC Engine, PS1, Saturn, N64, Amiga) = ~3 to 4 native lines.** This is the standard sweet spot. For integer-scaled systems (Mega Drive, SNES), the rigid math naturally leaves about 3 lines of uncropped overscan. For fractionally scaled systems, we deliberately inject exactly **4 native lines** of padding top and bottom before calculating the final viewport.
+* **6th Generation & Modern 4:3 (Dreamcast, PS2, GameCube, Wii) = 0 injected lines.** By the 128-bit 480p era, the concept of raw analog overscan garbage vanished. Modern 3D engines already incorporated internal TV safe zones, meaning the UI breathes naturally within its own 480-line frame without us needing to force artificial padding.
 
 This reference table maps the strict vertical footprint of user interfaces (HUDs) across major retro CRT systems. Instead of relying on theoretical NTSC overscan standards, this data is derived from an empirical visual analysis of extensive game libraries. It establishes the actual useful pixel window and defines safe cropping margins—optimized at a 95% compatibility threshold by deliberately excluding statistical outliers (such as atypically deep RPG menus). This pragmatic framework maximizes screen real estate and scaling potential on modern aspect ratios while guaranteeing zero loss of critical gameplay information.
 
