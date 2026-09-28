@@ -3,7 +3,8 @@
 The approach documented here aims to optimize retro emulation rendering specifically for the **Konkr Pocket Advance (KPA)**. This device features a 3:2 aspect ratio screen with a resolution of 960x640 pixels. Because this format is wider and shorter than the standard 4:3 CRT, it requires surgical configuration to maximize display space. The goal is to utilize as much of the screen as possible while preserving the geometric integrity of the original pixel art, avoiding excessive distortion, and guaranteeing flawless scanline rendering via CRT shaders.
 
 To achieve this, the setup relies on the strict definition of the **Viewport**. In the context of emulation (such as in RetroArch), the viewport is the exact rectangular area of your physical screen where the game is drawn. This frame is defined by an origin point (X and Y coordinates) and absolute dimensions (width and height in pixels). By forcing a custom viewport for each console, we can intentionally crop the vertical overscan—hiding empty borders, visual garbage, or less useful background elements at the top and bottom of the original video signal. Simultaneously, we can apply a calculated, subtle horizontal stretch. This dual approach of vertical cropping and slight horizontal widening allows us to perfectly control the scaling to fit the KPA's wider constraints and maximize screen real estate, without ever cutting into the game's critical UI.
-### HUDs reference table
+
+## HUDs reference table
 
 This reference table maps the strict vertical footprint of user interfaces (HUDs) across major retro CRT systems. Instead of relying on theoretical NTSC overscan standards, this data is derived from an empirical visual analysis of extensive game libraries. It establishes the actual useful pixel window and defines safe cropping margins—optimized at a 95% compatibility threshold by deliberately excluding statistical outliers (such as atypically deep RPG menus). This pragmatic framework maximizes screen real estate and scaling potential on modern aspect ratios while guaranteeing zero loss of critical gameplay information.
 
@@ -21,7 +22,7 @@ This reference table maps the strict vertical footprint of user interfaces (HUDs
 | **Sega Saturn** | Line 0 to 239 | Line 8 to 231 | Top: 8 px<br>Bot: 8 px | Arcade conversions stay within 8-231. Outlier tactical RPGs pushing menus to 237 are sacrificed to secure the 8px symmetric margin. |
 | **Nintendo 64** | Line 0 to 239 | Line 10 to 229 | Top: 10 px<br>Bot: 10 px | Hardware anti-aliasing and safe areas compress most HUDs tightly between 10-229. Rare UI exceptions (reaching 235) are excluded to lock in a massive 10px symmetric margin. |
 
-### Viewport Definition Doctrine
+## Viewport Definition Doctrine
 
 This doctrine governs the mathematical and geometric calculation of display viewports. The objective is to maximize the utilization of a 960x640 pixel screen while guaranteeing the absolute preservation of the user interface (HUD), the proper functioning of CRT shaders, and the strict control of geometric distortion (the "Aspect Ratio Crime").
 
