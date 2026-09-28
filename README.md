@@ -17,40 +17,53 @@ While the companion document explains the *why* and the *rules*, **this document
 
 *(Note on nomenclature: For consistency and ease of integration into modern frontends, all system directories and names listed below strictly follow the **ES-DE (EmulationStation Desktop Edition)** naming convention).*
 
-
----
-
-### SNES and Megadrive (224p)
+### Sega Mega Drive / Genesis (`megadrive`)
 
 **Target Display Settings**
 
 * **Screen:** 960x640 (3:2 ratio).
-* **Source:** 224p (e.g., SNES, Megadrive).
-* **Objective:** 4:3 display combining strict vertical integer scaling (3x) and perfect CRT shader compatibility.
+* **Source:** 320x224 (Standard V28 mode).
+* **Objective:** Perfect 1:1 Pixel Aspect Ratio (PAR) integer scaling. This is the baseline "perfect fit" scenario where the raw width flawlessly matches the KPA screen.
 
-**Mathematical Logic**
+**Mathematical Logic (Scenario A & Rule 1)**
 
-* **Y-Axis (Vertical):** 224 x 3 = 672 pixels. Results in a 32-pixel overflow relative to the screen height (672 - 640).
-* **X-Axis (Horizontal):** 672 x (4/3) = 896 pixels (non-integer multiplier).
+* **X-Axis (Horizontal):** 320 x 3 = 960 pixels. The native 320 width multiplied by a perfect 3x integer scale equals exactly 960. It fills the KPA screen edge-to-edge with zero pillarboxing (black bars) and mathematically perfect geometry (PAR 1:1). 
+* **Y-Axis (Vertical):** 224 x 3 = 672 pixels. This creates a 32-pixel overflow relative to the KPA's 640p height (672 - 640 = 32 pixels to crop).
+* **Vertical Crop (HUD Safe):** To comply with the CRT Alignment Constraint (Rule 1), the Y-offset must be a multiple of the 3x scale. We set it to `-15`.
+  * Top crop: 15 screen pixels (exactly 5 native lines).
+  * Bottom crop: 17 screen pixels (approx. 5.6 native lines).
+  * *Verdict:* Since our HUD Footprint Doctrine established a safe croppable margin of 8 lines at the top and 8 lines at the bottom for the Mega Drive, this crop perfectly preserves 100% of the UI while safely hiding overscan garbage.
 
 **Configuration Rules**
 
-1. **Disable Crop Overscan (Global and Core Options):** Essential to ensure the core sends the full raw 224-line signal to RetroArch without altering the base resolution.
-2. **Disable Global Integer Scaling:** Mandatory to allow the non-integer horizontal scale needed to maintain the 4:3 proportions (the vertical axis is manually forced to an integer).
-3. **Vertical Adjustment (Y-Offset) Calibrated for Shaders:** To avoid vertical shimmering and asymmetrical scanlines, the offset must align the game's pixel grid with the shader's grid. The negative Y value must be a multiple of the vertical scale factor (3x). A `-15` pixel offset crops exactly 5 full native lines at the top of the screen.
+1. **Disable Crop Overscan (Global and Core Options):** Essential to ensure the core sends the full raw 224-line signal to RetroArch without altering the base resolution before our math applies.
+2. **Disable Global Integer Scaling:** Counter-intuitive but mandatory. Since our 672p height overflows the 640p physical screen, RetroArch's automatic integer scaling would aggressively shrink the image down to 2x. Disabling it allows our custom coordinate block to force the 3x scale.
+3. **CRT Shader Alignment:** The `-15` Y-offset is a precise multiple of 3, guaranteeing that the first row of pixels drawn at the top of the physical screen perfectly aligns with the shader's internal CRT scanline grid (avoiding uneven or shimmering scanlines).
 
-**Configuration File (.cfg)**
-Since the RetroArch UI locks the Y value to a minimum of 0, the negative offset must be injected by manually editing the override file. The `aspect_ratio_index = "23"` value forces RetroArch to use the *Custom* coordinate block.
+**Configuration File (`megadrive.cfg`)**
+*(Place this in your config override folder. The `aspect_ratio_index = "23"` forces RetroArch to use the Custom coordinate block).*
 
 ```ini
 aspect_ratio_index = "23"
-custom_viewport_width = "896"
+custom_viewport_width = "960"
 custom_viewport_height = "672"
-custom_viewport_x = "32"
+custom_viewport_x = "0"
 custom_viewport_y = "-15"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
+
+
+
+
+---
+
+
+
+
+
+
+
 
 **Override Location (Content Directory Override)**
 The text file must match the exact name of the targeted ROM folder and be placed in the corresponding core's subfolder:
