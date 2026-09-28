@@ -54,7 +54,7 @@ Integer scaling is never forced on the horizontal axis. Width is fractionally ad
 **Scenario B: Cathodic Correction (Historical Stretching)**
 
 * **Target:** Consoles with non-square pixels that suffered stretching on period CRT TVs (e.g., SNES, drawn in 8:7 but played in 4:3).
-* **Application:** The historical 4:3 render is a geometric heresy (circles becoming 16% stretched ovals). The viewport width is set to a **middle ground**. The game is displayed wider than its internal ratio (to fill the screen and satisfy visual memory), but narrower than 4:3 (to mathematically improve sprite roundness). This widening stops right at the psychological limit of the Aspect Ratio Crime.
+* **Application:** The historical 4:3 render is a geometric heresy (circles becoming 16% stretched ovals in the SNES case for instance). The viewport width is set to a **middle ground**. In this specific case, we can actually exceed the standard threshold of an "Aspect Ratio Crime." Because our visual memory is accustomed to the massive 4:3 distortion, any reduction in that stretch registers psychologically as a geometric improvement. We aim for an exact midpoint between the 4:3 distortion and perfect circles, using the standard Aspect Ratio Crime limit not as a ceiling, but as the absolute minimum width.
 
 **Scenario C: Under-Compression (Historical Compression)**
 
