@@ -4,7 +4,10 @@ The approach documented here aims to optimize retro emulation rendering specific
 
 To achieve this, the setup relies on the strict definition of the **Viewport**. In the context of emulation (such as in RetroArch), the viewport is the exact rectangular area of your physical screen where the game is drawn. This frame is defined by an origin point (X and Y coordinates) and absolute dimensions (width and height in pixels). By forcing a custom viewport for each console, we can intentionally crop the vertical overscan—hiding empty borders, visual garbage, or less useful background elements at the top and bottom of the original video signal. Simultaneously, we can apply a calculated, subtle horizontal stretch. This dual approach of vertical cropping and slight horizontal widening allows us to perfectly control the scaling to fit the KPA's wider constraints and maximize screen real estate, without ever cutting into the game's critical UI.
 
-## HUDs reference table
+## HUDs Reference Table
+
+**The "Breathing Room" Concept**
+Before looking at the data, it is crucial to distinguish between the *Croppable Margin* (the absolute maximum overscan we can hide) and the actual crop we apply. If we were to crop 100% of the available margin, the game's UI would be pressed flush against the physical plastic bezel of the KPA, creating a suffocating, unnatural look. To prevent this, our viewport calculations intentionally preserve a **Breathing Room**—typically leaving about 4 native lines of the overscan margin intact—to gracefully frame the HUD.
 
 This reference table maps the strict vertical footprint of user interfaces (HUDs) across major retro CRT systems. Instead of relying on theoretical NTSC overscan standards, this data is derived from an empirical visual analysis of extensive game libraries. It establishes the actual useful pixel window and defines safe cropping margins—optimized at a 95% compatibility threshold by deliberately excluding statistical outliers (such as atypically deep RPG menus). This pragmatic framework maximizes screen real estate and scaling potential on modern aspect ratios while guaranteeing zero loss of critical gameplay information.
 
@@ -34,13 +37,14 @@ Vertical management takes precedence. It dictates scanline sharpness and UI pres
 
 * **Application Condition:** Applies whenever an integer multiplier (e.g., x3) can display the entirety of the HUD Limit with reasonable breathing room, requiring only a moderate crop of the Technical Limit's useless margins.
 * **CRT Alignment Constraint:** To ensure flawless scanline rendering by shaders, the first displayed screen line must perfectly match the start of a native CRT line. Therefore, the vertical offset (the viewport's Y coordinate) **must strictly be an exact multiple of the scaling multiplier** (e.g., for a 3x scale, Y = 0, 3, 6, 9...).
-* **Assumed Asymmetry:** Top and bottom breathing rooms are balanced as best as possible, but never at the expense of the CRT alignment constraint. If the native HUD is off-center, the final viewport will be asymmetrical. This imbalance is an accurate reflection of the source material, not a configuration flaw.
+* **Assumed Asymmetry & Natural Padding:** Top and bottom spaces are balanced as best as possible, but never at the expense of the CRT alignment constraint. Fortunately, the rigid math of integer scaling usually prevents us from cropping the full overscan margin, naturally leaving a few lines intact to serve as breathing room. If the native HUD is off-center, the final viewport will be asymmetrical. This imbalance is an accurate reflection of the source material, not a configuration flaw.
 
 **Rule 2: Fractional Scaling (The Alternative)**
 
 * **Application Condition:** Applies when Integer Scaling amputates the HUD or, conversely, leaves massive, unresolvable black bars (e.g., the Master System's 192-line window).
 * **Constraint Release:** Since the native pixel grid is broken (requiring shader interpolation), the requirement to align the Y coordinate to an integer multiple is voided.
-* **Pure Centering:** The viewport is defined to perfectly balance top and bottom breathing space down to the exact screen pixel, centered around a potentially off-center HUD.
+* **Manual Breathing Room Injection:** Because we have total control over the scale, we must consciously avoid over-cropping. If we stretch the exact HUD footprint to fit the screen height, the UI will hit the physical bezel. Therefore, we mathematically inject a standard ~4-line native padding into our target window *before* calculating the fractional multiplier.
+* **Pure Centering:** The viewport is defined to perfectly balance this top and bottom padding down to the exact screen pixel, centered around a potentially off-center HUD.
 
 ### II. The Horizontal Axis: Geometric Mastery
 
