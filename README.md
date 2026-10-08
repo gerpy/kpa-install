@@ -21,27 +21,27 @@ While the companion document explains the *why* and the *rules*, **this document
 
 **Target Display Settings**
 
-* **Screen:** 960x640 (3:2 ratio).
-* **Source:** 320x224 (Standard V28 mode).
-* **Objective:** Perfect 1:1 Pixel Aspect Ratio (PAR) integer scaling. This is the baseline "perfect fit" scenario where the raw width flawlessly matches the KPA screen.
+- **Screen:** 960x640 (3:2 ratio).
+- **Source:** 320x224 (Standard V28 mode).
+- **Objective:** Perfect 1:1 Pixel Aspect Ratio (PAR) integer scaling. This is the baseline "perfect fit" scenario where the raw width flawlessly matches the KPA screen.
 
 **Mathematical Logic (Scenario A & Rule 1)**
 
-* **X-Axis (Horizontal):** 320 x 3 = 960 pixels. The native 320 width multiplied by a perfect 3x integer scale equals exactly 960. It fills the KPA screen edge-to-edge with zero pillarboxing (black bars) and mathematically perfect geometry (PAR 1:1). 
-* **Y-Axis (Vertical):** 224 x 3 = 672 pixels. This creates a 32-pixel overflow relative to the KPA's 640p height (672 - 640 = 32 pixels to crop).
-* **Vertical Crop (HUD Safe):** To comply with the CRT Alignment Constraint (Rule 1), the Y-offset must be a multiple of the 3x scale. We set it to `-15`.
+- **X-Axis (Horizontal):** 320 x 3 = 960 pixels. The native 320 width multiplied by a perfect 3x integer scale equals exactly 960. It fills the KPA screen edge-to-edge with zero pillarboxing (black bars) and mathematically perfect geometry (PAR 1:1). 
+- **Y-Axis (Vertical):** 224 x 3 = 672 pixels. This creates a 32-pixel overflow relative to the KPA's 640p height (672 - 640 = 32 pixels to crop).
+- **Vertical Crop (HUD Safe):** To comply with the CRT Alignment Constraint (Rule 1), the Y-offset must be a multiple of the 3x scale. We set it to `-15`.
   * Top crop: 15 screen pixels (exactly 5 native lines).
   * Bottom crop: 17 screen pixels (approx. 5.6 native lines).
   * *Verdict:* Since our HUD Footprint Doctrine established a safe croppable margin of 8 lines at the top and 8 lines at the bottom for the Mega Drive, this crop perfectly preserves 100% of the UI while safely hiding overscan garbage.
 
 **Configuration Rules**
 
-1. **Disable Crop Overscan (Global and Core Options):** Essential to ensure the core sends the full raw 224-line signal to RetroArch without altering the base resolution before our math applies.
-2. **Disable Global Integer Scaling:** Counter-intuitive but mandatory. Since our 672p height overflows the 640p physical screen, RetroArch's automatic integer scaling would aggressively shrink the image down to 2x. Disabling it allows our custom coordinate block to force the 3x scale.
-3. **CRT Shader Alignment:** The `-15` Y-offset is a precise multiple of 3, guaranteeing that the first row of pixels drawn at the top of the physical screen perfectly aligns with the shader's internal CRT scanline grid (avoiding uneven or shimmering scanlines).
+1. **Force Custom Aspect Ratio:** By default, RetroArch hides manual viewport dimensions. Selecting `Custom` in the Aspect Ratio menu exposes the X, Y, Width, and Height parameters.
+2. **Disable Automatic Integer Scaling:** RetroArch's global `Integer Scale` toggle must be turned off. Since our 672p target height overflows the 640p physical screen, automatic integer scaling would aggressively shrink the image down to 2x to keep it entirely visible. Disabling it allows our manual coordinates to force the 3x scale and push the overflow off-screen.
+3. **CRT Shader Alignment:** The `-15` Y-offset is a precise multiple of 3, guaranteeing that the first row of pixels drawn at the top of the physical screen perfectly aligns with the shader's internal CRT scanline grid.
 
 **Configuration File (`megadrive.cfg`)**
-*(Place this in your config override folder. The `aspect_ratio_index = "23"` forces RetroArch to use the Custom coordinate block).*
+*(Place this in your config override folder. The `aspect_ratio_index = "23"` parameter bypasses the UI and forces RetroArch to read the Custom coordinate block).*
 
 ```ini
 aspect_ratio_index = "23"
