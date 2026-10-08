@@ -384,14 +384,6 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
-
-L'Amiga, avec son imposant signal vidéo PAL de 256 lignes, s'intègre avec une élégance absolue dans notre doctrine d'auto-centrage. Ton ancienne configuration avait déjà identifié les mathématiques parfaites (660 pixels de haut pour rogner 4 lignes), mais elle nécessitait de forcer manuellement les coordonnées.
-
-En confiant le centrage à RetroArch (X et Y à 0), le débordement de 20 pixels est coupé en deux de manière parfaitement symétrique (10 pixels en haut, 10 en bas). À notre échelle fractionnelle, ces 10 pixels physiques correspondent très exactement aux 4 lignes natives que nous voulions sacrifier.
-
-Voici la section définitive pour l'Amiga, épurée et optimisée :
-
-```markdown
 ### Commodore Amiga (`amiga` / `puae`)
 
 **Core Selection & Preparation (PUAE)**
