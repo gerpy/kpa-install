@@ -23,39 +23,48 @@ While the companion document explains the *why* and the *rules*, **this document
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 320x224 (Standard V28 mode).
-- **Objective:** Perfect 1:1 Pixel Aspect Ratio (PAR) integer scaling. This is the baseline "perfect fit" scenario where the raw width flawlessly matches the KPA screen.
+- **Objective:** Fractional Scaling (Rule 2) with a micro-crop (2 native lines) to safeguard critical UI, combined with a minimal 3% horizontal Nostalgia Stretch (Scenario A) that flawlessly fills the KPA screen.
 
-**Mathematical Logic (Scenario A & Rule 1)**
+**Mathematical Logic (Scenario A & Rule 2)**
 
-- **X-Axis (Horizontal):** 320 x 3 = 960 pixels. The native 320 width multiplied by a perfect 3x integer scale equals exactly 960. It fills the KPA screen edge-to-edge with zero pillarboxing (black bars) and mathematically perfect geometry (PAR 1:1). 
-- **Y-Axis (Vertical):** 224 x 3 = 672 pixels. This creates a 32-pixel overflow relative to the KPA's 640p height (672 - 640 = 32 pixels to crop).
-- **Vertical Crop (HUD Safe):** To comply with the CRT Alignment Constraint (Rule 1), the Y-offset must be a multiple of the 3x scale. We set it to `-15`.
-  * Top crop: 15 screen pixels (exactly 5 native lines).
-  * Bottom crop: 17 screen pixels (approx. 5.6 native lines).
-  * *Verdict:* Since our HUD Footprint Doctrine established a safe croppable margin of 8 lines at the top and 8 lines at the bottom for the Mega Drive, this crop perfectly preserves 100% of the UI while safely hiding overscan garbage.
+- **Y-Axis (Vertical):** 
+  - Integer Scaling (3x) forces an 11-line crop, which empirical evidence shows decapitates UI elements on the extreme top and bottom edges of the 224-line canvas (e.g., top-anchored menus or bottom-anchored HUDs).
+  - *Fractional Calculation:* We abandon integer scaling. To maximize width without excessive distortion, we target a surgical micro-crop of exactly **2 native lines** at the top and bottom. This reduces the safe target window to 220 lines.
+  - Scaling these 220 lines to perfectly fill the 640 pixels of the KPA screen requires a ~2.909x scale.
+  - The total height of the 224-line source at this scale is **652 pixels** (224 * 2.909).
+- **Vertical Crop (Micro Margin):**
+  - Overflow: 12 pixels (652 - 640).
+  - Top crop: 6 physical pixels (exactly 2 native lines). Y-offset is `-6`.
+  - Bottom crop: 6 physical pixels.
+  - *Verdict:* 100% of the screen height is utilized. The 2-line sacrifice is visually harmless, only shaving decorative outer borders while completely preserving critical text and UI elements.
+- **X-Axis (Horizontal):** 
+  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the new 652p viewport height requires a width of **931 pixels** (320 * 2.909). 
+  - *Nostalgia Stretch (The Cheat):* If we stretch the 931px width to eat up the pillarboxes, we hit exactly **960 pixels**. This results in a mathematically pristine **3.1% stretch**.
+  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with a distortion level that is strictly imperceptible to the human eye.
+- **X-Offset:** (960 - 960) / 2 = 0. We use an X offset of `0`.
 
 **Configuration Rules (GUI Method)**
 
 To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled first. If left on, RetroArch's "Smart" scaling will forcefully shrink the image to 2x to prevent our 672p target height from overflowing the 640p screen).
+1. **Integer Scale:** `OFF` (Must be disabled to allow fractional stretching and custom heights).
 2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
 3. **Custom Aspect Ratio (X Position):** `0`
-4. **Custom Aspect Ratio (Y Position):** `-15` (This pushes the overscan garbage off-screen while guaranteeing the CRT shader scanlines remain perfectly aligned).
+4. **Custom Aspect Ratio (Y Position):** `-6` (Pushes the 2 discarded native lines off the top edge).
 5. **Custom Aspect Ratio (Width):** `960`
-6. **Custom Aspect Ratio (Height):** `672`
+6. **Custom Aspect Ratio (Height):** `652`
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
 **Configuration File (`megadrive.cfg`)**
-*(If you prefer manual file editing, place this in your config override folder. The `aspect_ratio_index = "23"` parameter bypasses the UI and forces RetroArch to read the Custom coordinate block).*
+*(If you prefer manual file editing, place this in your config override folder).*
 
 ```ini
 aspect_ratio_index = "23"
 custom_viewport_width = "960"
-custom_viewport_height = "672"
+custom_viewport_height = "652"
 custom_viewport_x = "0"
-custom_viewport_y = "-15"
+custom_viewport_y = "-6"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
