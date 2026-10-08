@@ -23,87 +23,80 @@ While the companion document explains the *why* and the *rules*, **this document
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 320x224 (Standard V28 mode).
-- **Objective:** Fractional Scaling (Rule 2) with an ultra-conservative micro-crop (1 native line) to perfectly frame critical UI, combined with a minimal 4.1% horizontal Nostalgia Stretch (Scenario A) to fill the KPA screen.
+- **Objective:** Fractional Scaling (Rule 2) maximizing vertical height through an auto-centered 2-line micro-crop, combined with a mathematically pristine 3.1% horizontal Nostalgia Stretch (Scenario A) to fill the KPA screen.
 
 **Mathematical Logic (Scenario A & Rule 2)**
 
 - **Y-Axis (Vertical):** 
   - Integer Scaling (3x) forces an 11-line crop, which systematically decapitates UI elements on the extreme top and bottom edges.
-  - *Fractional Calculation:* We abandon integer scaling. To maximize horizontal geometry without clipping the UI, we target a surgical micro-crop of exactly **1 native line** at the top and bottom. 
-  - The total height of the 224-line source at this fractional scale is defined as **646 pixels**.
-- **Vertical Crop (Micro Margin):**
-  - Overflow: 6 pixels (646 - 640).
-  - Top crop: 3 physical pixels (~1 native line). Y-offset is `-3`.
-  - Bottom crop: 3 physical pixels.
-  - *Verdict:* 100% of the screen height is utilized. The 1-line sacrifice leaves top-anchored text menus and bottom-anchored HUDs perfectly intact while pushing the outermost, often incomplete fractional pixel row off-screen.
+  - *Fractional Calculation:* We abandon integer scaling. Empirical testing reveals the Mega Drive safely tolerates a maximum symmetric micro-crop of **2 native lines** before critical text is amputated. 
+  - The total height of the 224-line source at this maximized fractional scale is defined as **652 pixels**.
+- **Vertical Crop (Auto-Centered):**
+  - By leaving the Y-offset at `0` and relying on RetroArch's default `0.5` Anchor Bias, the 652p image centers itself automatically within the 640p physical screen.
+  - Top crop: 6 physical pixels (exactly 2 native lines).
+  - Bottom crop: 6 physical pixels (exactly 2 native lines).
+  - *Verdict:* 100% of the screen height is utilized. The symmetric 2-line sacrifice pushes the maximum amount of overscan off-screen, enlarging the sprites to their absolute limit while leaving top-anchored text menus and bottom-anchored HUDs perfectly intact.
 - **X-Axis (Horizontal):** 
-  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the 646p viewport height requires a width of **922 pixels**. 
-  - *Nostalgia Stretch (The Cheat):* Stretching the 922px width to eat up the pillarboxes and hit the full **960 pixels** results in a mathematically pristine **4.1% stretch**.
-  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with a distortion level that sits safely below the Aspect Ratio Crime threshold.
-- **X-Offset:** (960 - 960) / 2 = 0. We use an X offset of `0`.
+  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the 652p viewport height requires a width of **931 pixels**. 
+  - *Nostalgia Stretch (The Cheat):* Stretching the 931px width to hit the full **960 pixels** results in a minimal **3.1% stretch**.
+  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with an imperceptible level of distortion.
+- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly auto-center the 960x652 viewport.
 
 **Configuration Rules (GUI Method)**
 
 To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled to allow fractional stretching and custom heights).
+1. **Integer Scale:** `OFF` (Must be disabled globally to allow fractional stretching and custom heights).
 2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
-3. **Custom Aspect Ratio (X Position):** `0`
-4. **Custom Aspect Ratio (Y Position):** `-3` (Pushes the single discarded native line off the top edge).
-5. **Custom Aspect Ratio (Width):** `960`
-6. **Custom Aspect Ratio (Height):** `646`
-
-*(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
-
-**Configuration File (`megadrive.cfg`)**
-*(If you prefer manual file editing, place this in your config override folder).*
-
-```ini
-aspect_ratio_index = "23"
-custom_viewport_width = "960"
-custom_viewport_height = "646"
-custom_viewport_x = "0"
-custom_viewport_y = "-3"
-video_scale_integer = "false"
-video_crop_overscan = "false"
+3. **Custom Aspect Ratio (X Position):
 ```
 
 ### Super Nintendo / Super Famicom (`snes`)
 
 **Target Display Settings**
 
-* **Screen:** 960x640 (3:2 ratio).
-* **Source:** 256x224.
-* **Objective:** Vertical integer scaling (3x) combined with horizontal "Cathodic Correction." This perfectly aligns CRT shaders vertically while finding the geometric sweet spot between the historical 4:3 stretch and perfect 8:7 circles.
+- **Screen:** 960x640 (3:2 ratio).
+- **Source:** 256x224 (Standard output).
+- **Objective:** Integer Scaling (Rule 1) on the vertical axis for pristine sharpness, combined with horizontal Cathodic Correction (Scenario B) to hit the exact midpoint between perfect circles and nostalgic 4:3 stretching.
 
 **Mathematical Logic (Scenario B & Rule 1)**
 
-* **Y-Axis (Vertical):** 224 x 3 = 672 pixels. This creates a 32-pixel overflow relative to the KPA's 640p height (672 - 640 = 32 pixels to crop).
-* **Vertical Crop (HUD Safe):** To comply with the CRT Alignment Constraint (Rule 1), the Y-offset must be a multiple of the 3x scale. We set it to `-15`.
-  * Top crop: 15 screen pixels (5 native lines).
-  * Bottom crop: 17 screen pixels (~5.6 native lines).
-  * *Verdict:* Since our HUD Footprint Doctrine established that SNES games have a safe 8-line margin at the top and bottom, this crop preserves 100% of the UI.
-* **X-Axis (Horizontal):** 
-  * The native internal ratio (PAR 1:1) at 3x scale gives a width of **768 pixels** (perfect circles, but leaves massive 96px black bars on each side).
-  * The historical 4:3 aspect ratio stretches this to **896 pixels** (fills more screen, but causes a heavy 16% geometric distortion).
-  * *Cathodic Correction:* We aim for the exact midpoint. (768 + 896) / 2 = **832 pixels**. This width acts as the ultimate compromise: it exceeds the standard 5% Aspect Ratio Crime threshold (filling more screen and satisfying our visual memory of a stretched SNES image) while mathematically improving sprite roundness by halving the historical 4:3 distortion.
-* **X-Offset:** (960 - 832) / 2 = 64. We center the image with an X offset of `64`.
+- **Y-Axis (Vertical):** 
+  - 224 x 3 = 672 pixels. The native 224 height multiplied by a perfect 3x integer scale creates a 32-pixel overflow relative to the KPA's 640p physical height.
+- **Vertical Crop (Auto-Centered):** 
+  - By leaving the Y-offset at `0` and relying on RetroArch's default `0.5` Anchor Bias, the image centers itself automatically.
+  - Top crop: 16 physical pixels (~5.3 native lines).
+  - Bottom crop: 16 physical pixels (~5.3 native lines).
+  - *Verdict:* Nintendo's historical certification guidelines forced developers to leave a strict 8-line safe margin at the top and bottom. This symmetric 5.3-line crop effortlessly hides the overscan while leaving nearly 3 lines of natural breathing room before the HUD begins. 100% of the UI is safely preserved.
+- **X-Axis (Horizontal):** 
+  - A mathematically perfect 1:1 Pixel Aspect Ratio (PAR) based on the 3x scale height is **768 pixels** (256 x 3). 
+  - The historical 4:3 aspect ratio stretched this width to **896 pixels** (672 * 4/3), creating massive geometric distortion.
+  - *Cathodic Correction:* We calculate the exact midpoint between the perfect PAR and the historical stretch: (768 + 896) / 2 = **832 pixels**.
+  - This width produces an 8.3% stretch, purposely exceeding the 5% Aspect Ratio Crime threshold to satisfy our visual memory of the SNES, while heavily mitigating the severe oval distortion seen on original CRT hardware.
+- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly center the 832x672 viewport on the screen.
 
-**Configuration Rules**
+**Configuration Rules (GUI Method)**
 
-1. **Disable Crop Overscan (Global and Core Options):** Ensures the core sends the full raw 224-line signal to RetroArch.
-2. **Disable Global Integer Scaling:** Mandatory. We need this disabled to manually inject the 832px fractional width, even though we are strictly enforcing a 3x (672px) scale on the vertical axis.
-3. **CRT Shader Alignment:** The `-15` Y-offset is a precise multiple of 3, ensuring the top line of the KPA screen aligns perfectly with the shader's internal CRT scanline grid.
+To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
+
+1. **Integer Scale:** `OFF` (Must be disabled globally. Since our 672p target height overflows the 640p screen, leaving this ON forces RetroArch's "Smart" scale to crush the image down to 2x. Disabling it allows our custom coordinates to enforce the 3x height).
+2. **Aspect Ratio:** `Custom` 
+3. **Custom Aspect Ratio (X Position):** `0`
+4. **Custom Aspect Ratio (Y Position):** `0`
+5. **Custom Aspect Ratio (Width):** `832`
+6. **Custom Aspect Ratio (Height):** `672`
+
+*(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
 **Configuration File (`snes.cfg`)**
-*(Place this in your config override folder. The `aspect_ratio_index = "23"` forces RetroArch to use the Custom coordinate block).*
+*(If you prefer manual file editing, place this in your config override folder).*
 
 ```ini
 aspect_ratio_index = "23"
 custom_viewport_width = "832"
 custom_viewport_height = "672"
-custom_viewport_x = "64"
-custom_viewport_y = "-15"
+custom_viewport_x = "0"
+custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
