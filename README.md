@@ -34,14 +34,21 @@ While the companion document explains the *why* and the *rules*, **this document
   * Bottom crop: 17 screen pixels (approx. 5.6 native lines).
   * *Verdict:* Since our HUD Footprint Doctrine established a safe croppable margin of 8 lines at the top and 8 lines at the bottom for the Mega Drive, this crop perfectly preserves 100% of the UI while safely hiding overscan garbage.
 
-**Configuration Rules**
+**Configuration Rules (GUI Method)**
 
-1. **Force Custom Aspect Ratio:** By default, RetroArch hides manual viewport dimensions. Selecting `Custom` in the Aspect Ratio menu exposes the X, Y, Width, and Height parameters.
-2. **Disable Automatic Integer Scaling:** RetroArch's global `Integer Scale` toggle must be turned off. Since our 672p target height overflows the 640p physical screen, automatic integer scaling would aggressively shrink the image down to 2x to keep it entirely visible. Disabling it allows our manual coordinates to force the 3x scale and push the overflow off-screen.
-3. **CRT Shader Alignment:** The `-15` Y-offset is a precise multiple of 3, guaranteeing that the first row of pixels drawn at the top of the physical screen perfectly aligns with the shader's internal CRT scanline grid.
+To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
+
+1. **Integer Scale:** `OFF` (Must be disabled first. If left on, RetroArch's "Smart" scaling will forcefully shrink the image to 2x to prevent our 672p target height from overflowing the 640p screen).
+2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
+3. **Custom Aspect Ratio (X Position):** `0`
+4. **Custom Aspect Ratio (Y Position):** `-15` (This pushes the overscan garbage off-screen while guaranteeing the CRT shader scanlines remain perfectly aligned).
+5. **Custom Aspect Ratio (Width):** `960`
+6. **Custom Aspect Ratio (Height):** `672`
+
+*(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
 **Configuration File (`megadrive.cfg`)**
-*(Place this in your config override folder. The `aspect_ratio_index = "23"` parameter bypasses the UI and forces RetroArch to read the Custom coordinate block).*
+*(If you prefer manual file editing, place this in your config override folder. The `aspect_ratio_index = "23"` parameter bypasses the UI and forces RetroArch to read the Custom coordinate block).*
 
 ```ini
 aspect_ratio_index = "23"
