@@ -48,7 +48,24 @@ To apply these settings directly through the RetroArch interface, navigate to **
 
 1. **Integer Scale:** `OFF` (Must be disabled globally to allow fractional stretching and custom heights).
 2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
-3. **Custom Aspect Ratio (X Position):
+3. **Custom Aspect Ratio (X Position):** `0`
+4. **Custom Aspect Ratio (Y Position):** `0`
+5. **Custom Aspect Ratio (Width):** `960`
+6. **Custom Aspect Ratio (Height):** `652`
+
+*(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
+
+**Configuration File (`megadrive.cfg`)**
+*(If you prefer manual file editing, place this in your config override folder).*
+
+```ini
+aspect_ratio_index = "23"
+custom_viewport_width = "960"
+custom_viewport_height = "652"
+custom_viewport_x = "0"
+custom_viewport_y = "0"
+video_scale_integer = "false"
+video_crop_overscan = "false"
 ```
 
 ### Super Nintendo / Super Famicom (`snes`)
