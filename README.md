@@ -23,24 +23,23 @@ While the companion document explains the *why* and the *rules*, **this document
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 320x224 (Standard V28 mode).
-- **Objective:** Fractional Scaling (Rule 2) with a micro-crop (2 native lines) to safeguard critical UI, combined with a minimal 3% horizontal Nostalgia Stretch (Scenario A) that flawlessly fills the KPA screen.
+- **Objective:** Fractional Scaling (Rule 2) with an ultra-conservative micro-crop (1 native line) to perfectly frame critical UI, combined with a minimal 4.1% horizontal Nostalgia Stretch (Scenario A) to fill the KPA screen.
 
 **Mathematical Logic (Scenario A & Rule 2)**
 
 - **Y-Axis (Vertical):** 
-  - Integer Scaling (3x) forces an 11-line crop, which empirical evidence shows decapitates UI elements on the extreme top and bottom edges of the 224-line canvas (e.g., top-anchored menus or bottom-anchored HUDs).
-  - *Fractional Calculation:* We abandon integer scaling. To maximize width without excessive distortion, we target a surgical micro-crop of exactly **2 native lines** at the top and bottom. This reduces the safe target window to 220 lines.
-  - Scaling these 220 lines to perfectly fill the 640 pixels of the KPA screen requires a ~2.909x scale.
-  - The total height of the 224-line source at this scale is **652 pixels** (224 * 2.909).
+  - Integer Scaling (3x) forces an 11-line crop, which systematically decapitates UI elements on the extreme top and bottom edges.
+  - *Fractional Calculation:* We abandon integer scaling. To maximize horizontal geometry without clipping the UI, we target a surgical micro-crop of exactly **1 native line** at the top and bottom. 
+  - The total height of the 224-line source at this fractional scale is defined as **646 pixels**.
 - **Vertical Crop (Micro Margin):**
-  - Overflow: 12 pixels (652 - 640).
-  - Top crop: 6 physical pixels (exactly 2 native lines). Y-offset is `-6`.
-  - Bottom crop: 6 physical pixels.
-  - *Verdict:* 100% of the screen height is utilized. The 2-line sacrifice is visually harmless, only shaving decorative outer borders while completely preserving critical text and UI elements.
+  - Overflow: 6 pixels (646 - 640).
+  - Top crop: 3 physical pixels (~1 native line). Y-offset is `-3`.
+  - Bottom crop: 3 physical pixels.
+  - *Verdict:* 100% of the screen height is utilized. The 1-line sacrifice leaves top-anchored text menus and bottom-anchored HUDs perfectly intact while pushing the outermost, often incomplete fractional pixel row off-screen.
 - **X-Axis (Horizontal):** 
-  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the new 652p viewport height requires a width of **931 pixels** (320 * 2.909). 
-  - *Nostalgia Stretch (The Cheat):* If we stretch the 931px width to eat up the pillarboxes, we hit exactly **960 pixels**. This results in a mathematically pristine **3.1% stretch**.
-  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with a distortion level that is strictly imperceptible to the human eye.
+  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the 646p viewport height requires a width of **922 pixels**. 
+  - *Nostalgia Stretch (The Cheat):* Stretching the 922px width to eat up the pillarboxes and hit the full **960 pixels** results in a mathematically pristine **4.1% stretch**.
+  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with a distortion level that sits safely below the Aspect Ratio Crime threshold.
 - **X-Offset:** (960 - 960) / 2 = 0. We use an X offset of `0`.
 
 **Configuration Rules (GUI Method)**
@@ -50,9 +49,9 @@ To apply these settings directly through the RetroArch interface, navigate to **
 1. **Integer Scale:** `OFF` (Must be disabled to allow fractional stretching and custom heights).
 2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
 3. **Custom Aspect Ratio (X Position):** `0`
-4. **Custom Aspect Ratio (Y Position):** `-6` (Pushes the 2 discarded native lines off the top edge).
+4. **Custom Aspect Ratio (Y Position):** `-3` (Pushes the single discarded native line off the top edge).
 5. **Custom Aspect Ratio (Width):** `960`
-6. **Custom Aspect Ratio (Height):** `652`
+6. **Custom Aspect Ratio (Height):** `646`
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -62,9 +61,9 @@ To apply these settings directly through the RetroArch interface, navigate to **
 ```ini
 aspect_ratio_index = "23"
 custom_viewport_width = "960"
-custom_viewport_height = "652"
+custom_viewport_height = "646"
 custom_viewport_x = "0"
-custom_viewport_y = "-6"
+custom_viewport_y = "-3"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
