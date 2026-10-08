@@ -1,5 +1,3 @@
-> **NOTHING TESTED YET : STILL WAITING FOR MY KPA**
-
 # Installation Preparation for a Konkr Pocket Advance
 
 > The recommendations and technical choices presented here are my own, and I may have made mistakes or oversights. Because English is not my native language, I used Gemini to translate, structure, and format my personal notes into this document.
