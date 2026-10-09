@@ -1,5 +1,5 @@
-**Doctrine d'Optimisation d'Affichage Rétro**
-
+# Doctrine d'Optimisation d'Affichage Rétro
+ 
 Cette doctrine définit une méthode universelle pour afficher des contenus rétro (historiquement pensés pour des tubes cathodiques 4:3 ou des ratios atypiques) sur des écrans modernes de ratios divers (16:9, 16:10, 3:2, etc.). L'objectif n'est ni la perfection mathématique stérile, ni le remplissage d'écran aveugle, mais l'optimisation optique : maximiser la taille perçue des sprites tout en préservant strictement l'intégrité de l'interface (HUD) et en interdisant toute déformation visuellement choquante ("Aspect Ratio Crime").
 
 ### 1. La Hiérarchie des Priorités
