@@ -13,7 +13,28 @@ To maximize screen real estate, the following configurations rely on a dual appr
 **The Historical Stretch Exception:**
 For specific platforms that already suffered from severe horizontal stretching on original CRT televisions (such as the NES or SNES), we deliberately exceed our standard stretch limits to fill the KPA screen. However, this is designed as an *improvement* over the original hardware: by targeting a sweet spot exactly halfway between the flawed historical 4:3 Display Aspect Ratio (DAR) and the mathematically perfect 1:1 Pixel Aspect Ratio (PAR), we reduce the original geometric distortion while still flattering our visual memory.
 
-Below are the precise custom Viewport coordinates tailored for each system. *(Note: System directories strictly follow the ES-DE naming convention).*
+### Quick Reference Summary
+
+For all systems below, the following baseline settings are **strictly mandatory** to ensure the auto-centering math works correctly:
+- **Integer Scale:** `OFF`
+- **Aspect Ratio:** `Custom`
+- **Custom Aspect Ratio (X Position):** `0`
+- **Custom Aspect Ratio (Y Position):** `0`
+- **Crop Overscan:** `OFF` *(Must be verified in both RetroArch's global Video settings and the Quick Menu > Core Options).*
+
+| System | Target Folder(s) | Viewport Width | Viewport Height |
+| :--- | :--- | :--- | :--- |
+| **Mega Drive / Genesis** | `megadrive` | **960** | **640** |
+| **Super Nintendo** | `snes` | **832** | **672** |
+| **Master System** | `mastersystem` | **896** | **640** |
+| **NES & PC Engine** | `nes`, `pcengine` | **824** | **686** |
+| **Arcade (FBNeo)** | `fbneo` | **896** | **640** |
+| **PS1 & Saturn** | `psx`, `saturn` | **896** | **640** |
+| **Nintendo 64** | `n64` | **944** | **674** |
+| **Commodore Amiga** | `amiga` | **924** | **660** |
+| **6th Gen & Modern 4:3** | `dreamcast`, `ps2`, `gc`, `wii` | **896** | **640** |
+
+Below are the detailed configuration rules and files tailored for each system. *(Note: System directories strictly follow the ES-DE naming convention).*
 
 ### Sega Mega Drive / Genesis (`megadrive`)
 
@@ -48,41 +69,24 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
-
 ### Super Nintendo / Super Famicom (`snes`)
 
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 256x224 (Standard output).
-- **Objective:** Integer Scaling (Rule 1) on the vertical axis for pristine sharpness, combined with horizontal Cathodic Correction (Scenario B) to hit the exact midpoint between perfect circles and nostalgic 4:3 stretching.
-
-**Mathematical Logic (Scenario B & Rule 1)**
-
-- **Y-Axis (Vertical):** 
-  - 224 x 3 = 672 pixels. The native 224 height multiplied by a perfect 3x integer scale creates a 32-pixel overflow relative to the KPA's 640p physical height.
-- **Vertical Crop (Auto-Centered):** 
-  - By leaving the Y-offset at `0` and relying on RetroArch's default `0.5` Anchor Bias, the image centers itself automatically.
-  - Top crop: 16 physical pixels (~5.3 native lines).
-  - Bottom crop: 16 physical pixels (~5.3 native lines).
-  - *Verdict:* Nintendo's historical certification guidelines forced developers to leave a strict 8-line safe margin at the top and bottom. This symmetric 5.3-line crop effortlessly hides the overscan while leaving nearly 3 lines of natural breathing room before the HUD begins. 100% of the UI is safely preserved.
-- **X-Axis (Horizontal):** 
-  - A mathematically perfect 1:1 Pixel Aspect Ratio (PAR) based on the 3x scale height is **768 pixels** (256 x 3). 
-  - The historical 4:3 aspect ratio stretched this width to **896 pixels** (672 * 4/3), creating massive geometric distortion.
-  - *Cathodic Correction:* We calculate the exact midpoint between the perfect PAR and the historical stretch: (768 + 896) / 2 = **832 pixels**.
-  - This width produces an 8.3% stretch, purposely exceeding the 5% Aspect Ratio Crime threshold to satisfy our visual memory of the SNES, while heavily mitigating the severe oval distortion seen on original CRT hardware.
-- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly center the 832x672 viewport on the screen.
+- **Objective:** Integer Scaling on the vertical axis for pristine sharpness, cropping ~5.3 native lines at the top and bottom to seamlessly hide overscan. This is combined with an 8.3% horizontal stretch (the exact midpoint between a perfect 1:1 pixel aspect ratio and the historical 4:3 stretch) to mitigate the original hardware's geometric distortion.
 
 **Configuration Rules (GUI Method)**
 
-To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
+Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally. Since our 672p target height overflows the 640p screen, leaving this ON forces RetroArch's "Smart" scale to crush the image down to 2x. Disabling it allows our custom coordinates to enforce the 3x height).
-2. **Aspect Ratio:** `Custom` 
+1. **Integer Scale:** `OFF` *(Justification: Must be disabled globally. Since our 672p target height overflows the 640p screen, leaving this ON forces RetroArch to crush the image down to 2x. Disabling it allows our custom coordinates to enforce the 3x height).*
+2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `832`
-6. **Custom Aspect Ratio (Height):** `672`
+5. **Custom Aspect Ratio (Width):** `832` *(Justification: The mathematically perfect 1:1 width is 768px, while the historical 4:3 width is 896px. 832px is the exact midpoint, producing an 8.3% stretch that improves upon the original hardware's severe oval distortion while flattering our visual memory).*
+6. **Custom Aspect Ratio (Height):** `672` *(Justification: Enforces a perfect 3x vertical integer scale. The 32-pixel overflow auto-centers to crop ~5.3 native lines top and bottom, which falls perfectly within Nintendo's historical 8-line overscan safe zone, preserving 100% of the UI).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -101,39 +105,26 @@ video_crop_overscan = "false"
 
 ### Sega Master System (`mastersystem`)
 
+**Core Preparation**
+
+Ensure your emulator core (e.g., Genesis Plus GX) is passing the raw, unmodified video signal to RetroArch by disabling any `Hide Borders` or `Overscan Mask` settings. *(Note: To hide the scrolling glitches present on the edges of certain games without destroying our geometry, save a Game Preset using the `Overscan mask` parameters available in your CRT shaders, such as `crt-guest-advanced-fast`).*
+
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
-- **Source:** 256x192.
-- **Objective:** Fractional Scaling (Rule 2) with zero vertical cropping to respect the rigid HUD, combined with a horizontal Nostalgia Stretch (Scenario A) to minimize pillarboxing.
-
-**Mathematical Logic (Scenario A & Rule 2)**
-
-- **Y-Axis (Vertical):** 
-  - The Master System's 192-line active window leaves absolutely zero croppable margin. Every line contains critical UI data or gameplay.
-  - A 3x integer scale yields 576 pixels (leaving a massive 64px of dead black space vertically).
-  - A 4x integer scale yields 768 pixels (forcing a 128px crop that would completely obliterate the HUD).
-  - *Fractional Calculation:* We abandon integer scaling. The raw 192 lines are fractionally scaled to perfectly fill the 640 pixels of the KPA screen height (a ~3.333x scale). 
-- **Vertical Crop (Auto-Centered):**
-  - Overflow: 0 pixels (640 - 640).
-  - By leaving the Y-offset at `0`, the 640p image perfectly aligns with the physical screen. 
-  - *Verdict:* 100% of the screen height is utilized, and 100% of the HUD remains untouched.
-- **X-Axis (Horizontal):** 
-  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the 640p viewport height requires a width of **853 pixels**. 
-  - *Nostalgia Stretch (The Cheat):* To eat up the side pillarboxes without committing an Aspect Ratio Crime, we apply a precise 5% stretch. 853 * 1.05 = **896 pixels**.
-  - This optimally fills the width while keeping sprite distortion entirely imperceptible.
-- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly auto-center the 896x640 viewport, naturally leaving two symmetrical 32-pixel black bars on the sides.
+- **Source:** 256x192 (Raw, unaltered signal).
+- **Objective:** Fractional Scaling with absolutely zero vertical cropping (0 lines cut top or bottom) to respect the rigid UI, combined with an exact 5% horizontal stretch to minimize pillarboxing.
 
 **Configuration Rules (GUI Method)**
 
-To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
+Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow fractional stretching and custom heights).
-2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
-3. **Custom Aspect Ratio (X Position):** `0` (Maintains perfect auto-centering).
+1. **Integer Scale:** `OFF` *(Justification: A 3x integer scale yields a 576px height, leaving massive 64px black bars, while a 4x scale forces a 128px crop that would obliterate the HUD. Fractional scaling is mandatory).*
+2. **Aspect Ratio:** `Custom`
+3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `896`
-6. **Custom Aspect Ratio (Height):** `640`
+5. **Custom Aspect Ratio (Width):** `896` *(Justification: The mathematically perfect 4:3 width for a 640p height is 853px. Adding our maximum 5% stretch tolerance yields 896px, eating up the pillarboxing while keeping sprite distortion entirely imperceptible).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Utilizes 100% of the screen height. Since the Master System's 192-line active window contains critical data from edge to edge, we apply exactly 0 lines of vertical overscan crop).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -154,48 +145,28 @@ video_crop_overscan = "false"
 
 Since both the NES and PC Engine share a native 240-line vertical resolution and benefit from identical horizontal treatment, their configuration doctrines are unified. 
 
-**Core Selection & Preparation**
+**Core Preparation**
 
-Before setting the RetroArch Viewport, you must ensure both cores send the full, uncropped raw video signal to RetroArch so our mathematical auto-centering works perfectly.
-- **NES (Mesen):** Open Quick Menu > Core Options > Video. Set `Left/Right/Top/Bottom Overscan` to `None`. Set `Aspect Ratio` to `No stretching` (or `Auto`). *Recommended:* Enable `Remove sprite limit` to fix historical flickering.
+Ensure both cores send the full, uncropped raw video signal to RetroArch so our mathematical auto-centering works perfectly.
+- **NES (Mesen):** Open Quick Menu > Core Options > Video. Set `Left/Right/Top/Bottom Overscan` to `None`. Set `Aspect Ratio` to `No stretching` (or `Auto`). *Recommended:* Enable `Remove sprite limit` to fix historical flickering. *(Note: To hide the scrolling glitches present on the edges of certain NES games without destroying our geometry, save a Game Preset using the `Overscan mask` parameters available in your CRT shaders, exactly like the Master System).*
 - **PC Engine (Beetle PCE):** Open Quick Menu > Core Options > Video. Ensure any core-specific cropping options (like `Crop Overscan` or custom `Initial/Last Scanline` ranges) are disabled to output the full raw 240-line image.
 
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 256x240 (NES) / Dynamically shifting x240 (PC Engine).
-- **Objective:** Fractional Scaling (Rule 2) capitalizing on symmetric auto-centering to seamlessly crop the universal 8-line vertical overscan garbage on both systems, combined with a unified horizontal Cathodic Correction (Scenario B) to tame the PCE's shifting resolutions and perfect the NES aspect ratio.
-
-**Mathematical Logic (Scenario B & Rule 2)**
-
-- **Y-Axis (Vertical):** 
-  - Both consoles output 240 native lines, with the top 8 and bottom 8 lines traditionally acting as an overscan buffer. The pristine "action zone" is 224 lines.
-  - *Fractional Calculation:* We apply a ~2.857x scale to make these 224 lines perfectly fill the 640p KPA physical screen.
-  - Applying this scale to the full 240-line signal gives a total viewport height of **686 pixels** (240 * 2.857).
-- **Vertical Crop (Auto-Centered):**
-  - Overflow: 46 pixels (686 - 640).
-  - By leaving the Y-offset at `0`, the 0.5 Anchor Bias centers the 686p image symmetrically.
-  - Top crop: 23 physical pixels (exactly ~8 native lines).
-  - Bottom crop: 23 physical pixels (exactly ~8 native lines).
-  - *Verdict:* A mathematical miracle for both systems. The auto-centering perfectly slices off the 8-line vertical overscan garbage without decapitating HUDs.
-- **X-Axis (Horizontal) & The Resolution Lock:** 
-  - For the NES, a perfect PAR width is 732px, while the historical 4:3 stretch is 915px. The Cathodic Correction midpoint is **824 pixels**.
-  - For the PC Engine, horizontal resolution dynamically changes on the fly (e.g., switching from 256 to 336). If unconstrained, the emulator will violently stretch and shrink the screen.
-  - *Unified Solution:* We lock the width for both systems to **824 pixels**. This gives the NES its perfect nostalgic stretch while forcing all PCE horizontal modes into a single, stable, geometrically pleasing frame.
-- **Offsets:** We use `0` for both X and Y to let RetroArch perfectly auto-center the fixed 824x686 viewport.
+- **Objective:** Fractional Scaling cropping exactly ~8 native lines at the top and bottom to seamlessly hide the universal overscan garbage. This is combined with a 12.5% horizontal stretch (the midpoint between 1:1 PAR and historical 4:3 DAR) to perfect the NES aspect ratio while taming the PCE's shifting resolutions.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `824`
-6. **Custom Aspect Ratio (Height):** `686`
-
-*(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
+5. **Custom Aspect Ratio (Width):** `824` *(Justification: For the NES, the perfectly square 1:1 width is 732px, while the historical 4:3 stretch is 915px. 824px is the exact midpoint, producing a 12.5% stretch that flatters nostalgic memory without the extreme CRT distortion. For the PC Engine, locking to this single fixed width forces all its wildly shifting internal horizontal resolutions into one stable, geometrically pleasing frame).*
+6. **Custom Aspect Ratio (Height):** `686` *(Justification: Scaling the 240 native lines to 686px ensures the pristine 224-line "action zone" perfectly fills the 640p screen height. The 46-pixel overflow auto-centers to slice off exactly 8 lines of vertical garbage at the top and bottom without decapitating HUDs).*
 
 **Configuration Files (`nes.cfg` & `pcengine.cfg`)**
 *(If you prefer manual file editing, place this identical block in both config override files).*
@@ -216,34 +187,18 @@ video_crop_overscan = "false"
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 224p Vertical (Horizontal resolution wildly varies: 256, 320, 384).
-- **Objective:** Fractional Scaling (Rule 2) with absolute zero vertical cropping to protect extreme-edge UI elements, combined with an auto-centered horizontal 4:3 base expanded by a 5% Nostalgia Stretch.
-
-**Mathematical Logic (Nostalgia Stretch & Rule 2)**
-
-- **Y-Axis (Vertical):** 
-  - Arcade hardware like the Neo-Geo (MVS) and Capcom Play System (CPS-1/2/3) push vital UI elements (health bars, credit counters) to the absolute extreme edges of their 224-line active output. Cropping even a single line is destructive.
-  - *Fractional Calculation:* We abandon integer scaling. The raw 224 active lines are fractionally stretched to perfectly fill the 640 pixels of the KPA physical screen (a ~2.857x scale). 
-- **Vertical Crop (Zero Margin Auto-Centered):**
-  - Overflow: 0 pixels (640 - 640).
-  - By leaving the Y-offset at `0`, the 640p image perfectly matches the physical screen height. 
-  - *Verdict:* 100% of the screen height is utilized, and 100% of the HUD is mathematically preserved across thousands of heterogeneous arcade boards.
-- **X-Axis (Horizontal) & The 5% Expansion:** 
-  - Arcade boards generated wildly different native widths (e.g., 256px for early classics, 320px for Neo-Geo, 384px for CPS), but all operators adjusted their CRT monitor potentiometers to squish or stretch the image into a standard 4:3 physical box.
-  - On a 640p height, a strict 4:3 arcade aspect ratio yields a width of **853 pixels**.
-  - *Nostalgia Stretch:* To eat up the side pillarboxes without committing an Aspect Ratio Crime, we apply a precise 5% expansion beyond the historical 4:3 frame. 853 * 1.05 = **896 pixels**.
-  - This perfectly unifies all varying arcade resolutions into a single, beautiful standard that flatters the 3:2 screen while respecting CRT proportions.
-- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly auto-center the unified 896x640 viewport.
+- **Objective:** Fractional Scaling with absolutely zero vertical cropping (0 lines cut top or bottom) to safely protect extreme-edge UI elements across heterogeneous arcade boards, combined with a unified 4:3 base expanded by an exact 5% horizontal stretch to minimize pillarboxing.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow fractional stretching and custom heights).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `896`
-6. **Custom Aspect Ratio (Height):** `640`
+5. **Custom Aspect Ratio (Width):** `896` *(Justification: Arcade boards output wildly different native widths, but CRT operators historically squished or stretched them into a standard 4:3 monitor. A strict 4:3 width at 640p height is 853px. Adding our 5% stretch tolerance yields 896px, unifying all chaotic resolutions into one stable, aesthetically pleasing frame).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Matches the physical screen height perfectly. Because arcade hardware like the Neo-Geo pushes vital UI elements to the absolute extreme edges of the video signal, zero lines are cropped to guarantee 100% HUD preservation across thousands of unpredictable games).*
 
 *(Note: Absolutely ensure **Crop Overscan** is set to `OFF`. Arcade hardware does not generate standard console overscan garbage; the raw signal is the intended active area. Automated cropping will mutilate extreme-edge UI).*
 
@@ -262,40 +217,30 @@ video_crop_overscan = "false"
 
 ### Sony PlayStation 1 (`psx`) & Sega Saturn (`saturn`)
 
-Both 32-bit pioneers operate under identical display philosophies. They heavily rely on 3D geometry authored specifically for 4:3 televisions, and they notoriously switch resolutions on the fly.
+Both 32-bit pioneers operate under identical display philosophies. They heavily rely on 3D geometry authored specifically for 4:3 televisions, and notoriously switch resolutions on the fly.
+
+**Core Preparation (Sega Saturn)**
+
+If using the Saturn core, ensure its internal aspect ratio is set to `1:1 PAR` (or `10:7 DAR`). This forces the core to output the raw, un-stretched pixel matrix so RetroArch can apply our single, mathematically precise horizontal stretch without applying a destructive double-stretch.
 
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
-- **Source:** Dynamically shifting 240p (Gameplay) and 480i (Menus/FMVs), with wildly varying horizontal resolutions (e.g., 320, 368, 512, 640).
-- **Objective:** Fractional Scaling (Rule 2) using a rigid, fixed Viewport to trap and neutralize the violent internal resolution shifting, combined with a 4:3 base expanded by a gentle 5% Nostalgia Stretch to preserve 3D geometry.
-
-**Mathematical Logic (Nostalgia Stretch & Rule 2)**
-
-- **Y-Axis (Vertical) & The Resolution Lock:** 
-  - Games like *Chrono Cross*, *Resident Evil*, or *Silent Hill* constantly swap between 240p for gameplay and 480i for menus. If left dynamic, the emulator will glitch, resize, or drop signal during these transitions.
-  - *Fractional Fixed Height:* By locking the Custom Viewport strictly to the KPA's physical **640 pixels** of height, RetroArch forces both 240p and 480i signals to scale seamlessly into the exact same unmoving vertical space. 
-- **Vertical Crop (Zero Margin Auto-Centered):**
-  - Overflow: 0 pixels.
-  - Offsets: By leaving the Y-offset at `0`, the image perfectly matches the physical screen. No cropping occurs, which is vital as 32-bit games rarely used consistent overscan garbage zones.
-- **X-Axis (Horizontal) & 3D Geometry:** 
-  - Unlike 16-bit 2D sprites, 32-bit 3D models (wheels in *Gran Turismo*, spheres, architecture) were mathematically projected to look correct on a 4:3 Display Aspect Ratio (DAR). Over-stretching ruins 3D proportions instantly.
-  - On a 640p height, a geometrically flawless 4:3 width is **854 pixels**.
-  - *Nostalgia Stretch:* To reduce pillarboxing without blatantly turning 3D wheels into ovals, we apply the same 5% expansion used for our Arcade doctrine: 854 * 1.05 = **896 pixels**.
-- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly auto-center the unified 896x640 viewport.
+- **Source:** Dynamically shifting 240p (Gameplay) and 480i (Menus/FMVs).
+- **Objective:** Fractional Scaling with absolutely zero vertical cropping (0 lines cut top or bottom) to safely contain dynamic resolution shifts, combined with a 4:3 base expanded by an exact 5% horizontal stretch to minimize pillarboxing while preserving 3D geometry.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow the rigid fractional box).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `896`
-6. **Custom Aspect Ratio (Height):** `640`
+5. **Custom Aspect Ratio (Width):** `896` *(Justification: 32-bit 3D models were mathematically projected for 4:3 displays. Over-stretching instantly ruins proportions, turning wheels into ovals. A flawless 4:3 width at 640p is 854px. Adding our maximum 5% stretch tolerance yields 896px, gracefully reducing pillarboxing without visibly compromising 3D integrity).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Games like Resident Evil or Chrono Cross constantly swap between 240p gameplay and 480i menus. Locking the viewport strictly to the KPA's physical 640px height forces all varying signals into a single, unmoving container, preventing resizing glitches or signal drops during transitions. Zero lines are cropped).*
 
-*(Note: Ensure **Crop Overscan** is set to `OFF`. The fixed Custom Viewport acts as an absolute container; automatic cropping will disrupt the stability of the 480i menu transitions).*
+*(Note: Ensure **Crop Overscan** is set to `OFF`. The fixed Custom Viewport acts as an absolute container; automatic cropping would disrupt the stability of menu transitions).*
 
 **Configuration Files (`psx.cfg` & `saturn.cfg`)**
 *(If you prefer manual file editing, place this identical block in both config override files).*
@@ -312,46 +257,28 @@ video_crop_overscan = "false"
 
 ### Nintendo 64 (`n64`)
 
-**Core Selection & Preparation**
+**Core Preparation**
 
 Before setting the RetroArch Viewport, ensure the core (e.g., Mupen64Plus-Next or ParaLLEl N64) is outputting the raw, untampered video signal.
-- Open Quick Menu > Core Options.
-- Ensure any internal aspect ratio settings are set to `Original` or `4:3` (strictly avoid widescreen hacks or "Adjust" settings), and any core-level overscan cropping is disabled. The Custom Viewport will handle all geometry mathematically.
+- Open Quick Menu > Core Options > Video.
+- Ensure any internal aspect ratio settings are set to `Original` or `4:3` (strictly avoid widescreen hacks or "Adjust" settings), and any core-level overscan cropping is disabled. The Custom Viewport must handle all geometry.
 
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 240p / 480i (Standard 320x240, dynamically switching during menus).
-- **Objective:** Fractional Scaling (Rule 2) capitalizing on the N64's generous vertical margins for auto-centered symmetric cropping, combined with a horizontal Nostalgia Stretch (Scenario A) that almost entirely fills the physical screen.
-
-**Mathematical Logic (Scenario A & Rule 2)**
-
-- **Y-Axis (Vertical) & Breathing Room:** 
-  - The N64 features a massive 10-line croppable margin at both the top and bottom. The strict UI footprint sits safely compressed between lines 10 and 229.
-  - *Fractional Calculation:* To integrate our standard 4-line breathing room, we want to crop exactly 6 native lines. We scale the remaining 228 lines to perfectly fit the 640p screen (640 / 228 = ~2.807x scale).
-  - Applying this scale to the full 240 native lines gives us a total viewport height of **674 pixels** (240 * 2.807).
-- **Vertical Crop (Auto-Centered):**
-  - Overflow: 34 pixels (674 - 640).
-  - By leaving the Y-offset at `0`, the 0.5 Anchor Bias centers the 674p image symmetrically.
-  - Top crop: 17 physical pixels (exactly ~6 native lines).
-  - Bottom crop: 17 physical pixels (exactly ~6 native lines).
-  - *Verdict:* The auto-centering automatically slices off the worst 6 lines of overscan. The screen starts exactly at native line 6, leaving a flawless 4-line padding before the HUD begins at line 10.
-- **X-Axis (Horizontal):** 
-  - A mathematically perfect 4:3 aspect ratio based on the 674p height requires a width of **899 pixels** (674 * 4/3). 
-  - *Nostalgia Stretch (The Cheat):* Applying our standard 5% stretch to eat up the pillarboxes yields **944 pixels** (899 * 1.05). 
-  - This produces a phenomenal result for the KPA: 944 pixels covers almost the entirety of the 960px screen, maximizing real estate while keeping 3D geometric distortion strictly within acceptable limits.
-- **Offsets:** We use `0` for both X and Y. The auto-centering of the 944x674 viewport naturally creates two razor-thin, symmetrically perfect 8-pixel black borders on the left and right sides.
+- **Objective:** Fractional Scaling cropping exactly ~6 native lines at the top and bottom to eliminate overscan garbage while preserving perfect UI breathing room, combined with an exact 5% horizontal stretch to almost entirely fill the physical screen without severe 3D distortion.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow custom fractional dimensions).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `944`
-6. **Custom Aspect Ratio (Height):** `674`
+5. **Custom Aspect Ratio (Width):** `944` *(Justification: A mathematically perfect 4:3 aspect ratio based on our 674p cropped height requires 899px. Adding our maximum 5% stretch tolerance yields 944px. This covers almost the entirety of the 960px screen, leaving razor-thin 8-pixel black borders while keeping 3D geometric distortion strictly within acceptable limits).*
+6. **Custom Aspect Ratio (Height):** `674` *(Justification: The N64 features a massive 10-line croppable margin. Scaling the raw 240 lines to 674px creates a 34-pixel overflow. This perfectly auto-centers to slice off exactly 6 lines of vertical garbage top and bottom, safely leaving a flawless 4-line padding before the HUD begins).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -367,9 +294,10 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
+
 ### Commodore Amiga (`amiga` / `puae`)
 
-**Core Selection & Preparation (PUAE)**
+**Core Preparation (PUAE)**
 
 The Amiga is a complex microcomputer, and the PUAE core contains its own internal zooming and cropping mechanics. To ensure our RetroArch Custom Viewport works perfectly, we must feed it the raw PAL signal.
 - Open Quick Menu > Core Options > Video.
@@ -379,37 +307,18 @@ The Amiga is a complex microcomputer, and the PUAE core contains its own interna
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 256p (Standard PAL 320x256 resolution).
-- **Objective:** Fractional Scaling (Rule 2) capitalizing on symmetric auto-centering to effortlessly tame the tall European PAL video signal, combined with a horizontal Nostalgia Stretch (Scenario A).
-
-**Mathematical Logic (Scenario A & Rule 2)**
-
-- **The PAL Challenge:** Unlike NTSC consoles that output 224 or 240 lines, the Amiga natively outputs a taller 256-line PAL signal. Attempting an integer scale of 3x would result in a 768-pixel height, requiring a massive 128-pixel crop that would obliterate the UI of almost every game.
-- **Y-Axis (Vertical) & Breathing Room:** 
-  - According to our HUD footprint doctrine, major Amiga action titles and centered pinball tables keep their dashboards safely between lines 8 and 247 (a 240-line active zone).
-  - *Fractional Calculation:* We integrate our standard 4-line native breathing room at the top and bottom, setting our target display window to 248 lines. We fractionally scale these 248 lines to perfectly fit the 640p KPA screen (640 / 248 = ~2.58x scale).
-  - Applying this scale to the full 256 native lines gives us a total viewport height of **660 pixels** (256 * 2.58).
-- **Vertical Crop (Auto-Centered):**
-  - Overflow: 20 pixels (660 - 640).
-  - By leaving the Y-offset at `0` and relying on RetroArch's default `0.5` Anchor Bias, the 660p image centers itself symmetrically.
-  - Top crop: 10 physical pixels (exactly ~4 native lines).
-  - Bottom crop: 10 physical pixels (exactly ~4 native lines).
-  - *Verdict:* The auto-centering flawlessly slices off the top and bottom 4 lines. The screen edge starts perfectly at native line 4, leaving exactly 4 lines of breathing room before the HUD begins at line 8. 
-- **X-Axis (Horizontal):** 
-  - Because Amiga games were designed for 4:3 CRT monitors, the base mathematically perfect 4:3 aspect ratio calculated from our 660p height requires a width of **880 pixels** (660 * 4/3). 
-  - *Nostalgia Stretch (The Cheat):* To eat up the pillarboxes, we apply our standard 5% stretch to the 880px width: 880 * 1.05 = **924 pixels**.
-  - This beautifully fills the KPA screen while completely preserving the roundness of sprites within our tolerance threshold.
-- **Offsets:** We use `0` for both X and Y. The auto-centering of the 924x660 viewport naturally creates two unobtrusive, symmetrical 18-pixel black bars on the left and right sides.
+- **Objective:** Fractional Scaling cropping exactly ~4 native lines at the top and bottom to seamlessly tame the tall European PAL video signal, combined with an exact 5% horizontal stretch over the 4:3 base to minimize pillarboxing.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow custom fractional dimensions).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `924`
-6. **Custom Aspect Ratio (Height):** `660`
+5. **Custom Aspect Ratio (Width):** `924` *(Justification: Amiga games were designed for 4:3 monitors. The perfect 4:3 width for our 660p height is 880px. Adding our maximum 5% stretch tolerance yields 924px, beautifully filling the KPA screen and leaving only unobtrusive 18-pixel black bars).*
+6. **Custom Aspect Ratio (Height):** `660` *(Justification: Unlike NTSC consoles, the Amiga natively outputs a tall 256-line PAL signal. Scaling this to 660px creates a 20-pixel overflow. This auto-centers to flawlessly slice off exactly 4 lines of vertical overscan top and bottom, leaving perfect breathing room before the HUD begins at line 8).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -428,46 +337,30 @@ video_crop_overscan = "false"
 
 ### 6th Gen & Modern 4:3 Systems (`dreamcast`, `ps2`, `gc`, `wii`)
 
-**Core Selection & Preparation**
+**Core Preparation**
 
-By the 6th generation, consoles output pristine digital or high-quality analog signals (480i/480p) with UI elements pushed to the physical edges.
-- Ensure any core-specific widescreen (16:9) hacks are disabled if you intend to use this 4:3 CRT doctrine.
+By the 6th generation, consoles output pristine digital or high-quality analog signals with UI elements pushed to the physical edges.
+- Ensure any core-specific widescreen (16:9) hacks are disabled if you intend to use this 4:3 doctrine.
 - Ensure the core's internal aspect ratio is set to output its native 4:3 frame to allow RetroArch's Custom Viewport to handle the final stretch.
 
 **Target Display Settings**
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 480i / 480p (Standard 4:3).
-- **Objective:** Fractional Scaling (Rule 2) with absolutely zero vertical crop, leveraging the built-in UI safe zones of modern 3D engines, combined with an auto-centered horizontal Nostalgia Stretch (Scenario A).
-
-**Mathematical Logic (Scenario A & Rule 2)**
-
-- **The 480p Reality:** The concept of analog overscan garbage essentially disappeared in this era. The strict HUD footprint covers the entire 480-line signal. Cropping is forbidden.
-- **Y-Axis (Vertical):** 
-  - Integer scaling is physically impossible (480 x 2 = 960, which overflows the 640p screen massively).
-  - *Fractional Calculation:* We scale the raw 480 native lines to perfectly fill the 640p physical height (640 / 480 = ~1.333x scale).
-- **Vertical Crop (Zero Margin Auto-Centered):**
-  - Overflow: 0 pixels.
-  - By leaving the Y-offset at `0`, the 640p image perfectly matches the physical screen height. 
-  - *Verdict:* The entire 480-line frame is preserved. Modern 3D engines have internal padding, so the UI breathes naturally on its own without requiring us to inject custom margins.
-- **X-Axis (Horizontal):** 
-  - A mathematically perfect 4:3 aspect ratio based on the 640p height requires a width of **853 pixels**.
-  - *Nostalgia Stretch (The Cheat):* We apply our standard 5% stretch to eat up the pillarboxes: 853 * 1.05 = **896 pixels**.
-  - *Note on 3D graphics:* Because these consoles rely on polygonal 3D models with dynamic cameras rather than static 2D pixel art, the brain is even less sensitive to a 5% horizontal stretch (the "Aspect Ratio Crime" is heavily mitigated). This 896px width beautifully balances 4:3 nostalgia with the KPA's 3:2 screen.
-- **Offsets:** We use `0` for both X and Y. The 0.5 Anchor Bias perfectly auto-centers the 896x640 viewport, naturally leaving two symmetrical 32-pixel black bars on the left and right sides.
+- **Objective:** Fractional Scaling with absolutely zero vertical cropping (0 lines cut top or bottom) to safely preserve modern HUDs, combined with an exact 5% horizontal stretch over the 4:3 base to minimize pillarboxing while maintaining 3D geometry.
 
 **Configuration Rules (GUI Method)**
 
 Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow custom fractional dimensions).
+1. **Integer Scale:** `OFF`
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `896`
-6. **Custom Aspect Ratio (Height):** `640`
+5. **Custom Aspect Ratio (Width):** `896` *(Justification: A mathematically perfect 4:3 aspect ratio at 640p height requires an 853px width. Adding our maximum 5% stretch tolerance yields 896px. Because these consoles rely on dynamic 3D cameras, the brain is very forgiving of this slight expansion, beautifully balancing 4:3 nostalgia with the KPA screen by leaving only two symmetrical 32-pixel black bars).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Matches the physical screen height perfectly. The concept of analog overscan garbage essentially disappeared in this era, so we scale the 480 native lines directly to the 640p height to preserve the entire frame with exactly 0 lines cropped).*
 
-*(Note: **Widescreen Hacks Alternative:** If you choose to enable 16:9 widescreen hacks within the emulator cores, you must abandon this 4:3 config. A native 16:9 image on the KPA requires filling the full 960px width, resulting in a 540px height and leaving 50px black bars on the top and bottom. Set Width to 960 and Height to 540).*
+*(Note: **Widescreen Hacks Alternative:** If you enable 16:9 widescreen hacks within the emulator cores, you must abandon this 4:3 config. A native 16:9 image on the KPA requires filling the full 960px width, resulting in a 540px height with 50px black bars on the top and bottom).*
 
 **Configuration File (`dreamcast.cfg` / `ps2.cfg` / `gc.cfg` / `wii.cfg`)**
 *(If you prefer manual file editing, place this identical block in your config override folders).*
