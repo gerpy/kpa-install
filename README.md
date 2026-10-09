@@ -8,7 +8,7 @@ The Konkr Pocket Advance (KPA) features a 3:2 aspect ratio screen (960x640). Whi
 
 To maximize screen real estate, the following configurations rely on a dual approach:
 1. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible.
-2. **Horizontal Stretching:** Expanding the width to fill the screen without crossing into visually offensive distortion (avoiding "Aspect Ratio Crimes").
+2. **Horizontal Stretching:** Expanding the width to fill the screen without crossing into visually offensive distortion (avoiding "Aspect Ratio Crimes" with a 5% threshold).
 
 **The Historical Stretch Exception:**
 For specific platforms that already suffered from severe horizontal stretching on original CRT televisions (such as the NES or SNES), we deliberately exceed our standard stretch limits to fill the KPA screen. However, this is designed as an *improvement* over the original hardware: by targeting a sweet spot exactly halfway between the flawed historical 4:3 Display Aspect Ratio (DAR) and the mathematically perfect 1:1 Pixel Aspect Ratio (PAR), we reduce the original geometric distortion while still flattering our visual memory.
