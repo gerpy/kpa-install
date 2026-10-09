@@ -375,49 +375,22 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-## Real-World Display Metrics (Surface Area vs. Perceived Size)
+## Real-World Display Metrics (Surface vs. Perceived Size)
 
-When dealing with mixed aspect ratios, measuring screen size by diagonal alone is mathematically misleading. A 3.5-inch 3:2 screen does not display a 4:3 image the same way a 3.5-inch 4:3 screen would. To truly evaluate our configurations, we must look at two distinct metrics: the **Visible Surface Area** (how much of the KPA screen is physically lit up) and the **Perceived Sprite Size** (the equivalent 4:3 display required to render sprites at this exact physical scale).
+Because we are using a 3.5-inch 3:2 screen (960x640) to display primarily 4:3 legacy content, measuring the image by its standard physical diagonal is mathematically misleading. By pushing vertical overscan margins outside the physical bezel, we enlarge the rendered image beyond the hardware's limits.
 
-For reference, the Konkr Pocket Advance features a **3.5-inch, 3:2 screen**:
-- Physical Height: ~1.94 inches (4.93 cm)
-- Physical Width: ~2.91 inches (7.40 cm)
-- **Total Physical Surface Area:** ~5.65 sq inches (**36.48 cm²**)
+This unified table breaks down two critical realities:
+1. **The Displayed Surface:** What you actually see lit up on your physical KPA screen.
+2. **The Underlying Canvas (The Cheat Code):** The full size of the rendered game window (including the hidden cropped lines). By converting this underlying area into an **Equivalent 4:3 Diagonal**, you can see the true benefit of this doctrine: *how big the sprites actually look to your eyes* compared to playing on a standard 4:3 handheld.
 
-### 1. Visible Surface Utilization
-
-Because every configuration in our doctrine is engineered to perfectly fill 100% of the KPA's 640-pixel vertical height, the physical surface area utilization is directly proportional to the horizontal width we defined. This table shows how much of your actual console screen is being used and precisely quantifies the remaining pillarboxing.
-
-| System / Configuration | Visible Pixels | Side Black Bar % | Target Aspect Ratio | Surface Coverage | Physical Area (cm²) | Resulting Diagonal |
+| System | Displayed AR | Displayed Diagonal | Screen Surface | Underlying AR (incl. crop) & Stretch | Underlying Diagonal | Equivalent 4:3 Diagonal |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Konkr Pocket Advance (Max)** | 960 x 640 | **0.0 %** | 1.50 (3:2) | **100 %** | 36.48 cm² | 3.50" |
-| **Mega Drive** | 960 x 640 | **0.0 %** | 1.50 (3:2) | **100 %** | 36.48 cm² | 3.50" |
-| **N64** | 944 x 640 | **0.8 %** | 1.48 (59:40) | **98.3 %** | 35.87 cm² | 3.46" |
-| **Amiga** | 924 x 640 | **1.9 %** | 1.44 (~13:9) | **96.3 %** | 35.11 cm² | 3.41" |
-| **Arcade / SMS / PS1 / Saturn / 6th Gen** | 896 x 640 | **3.3 %** | 1.40 (7:5) | **93.3 %** | 34.04 cm² | 3.34" |
-| **Super Nintendo** | 832 x 640 | **6.7 %** | 1.30 (13:10) | **86.7 %** | 31.61 cm² | 3.18" |
-| **NES / PC Engine** | 824 x 640 | **7.1 %** | 1.29 (~9:7) | **85.8 %** | 31.31 cm² | 3.16" |
+| **Mega Drive** | 1.50 (3:2) | **3.50"** | 100% | 1.50 (3:2) + 5.0% stretch | 3.50" | **3.43"** |
+| **N64** | 1.48 (~59:40) | **3.46"** | 98.3% | 1.40 (7:5) + 5.0% stretch | 3.52" | **3.49"** |
+| **Amiga** | 1.44 (~13:9) | **3.41"** | 96.3% | 1.40 (7:5) + 5.0% stretch | 3.44" | **3.42"** |
+| **SMS / Arc / 32-bit / 6th** | 1.40 (7:5) | **3.34"** | 93.3% | 1.40 (7:5) + 5.0% stretch | 3.34" | **3.32"** |
+| **Super Nintendo** | 1.30 (13:10) | **3.18"** | 86.7% | 1.24 (~11:9) + 8.3% stretch | 3.24" | **3.27"** |
+| **NES & PC Engine** | 1.29 (~9:7) | **3.16"** | 85.8% | 1.20 (6:5) + 12.5% stretch | 3.25" | **3.29"** |
 
-*(Note: The "Side Black Bar %" represents the width of a single black bar—half of the total unlit space—relative to the 960-pixel physical width).*
-
-### 2. Perceived Sprite Size (The 4:3 Equivalent)
-
-The table above only tells half the story. Because we purposefully crop the top and bottom margins (pushing them outside the physical bezel), the game is rendered at a much larger scale than the KPA screen can fully display. 
-
-To evaluate the true "Perceived Size" of the gameplay, we must calculate the surface area of the **Full Viewport** (including the hidden overscan areas, but preserving our horizontal stretch). This theoretical area tells us how big a screen would need to be to display our zoomed-in image in its entirety. By converting this theoretical area into a standard 4:3 diagonal, we reveal the ultimate benefit of this doctrine: **how big the sprites actually look to your eyes.**
-
-| System | Full Scaled Viewport (incl. crop) | Viewport Ratio | Theoretical Surface (cm²) | Equivalent 4:3 Screen Diagonal |
-| :--- | :--- | :--- | :--- | :--- |
-| **N64** | 944 x 674 | 1.40 (7:5) | 37.78 cm² | **3.49"** |
-| **Mega Drive** | 960 x 652 | 1.47 (~59:40) | 37.16 cm² | **3.46"** |
-| **Amiga** | 924 x 660 | 1.40 (7:5) | 36.21 cm² | **3.42"** |
-| **Arcade / SMS / PS1 / Saturn / 6th Gen** * | 896 x 640 | 1.40 (7:5) | 34.04 cm² | **3.32"** |
-| **NES / PC Engine** | 824 x 686 | 1.20 (~6:5) | 33.56 cm² | **3.29"** |
-| **Super Nintendo** | 832 x 672 | 1.24 (~11:9) | 33.20 cm² | **3.27"** |
-
-*\* Since Arcade, Master System, PS1, Saturn, and 6th-gen consoles utilize a Zero Margin configuration (no vertical cropping), their visible surface and full viewport surface are perfectly identical.*
-
-**The 3:2 Cheat Code:**
-Look closely at the N64 and Mega Drive. The Konkr Pocket Advance only has a 3.5" diagonal. However, because the 3:2 aspect ratio is physically wider, it allows us to aggressively zoom in vertically while still capturing the near-full horizontal width. The result? **Playing N64 on the 3.5" KPA provides sprites that are physically as large as if you were playing on a ~3.5" standard 4:3 screen.** 
-
-Even the systems with the heaviest Cathodic Correction (Super Nintendo, NES) deliver sprites equivalent to a ~3.3" 4:3 screen, completely negating the usual letterboxing penalty associated with playing 4:3 content on a 3:2 display.
+**The Verdict:** 
+Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effectively neutralizes the aspect ratio penalty. By utilizing the screen's extra width to safely zoom in and crop vertical garbage, systems like the N64 render 3D models at a size equivalent to a **3.49-inch 4:3 screen**. Even heavily letterboxed systems like the Super Nintendo achieve sprites as large as they would be on a ~3.27-inch 4:3 device.
