@@ -1,4 +1,8 @@
+**Author's Note:** The scaling approach, editorial choices, and overall display doctrine presented in this guide are entirely my own. Because English is not my native language, I utilized Gemini strictly to translate my notes, format the document, and assist with verifying some of the fractional calculation details.
+
 # Retro Display Optimization for the Konkr Pocket Advance (KPA)
+
+> Platforms originally featuring LCD screens (Game Boy, GBC, GBA, Game Gear, Neo Geo Pocket Color, WonderSwan, etc.) are deliberately excluded from these complex fractional calculations. For these systems, you must simply use standard **Integer Scaling** with Crop Overscan set to `OFF`. This strict integer pixel mapping is mandatory to allow LCD grid shaders to render the screen matrix perfectly, without introducing moiré patterns or scaling artifacts.
 
 The approach documented here aims to optimize retro emulation rendering specifically for the **Konkr Pocket Advance (KPA)**. This device features a 3:2 aspect ratio screen with a resolution of 960x640 pixels. Because this format is wider and shorter than the standard 4:3 CRT, it requires surgical configuration to maximize display space. The goal is to utilize as much of the screen as possible while preserving the geometric integrity of the original pixel art, avoiding excessive distortion, and guaranteeing flawless scanline rendering via CRT shaders.
 
