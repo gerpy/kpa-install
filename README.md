@@ -21,35 +21,18 @@ While the companion document explains the *why* and the *rules*, **this document
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 320x224 (Standard V28 mode).
-- **Objective:** Fractional Scaling (Rule 2) maximizing vertical height through an auto-centered 2-line micro-crop, combined with a mathematically pristine 3.1% horizontal Nostalgia Stretch (Scenario A) to fill the KPA screen.
-
-**Mathematical Logic (Scenario A & Rule 2)**
-
-- **Y-Axis (Vertical):** 
-  - Integer Scaling (3x) forces an 11-line crop, which systematically decapitates UI elements on the extreme top and bottom edges.
-  - *Fractional Calculation:* We abandon integer scaling. Empirical testing reveals the Mega Drive safely tolerates a maximum symmetric micro-crop of **2 native lines** before critical text is amputated. 
-  - The total height of the 224-line source at this maximized fractional scale is defined as **652 pixels**.
-- **Vertical Crop (Auto-Centered):**
-  - By leaving the Y-offset at `0` and relying on RetroArch's default `0.5` Anchor Bias, the 652p image centers itself automatically within the 640p physical screen.
-  - Top crop: 6 physical pixels (exactly 2 native lines).
-  - Bottom crop: 6 physical pixels (exactly 2 native lines).
-  - *Verdict:* 100% of the screen height is utilized. The symmetric 2-line sacrifice pushes the maximum amount of overscan off-screen, enlarging the sprites to their absolute limit while leaving top-anchored text menus and bottom-anchored HUDs perfectly intact.
-- **X-Axis (Horizontal):** 
-  - A mathematically perfect 1:1 Pixel Aspect Ratio based on the 652p viewport height requires a width of **931 pixels**. 
-  - *Nostalgia Stretch (The Cheat):* Stretching the 931px width to hit the full **960 pixels** results in a minimal **3.1% stretch**.
-  - The geometry aligns flawlessly: the Mega Drive image fills the entire 3:2 screen edge-to-edge with an imperceptible level of distortion.
-- **Offsets:** We use `0` for both X and Y, allowing the 0.5 Anchor Bias to perfectly auto-center the 960x652 viewport.
+- **Objective:** Fractional Scaling (Rule 2) with zero vertical cropping (0 lines cut top or bottom) to safely accommodate all game HUDs, combined with an exact 5% horizontal Nostalgia Stretch (Scenario A) to perfectly fill the screen edge-to-edge.
 
 **Configuration Rules (GUI Method)**
 
-To apply these settings directly through the RetroArch interface, navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
+Navigate to **Settings > Video > Scaling** and configure the parameters in this exact sequence:
 
-1. **Integer Scale:** `OFF` (Must be disabled globally to allow fractional stretching and custom heights).
-2. **Aspect Ratio:** `Custom` (This exposes the manual viewport coordinates below).
+1. **Integer Scale:** `OFF`
+2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `960`
-6. **Custom Aspect Ratio (Height):** `652`
+5. **Custom Aspect Ratio (Width):** `960` *(Justification: The geometrically perfect 1:1 width at this height is 914px. Stretching it to 960px hits exactly our 5% maximum tolerance limit, filling the KPA screen without committing an Aspect Ratio Crime).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Matches the physical screen height perfectly, preserving all 224 native lines for games that require the absolute top/bottom edges).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
@@ -59,7 +42,7 @@ To apply these settings directly through the RetroArch interface, navigate to **
 ```ini
 aspect_ratio_index = "23"
 custom_viewport_width = "960"
-custom_viewport_height = "652"
+custom_viewport_height = "640"
 custom_viewport_x = "0"
 custom_viewport_y = "0"
 video_scale_integer = "false"
