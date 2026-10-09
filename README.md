@@ -1,6 +1,5 @@
-
-> **Author's Note:** The recommendations and technical choices presented here are my own. Because English is not my native language, I used Gemini to translate and format my personal notes.
-
+> **Author's Note:** The recommendations and technical choices presented here are my own. Because English is not my native language, I used Gemini to translate and format my personal notes, as well as to assist with some of the mathematical calculations.
+> 
 # Installation Preparation for a Konkr Pocket Advance
 
 ## RetroArch Scaling for CRT Systems
