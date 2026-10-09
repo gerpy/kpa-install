@@ -1,3 +1,5 @@
+> **Author's Note:** The recommendations and technical choices presented here are my own. Because English is not my native language, I used Gemini to translate and format my personal notes.
+
 # Retro Display Optimization Doctrine
 
 This doctrine defines a universal methodology for displaying retro content (historically designed for 4:3 CRTs or atypical ratios) on modern screens with varying aspect ratios (16:9, 16:10, 3:2, etc.). The goal is neither sterile mathematical perfection nor blind screen-filling, but rather optical optimization: maximizing the perceived size of sprites while strictly preserving the integrity of the interface (HUD) and prohibiting any visually shocking distortion ("Aspect Ratio Crimes").
