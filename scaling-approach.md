@@ -1,4 +1,4 @@
-**Author's Note:** The scaling approach, editorial choices, and overall display doctrine presented in this guide are entirely my own. Because English is not my native language, I utilized Gemini strictly to translate my notes, format the document, and assist with verifying some of the fractional calculation details.
+* **Author's Note:** The scaling approach, editorial choices, and overall display doctrine presented in this guide are entirely my own. Because English is not my native language, I utilized Gemini strictly to translate my notes, format the document, and assist with verifying/performing some calculation details.*
 
 # Retro Display Optimization for the Konkr Pocket Advance (KPA)
 
