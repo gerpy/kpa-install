@@ -1,19 +1,19 @@
 # Installation Preparation for a Konkr Pocket Advance
 
-> The recommendations and technical choices presented here are my own, and I may have made mistakes or oversights. Because English is not my native language, I used Gemini to translate, structure, and format my personal notes into this document.
+> The recommendations and technical choices presented here are my own. Because English is not my native language, I used Gemini to translate and format my personal notes.
 
-## Retroarch Scaling for CRT systems
+## RetroArch Scaling for CRT Systems
 
-The Konkr Pocket Advance (KPA) features an unusual 3:2 aspect ratio screen with a 640p resolution (960x640). While this is the absolute perfect format for pixel-perfect Game Boy Advance emulation, it also opens up fantastic possibilities for 8-bit, 16-bit, and 32-bit home consoles—provided you configure it correctly. 
+The Konkr Pocket Advance (KPA) features a 3:2 aspect ratio screen (960x640). While perfect for the Game Boy Advance, playing standard 4:3 legacy consoles with default settings results in massive black borders (pillarboxing). 
 
-Because 3:2 is wider and shorter than the classic 4:3 CRT TV standard, playing legacy content with default settings usually results in massive black borders (pillarboxing) or poorly scaled scanlines. To solve this and maximize screen real estate, I use a dual-optimization approach: combining a surgical **vertical overscan crop** (hiding empty borders, visual garbage, or less useful background elements at the top and bottom of the original video signal) with a calculated **horizontal stretch** (filling the screen without crossing into visually offensive distortion).
+To maximize screen real estate, the following configurations rely on a dual approach:
+1. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible.
+2. **Horizontal Stretching:** Expanding the width to fill the screen without crossing into visually offensive distortion (avoiding "Aspect Ratio Crimes").
 
-The theoretical foundation, geometric rules, and the empirical HUD mapping that dictate these configurations are fully detailed in my companion document:
-👉 **[KPA Viewport Doctrine & HUD Footprint Reference](scaling-approach.md)**
+**The Historical Stretch Exception:**
+For specific platforms that already suffered from severe horizontal stretching on original CRT televisions (such as the NES or SNES), we deliberately exceed our standard stretch limits to fill the KPA screen. However, this is designed as an *improvement* over the original hardware: by targeting a sweet spot exactly halfway between the flawed historical 4:3 Display Aspect Ratio (DAR) and the mathematically perfect 1:1 Pixel Aspect Ratio (PAR), we reduce the original geometric distortion while still flattering our visual memory.
 
-While the companion document explains the *why* and the *rules*, **this document provides the practical implementation**. Below, you will find the precise Viewport coordinates (X, Y, Width, Height) and shader recommendations tailored for each system, along with a brief justification for the chosen compromise.
-
-*(Note on nomenclature: For consistency and ease of integration into modern frontends, all system directories and names listed below strictly follow the **ES-DE (EmulationStation Desktop Edition)** naming convention).*
+Below are the precise custom Viewport coordinates tailored for each system. *(Note: System directories strictly follow the ES-DE naming convention).*
 
 ### Sega Mega Drive / Genesis (`megadrive`)
 
@@ -21,7 +21,7 @@ While the companion document explains the *why* and the *rules*, **this document
 
 - **Screen:** 960x640 (3:2 ratio).
 - **Source:** 320x224 (Standard V28 mode).
-- **Objective:** Fractional Scaling (Rule 2) with zero vertical cropping (0 lines cut top or bottom) to safely accommodate all game HUDs, combined with an exact 5% horizontal Nostalgia Stretch (Scenario A) to perfectly fill the screen edge-to-edge.
+- **Objective:** Fractional Scaling with zero vertical cropping (0 lines cut top or bottom) to safely accommodate all game HUDs, combined with an exact 5% horizontal stretch to perfectly fill the screen edge-to-edge.
 
 **Configuration Rules (GUI Method)**
 
@@ -31,7 +31,7 @@ Navigate to **Settings > Video > Scaling** and configure the parameters in this 
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `960` *(Justification: The geometrically perfect 1:1 width at this height is 914px. Stretching it to 960px hits exactly our 5% maximum tolerance limit, filling the KPA screen without committing an Aspect Ratio Crime).*
+5. **Custom Aspect Ratio (Width):** `960` *(Justification: The geometrically perfect 1:1 width at this height is 914px. Stretching it to 960px hits exactly the 5% stretch tolerance limit, filling the screen without noticeable distortion).*
 6. **Custom Aspect Ratio (Height):** `640` *(Justification: Matches the physical screen height perfectly, preserving all 224 native lines for games that require the absolute top/bottom edges).*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
