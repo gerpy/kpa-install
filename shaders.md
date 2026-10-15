@@ -1,4 +1,4 @@
-## Shaders for standalone emulators
+# Shaders for standalone emulators
 
 ## Dolphin
 
