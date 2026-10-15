@@ -1,6 +1,12 @@
-# Shaders for standalone emulators
+# Shaders on the KPA
 
-## Dolphin
+## Shaders for Retroarch
+
+
+
+## Shaders for standalone emulators
+
+### Dolphin
 
 Built-in shaders don't help much. Clownacy has ported GLSL shaders for the standalone Dolphin emulator:  
 https://clownacy.wordpress.com/2023/06/30/porting-crt-shaders-from-retroarch-to-dolphin/. The latest versions are found in this repo: https://github.com/dolphin-emu/dolphin/tree/master/Data/Sys/Shaders/.
@@ -15,15 +21,15 @@ Scanlines produce a lot of moiré/banding artifacts on non integer scales device
 
 Shadow masks do a good job at smoothing while aperture grids produce a sharper image.  I chose **mask #2** here. The `crt-pi.glsl` mask is just an aperture grid with scanlines, without added value over `crt-lottes-fast.glsl` IMO.
 
-## NetherSX2
+### NetherSX2
 
 The built-in Triangle and Lottes shaders scale well. Others produce banding/moiré artifacts. I choose **`Lottes`**, which resembles Dolphin's mask #2.
 
-## ARMSX2
+### ARMSX2
 
 ARMSX2 is supposed to run Retroarch shaders. I'll try to run something light just with a grid and no scanline, just as Dreamcast in Retroarch.
 
-## MelonDS
+### MelonDS
 
 There is a built-in **`LCD`** postprocessing video shader but is darkens the picture way too much. I stand with the Retroarch `MelonDS DS` core and custom grid shaders.
 
