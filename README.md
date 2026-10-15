@@ -58,7 +58,7 @@ For all systems below, the following baseline settings are **strictly mandatory*
 
 > More details on the [https://github.com/gerpy/kpa-install/blob/main/scaling.md|dedicated page].
 
-## Real-World Display Metrics (Surface vs. Perceived Size)
+### Real-World Display Metrics (Surface vs. Perceived Size)
 
 Because we are using a 3.5-inch 3:2 screen (960x640) to display primarily 4:3 legacy content, measuring the image by its standard physical diagonal is mathematically misleading. By pushing vertical overscan margins outside the physical bezel, we enlarge the rendered image beyond the hardware's limits.
 
