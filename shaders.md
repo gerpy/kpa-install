@@ -4,6 +4,13 @@
 
 ### CRT Shaders
 
+For the KPA, the shaders need to be robust to non integer scaling with a modest 640p resolution. They also need to run on the mid range processor and not drain the battery too much. The `crt-guest-advance-fast` shader runs on the KPA with easy to emulate platforms but at the expense of heat and battery. I was unable to get balanced scanlines out of `hyllian` and I have focused on the `easymode` familly instead :
+
+- `easymode-halation` for 8-16bit systems to get the enhanced color gradients, de-dethering and organic look
+- the more clinical regular `easymode` to smooth 32-64bit 3D a bit while retaining details and not emphasing the poor textures contrasting with ugly upsclaed renders
+
+I also use a super simple mask shader to provide Dreamcast a more organic look.
+
 ### LCD Shaders
 
 Some consoles had backlit screens and others front lit screens. The front lit screen have a light back that reflects the front light, and shaders with light grid lines make more senses. Other consoles have a backlit screen and in that case, dark grid lines are more accurate. 
