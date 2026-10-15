@@ -2,7 +2,7 @@
 
 Below are the detailed configuration rules and files tailored for each system. *(Note: System directories strictly follow the ES-DE naming convention).*
 
-### Sega Mega Drive / Genesis (`megadrive`)
+## Sega Mega Drive / Genesis (`megadrive`)
 
 **Target Display Settings**
 
@@ -35,7 +35,8 @@ custom_viewport_y = "0"
 video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
-### Super Nintendo / Super Famicom (`snes`)
+
+## Super Nintendo / Super Famicom (`snes`)
 
 **Target Display Settings**
 
@@ -69,7 +70,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Sega Master System (`mastersystem`)
+## Sega Master System (`mastersystem`)
 
 **Core Preparation**
 
@@ -107,7 +108,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Nintendo Entertainment System (`nes`) & NEC PC Engine (`pcengine`)
+## Nintendo Entertainment System (`nes`) & NEC PC Engine (`pcengine`)
 
 Since both the NES and PC Engine share a native 240-line vertical resolution and benefit from identical horizontal treatment, their configuration doctrines are unified. 
 
@@ -147,7 +148,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Arcade (FinalBurn Neo) / Neo-Geo / CPS (`fbneo`)
+## Arcade (FinalBurn Neo) / Neo-Geo / CPS (`fbneo`)
 
 **Target Display Settings**
 
@@ -181,7 +182,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Sony PlayStation 1 (`psx`) & Sega Saturn (`saturn`)
+## Sony PlayStation 1 (`psx`) & Sega Saturn (`saturn`)
 
 Both 32-bit pioneers operate under identical display philosophies. They heavily rely on 3D geometry authored specifically for 4:3 televisions, and notoriously switch resolutions on the fly.
 
@@ -221,7 +222,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Nintendo 64 (`n64`)
+## Nintendo 64 (`n64`)
 
 **Core Preparation**
 
@@ -261,7 +262,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### Commodore Amiga (`amiga` / `puae`)
+## Commodore Amiga (`amiga` / `puae`)
 
 **Core Preparation (PUAE)**
 
@@ -301,7 +302,7 @@ video_scale_integer = "false"
 video_crop_overscan = "false"
 ```
 
-### 6th Gen & Modern 4:3 Systems (`dreamcast`, `ps2`, `gc`, `wii`)
+## 6th Gen & Modern 4:3 Systems (`dreamcast`, `ps2`, `gc`, `wii`)
 
 **Core Preparation**
 
