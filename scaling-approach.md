@@ -27,7 +27,7 @@ Horizontal adjustments rely on two scenarios, each applying a strict limit to st
     *   *Rule:* The horizontal stretch applied to eat up lateral black bars must **never exceed 5%** of the mathematically perfect width (1:1). This limit is visually imperceptible to the brain (especially on 3D models or behind a CRT mask) and fully preserves geometric integrity (car wheels remain round).
 *   **Cathodic Correction (The 8/16-bit Exception)**
     *   *Targets:* Systems historically subjected to severe hardware crushing on 4:3 televisions due to atypical resolutions (e.g., NES, Super Nintendo).
-    *   *Rule:* The target width aims for the **midpoint** between sterile mathematical perfection (1:1 PAR) and extreme historical distortion (4:3 DAR). This stretch (usually between 8% and 12%) exceeds the 5% rule but acts as a deliberate correction: it flatters visual memory while mitigating the original hardware flaw (spheres are no longer crushed ovals). A margin of opportunity allows for slight deviations from this exact midpoint if it helps fill the screen better without causing shocking distortion.
+    *   *Rule:* The target width aims for the **midpoint** between mathematical perfection (1:1 PAR) and extreme historical distortion (4:3 DAR). This stretch (usually between 8% and 12%) exceeds the 5% rule but acts as a deliberate correction: it flatters visual memory while mitigating the original hardware flaw (circles are no longer crushed ovals). A margin of opportunity allows for slight deviations from this exact midpoint if it helps fill the screen better without causing shocking distortion.
 
 ### 4. Vertical Doctrine and Cropping Tolerances (Overscan Crop)
 
