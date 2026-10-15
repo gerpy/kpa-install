@@ -53,7 +53,7 @@ For all systems below, the following baseline settings are **strictly mandatory*
 | **Arcade (FBNeo)** | `fbneo` | **896** | **640** |
 | **PS1 & Saturn** | `psx`, `saturn` | **896** | **640** |
 | **Nintendo 64** | `n64` | **944** | **674** |
-| **Commodore Amiga** | `amiga` | **924** | **660** |
+| **Commodore Amiga** | `amiga` | **896** | **640** |
 | **6th Gen & Modern 4:3** | `dreamcast`, `ps2`, `gc`, `wii` | **896** | **640** |
 
 > More details on the [https://github.com/gerpy/kpa-install/blob/main/scaling.md|dedicated page].
@@ -70,8 +70,7 @@ This unified table breaks down two critical realities:
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Mega Drive** | 1.50 (3:2) | **3.50"** | 100% | 1.50 (3:2) + 5.0% stretch | 3.50" | **3.43"** |
 | **N64** | 1.48 (~59:40) | **3.46"** | 98.3% | 1.40 (7:5) + 5.0% stretch | 3.52" | **3.49"** |
-| **Amiga** | 1.44 (~13:9) | **3.41"** | 96.3% | 1.40 (7:5) + 5.0% stretch | 3.44" | **3.42"** |
-| **SMS / Arc / 32-bit / 6th** | 1.40 (7:5) | **3.34"** | 93.3% | 1.40 (7:5) + 5.0% stretch | 3.34" | **3.32"** |
+| **Amiga / SMS / Arc / 32-bit / 6th** | 1.40 (7:5) | **3.34"** | 93.3% | 1.40 (7:5) + 5.0% stretch | 3.34" | **3.32"** |
 | **Super Nintendo** | 1.30 (13:10) | **3.18"** | 86.7% | 1.24 (~11:9) + 8.3% stretch | 3.24" | **3.27"** |
 | **NES & PC Engine** | 1.29 (~9:7) | **3.16"** | 85.8% | 1.20 (6:5) + 12.5% stretch | 3.25" | **3.29"** |
 
