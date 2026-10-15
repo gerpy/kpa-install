@@ -6,7 +6,26 @@
 
 ### LCD Shaders
 
+Some consoles had backlit screens and others front lit screens. The front lit screen have a light back that reflects the front light, and shaders with light grid lines make more senses. Other consoles have a backlit screen and in that case, dark grid lines are more accurate. 
 
+| Console | Original Screen Technology | Emulation Grid / Lighting Style |
+| :--- | :--- | :--- |
+| **Game Boy (GB / DMG)** | Unlit passive LCD (reflective) | **Light grid** (simulates ambient light / reflective background) |
+| **Game Boy Color (GBC)** | Unlit reflective LCD | **Light grid** (simulates ambient light) |
+| **Game Boy Advance (GBA Original)** | Unlit reflective LCD (very dim) | **Light grid** (plus gamma/brightness correction) |
+| **Game Boy Advance SP (AGS-001)** | Front-lit LCD | **Neutral / Light grid** (front-light simulation) |
+| **Game Boy Advance SP (AGS-101)** | Backlit LCD | **Dark grid** (standard backlit display) |
+| **WonderSwan (Mono / Color / Crystal)** | Unlit reflective STN/TFT LCD | **Light grid** (reflective background) |
+| **Neo Geo Pocket Color (NGPC)** | Unlit reflective STN LCD | **Light grid** (reflective background) |
+| **PlayStation Portable (PSP)** | Backlit TFT LCD | **Dark grid** (standard backlit display) |
+| **Nintendo DS (Phat / Lite)** | Backlit TFT LCD | **Dark grid** (standard backlit display) |
+
+Hence, I have 2 shaders families :
+
+- `lcd-dark` and `lcd-nds` and `lcd-psp` provide a dark grid. The shaders are all based on `lcd1x` and the parameters are factorized in `lcd-dark.params`. I didn't choose `lcd-grid-v2` for dark grids because it is too heavy for the KPA. And I was not convinced by the usefullness of the RGB separation of `lcd3x` on the small and low res KPA screen. 
+- `lcd-light` provide a light grid. The shader is based on `simpletex` with the parameters in `lcd-light.params`. The paper background is didabled because on the low res KPA screen, it looks gross. 
+
+Other parameters are tuned so that the global luminance and colors roughly match the input picture, to ensure homogeneity between platforms. Thonk about enabling color corrections in core for best results. 
 
 ### Nintendo DS
 
