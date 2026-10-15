@@ -38,10 +38,10 @@ Cropping is not a configuration flaw; it is the primary zooming tool. It obeys s
     *   **Master System:** Zero tolerance, as the edges of the 256x192 image often contain vital HUD elements.
     *   **Mega Drive / Genesis:** Zero tolerance. Even though 224 lines are standard, many games (especially PAL releases) utilize the extra margins.
     *   **32-bit Consoles (PS1/Saturn):** Zero tolerance, in order to stabilize dynamic resolutions (alternating between 240p and 480i) within a fixed geometric frame.
+    * **Amiga:** Very low tolerance as quite a few games use the full screen to display HUDs.
 *   **Overscan and the "Breathing Room" Rule:** When cropping safety margins containing visual artifacts (garbage pixels) to zoom the image, the cut must never touch the HUD. You must leave approximately **4 native lines of "breathing room"** between the physical edge of the screen and the beginning of textual or graphical interface elements.
     *   **NES / PC Engine:** High tolerance. You can often crop **~8 lines** symmetrically (top and bottom) with zero consequence to the HUD, effortlessly eliminating standard overscan garbage.
     *   **Super Nintendo (SNES):** Medium tolerance. You can comfortably crop **~5 lines**, which generally aligns with the safe overscan zone respected by developers (limiting the risk of amputating interfaces).
-    *   **Amiga:** Low/Medium tolerance. You can crop **~4 lines** on a full PAL signal (256 lines) without interfering with typical HUDs (which usually begin around line 8).
     *   **Nintendo 64:** High tolerance, due to generous margins (often **~6 lines** or more) imposed by early 3D geometry safe zones, making it easy to crop without UI loss.
 
 ### 5. Signal Purity and Managing Exceptions
