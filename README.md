@@ -2,6 +2,28 @@
 
 # Installation Preparation for a Konkr Pocket Advance
 
+## RetroArch Scaling for LCD Systems
+
+Because grid shaders often can't deal decently with non integer scaling, we use integer scaling for every handheld system. Platforms up to GBA are 4x, NDS is 3x and PSP is 2x. Just set the following and you are done :
+- **Integer Scale:** `On`
+- **Integer Scale Axis:** `Y`
+- **Aspect Ratio:** `Core Provided`
+
+**The NDS exception:**
+
+The exception is NDS. Displaying both screen on the KPA make the screens so tiny that it is unplayable. So better display on screen large and a small vignete for the second one. Unfortunately, the `Melon DS DS` core options to balance both screens are very limited and lead to non intsger scaling on both screens.
+
+NDS 256x192 screens display at 3x but there is wasted real estate if you display only that. So the preferred layout is to display one main large screen at 3x on the left, and a thumbnail of the second screen on the right, in the remaining space. I like to spare a small black separation line between both displays. But `Melon DS DS` can't do any of this that so I had to develop a custom shader that takes a top/bottom or bottom/top layout from the core, splits it into two seperate screens and displays them it as I want. The shader preset adds a `lcd1x` grid because that's the whole point. There is one version with NDS corrected collors, and one with raw colors from the core.
+
+To make this work, we need an NDS core override for scaling and set the viewport as such :
+
+- **Integer Scale:** `OFF`
+- **Aspect Ratio:** `Custom`
+- **Custom Aspect Ratio (Width):** `960` (Justification: fill the whole width to maximize the thumbnail size)
+- **Custom Aspect Ratio (Height):** `576` (Justification: 3x the NDS vertical resolution of 192)
+
+> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
+
 ## RetroArch Scaling for CRT Systems
 
 The Konkr Pocket Advance (KPA) features a 3:2 aspect ratio screen (960x640). While perfect for the Game Boy Advance, playing standard 4:3 legacy consoles with default settings results in massive black borders (pillarboxing). 
@@ -34,9 +56,7 @@ For all systems below, the following baseline settings are **strictly mandatory*
 | **Commodore Amiga** | `amiga` | **924** | **660** |
 | **6th Gen & Modern 4:3** | `dreamcast`, `ps2`, `gc`, `wii` | **896** | **640** |
 
-More details on the [dedicated page|https://github.com/gerpy/kpa-install/blob/main/scaling.md].
-
-
+> More details on the [https://github.com/gerpy/kpa-install/blob/main/scaling.md|dedicated page].
 
 ## Real-World Display Metrics (Surface vs. Perceived Size)
 
@@ -57,3 +77,28 @@ This unified table breaks down two critical realities:
 
 **The Verdict:** 
 Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effectively neutralizes the aspect ratio penalty. By utilizing the screen's extra width to safely zoom in and crop vertical garbage, systems like the N64 render 3D models at a size equivalent to a **3.49-inch 4:3 screen**. Even heavily letterboxed systems like the Super Nintendo achieve sprites as large as they would be on a ~3.27-inch 4:3 device.
+
+## Shaders for the KPA
+
+### CRT Shaders
+
+The KPA doesn't have a high resolution wrt decent shaders standards, and its processor isn't strong enough to calculate complex shaders. A small resolution is not a big deal when you integer scale but unfortunately, as one may see above, many systems are scaled in a non integer way. So one needs to find and carefuly setup shaders that are known to be robust wrt fractional scaling :
+
+- I have tried my best with `hyllian` but I failed at finding decent parameters that show a nice look and zero to very little moire an artifacts
+- I had good results with `crt-guest-advanced-fast` despite the 640 vertical resolution of the KPA. However, even in its `fast` version, `guest` is too heavy, be to older and easy to emulate older platforms. But even so, it draine too much battery to justify the look.
+
+My non negocialble prerequisite is to make things properly, which means :
+
+- **Scanlines** have to correspond to native pixel lines and not with the device screen (many shaders "cheat" and it is ugly once you notice it)
+- **Masks** however have to take the device screen as a reference
+- Scanlines make no sense past 240p (NTSC).
+
+I don't like overcooked shaders but I want them to help increasing perceived color palettes of 2D games, smooth dithering a bit and lower aliasing in 3D games. With such tastes in mind, considering the processing power, the KPA screen resolution and size, as well as the non integer scalings, I did my best with the `easymode` suite (regular and `halation`). The `halation` version is too heavy with N64 (Parallel) or with the PS1 Swannstation core at 2x, but the regular `crt-easymode` is just fine. For 2D platforms, `halation` is a must to get a decent look. I have ony tinkered with parameters to find decent settings. And I have to admit that I'm impressed by what it is possible to achieve with only 640 lines. 
+
+> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
+
+### LCD Shaders
+
+For LCD plaforms, I don't think that advanced grid shaders with RGB separation matter on the KPA screen, so I keep it simple with `lcd1x` (dark grid for backlit handhelds) and `simpletex` (for earlier handhelds such as GB for instance). All I did is tweaking parameters to roughly match the colors from the core, without heavy darkening or enlihting. 
+
+> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
