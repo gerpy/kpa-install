@@ -284,8 +284,8 @@ Navigate to **Settings > Video > Scaling** and configure the parameters in this 
 2. **Aspect Ratio:** `Custom`
 3. **Custom Aspect Ratio (X Position):** `0`
 4. **Custom Aspect Ratio (Y Position):** `0`
-5. **Custom Aspect Ratio (Width):** `924` *(Justification: Amiga games were designed for 4:3 monitors. The perfect 4:3 width for our 660p height is 880px. Adding our maximum 5% stretch tolerance yields 924px, beautifully filling the KPA screen and leaving only unobtrusive 18-pixel black bars).*
-6. **Custom Aspect Ratio (Height):** `660` *(Justification: Unlike NTSC consoles, the Amiga natively outputs a tall 256-line PAL signal. Scaling this to 660px creates a 20-pixel overflow. This auto-centers to flawlessly slice off exactly 4 lines of vertical overscan top and bottom, leaving perfect breathing room before the HUD begins at line 8).*
+5. **Custom Aspect Ratio (Width):** `896` *(Justification: Amiga outputs wildly different native widths, but CRT displays squished or stretched them into a standard 4:3. A strict 4:3 width at 640p height is 853px. Adding our 5% stretch tolerance yields 896px, unifying all chaotic resolutions into one stable, aesthetically pleasing frame).*
+6. **Custom Aspect Ratio (Height):** `640` *(Justification: Matches the physical screen height perfectly. Because many games pushe vital UI elements to the absolute extreme edges of the video signal, zero lines are cropped to guarantee 100% HUD preservation.*
 
 *(Note: Ensure **Crop Overscan** is set to `OFF` in both the global Video settings and Quick Menu > Core Options).*
 
