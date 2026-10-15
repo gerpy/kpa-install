@@ -1,0 +1,2 @@
+#reference "shaders_slang/crt/crt-easymode-halation.slangp"
+#reference "crt-halation.params"

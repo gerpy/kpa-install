@@ -1,0 +1,2 @@
+#reference "shaders_slang/handheld/lcd1x.slangp"
+#reference "lcd-dark.params"
