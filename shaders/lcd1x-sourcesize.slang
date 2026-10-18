@@ -1,5 +1,10 @@
 #version 450
 
+// This shader is a modification of the standard RA shader "lcdx.slang" :
+// - It replaces the standard OriginalSize by SourceSize
+// - This is usefull for pipelines asking for it
+// The code has been written by Gemini 4.0 under the supervision of Tokumeino
+
 layout(push_constant) uniform Push {
     vec4 SourceSize;
     vec4 OutputSize;

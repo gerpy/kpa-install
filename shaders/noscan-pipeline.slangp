@@ -1,0 +1,9 @@
+shaders = "2"
+
+shader0 = "shaders_slang/misc/shaders/image-adjustment.slang"
+filter_linear0 = "true"
+scale_type0 = "viewport"
+
+shader1 = "shaders_slang/crt/crt-effects/shaders/dotmask.slang"
+filter_linear1 = "false"
+scale_type1 = "source"
