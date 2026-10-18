@@ -22,7 +22,7 @@ To make this work, we need an NDS core override for scaling and set the viewport
 - **Custom Aspect Ratio (Width):** `960` (Justification: fill the whole width to maximize the thumbnail size)
 - **Custom Aspect Ratio (Height):** `576` (Justification: 3x the NDS vertical resolution of 192)
 
-> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
+> More in the [shaders dedicated page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
 
 ## RetroArch CRT Scaling Doctrine
 
@@ -100,7 +100,7 @@ My non negocialble prerequisite is to make things properly, which means :
 
 I don't like overcooked shaders but I want them to help increasing perceived color palettes of 2D games, smooth dithering a bit and lower aliasing in 3D games. With such tastes in mind, considering the processing power, the KPA screen resolution and size, as well as the non integer scalings, I did my best with the `easymode` suite (regular and `halation`). The `halation` version is too heavy with N64 (Parallel) or with the PS1 Swannstation core at 2x, but the regular `crt-easymode` is just fine. For 2D platforms, `halation` is a must to get a decent look. I have ony tinkered with parameters to find decent settings. And I have to admit that I'm impressed by what it is possible to achieve with only 640 lines. 
 
-> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
+> More in the [shaders dedicated page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
 
 ### LCD Shaders
 
