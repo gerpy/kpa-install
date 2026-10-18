@@ -43,6 +43,7 @@ For all systems below, the following baseline settings are **strictly mandatory*
 - **Custom Aspect Ratio (X Position):** `0`
 - **Custom Aspect Ratio (Y Position):** `0`
 - **Crop Overscan:** `OFF`
+- **Custom Aspect Ratio (? Position):** See Viewport column below.
 
 | Platform (Core) | Core Output Resolution (DAR) | Native Tolerance (per side) | Remaining Native Displayed Resolution | Viewport: Conservative Even Rounds (`W × H`) | Horizontal Stretch Applied to PAR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
