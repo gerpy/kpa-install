@@ -6,8 +6,6 @@
 
 ## Shaders for Retroarch
 
-> All the shaders I use are in the following folder : 
-
 ### CRT Shaders
 
 For the KPA, the shaders need to be robust to non integer scaling with a modest 640p resolution. They also need to run on the mid range processor and not drain the battery too much. The `crt-guest-advance-fast` shader runs on the KPA with easy to emulate platforms but at the expense of heat and battery. I was unable to get balanced scanlines out of `hyllian` and I have focused on the `easymode` familly instead :
