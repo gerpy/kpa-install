@@ -24,49 +24,63 @@ To make this work, we need an NDS core override for scaling and set the viewport
 
 > More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
 
-## Mise à l'échelle RetroArch pour les systèmes CRT
+## RetroArch Scaling for CRT Systems
 
-La Konkr Pocket Advance (KPA) est équipée d'un écran au format 3:2 (960 × 640)[cite: 3]. S'il est idéal pour la Game Boy Advance, l'affichage des consoles historiques 4:3 avec les réglages par défaut génère d'importantes bandes noires latérales (pillarboxing)[cite: 3].
+The Konkr Pocket Advance (KPA) features a 3:2 aspect ratio screen (960 × 640)[cite: 3]. While perfect for the Game Boy Advance, playing standard 4:3 legacy consoles with default settings results in massive black borders (pillarboxing)[cite: 3].
 
-Pour maximiser la surface d'affichage utile, les configurations suivantes reposent sur une double approche[cite: 3] :
-1. **Rognage de l'overscan vertical (Vertical Overscan Cropping) :** Suppression chirurgicale des marges supérieures et inférieures inutilisées afin d'agrandir l'image, tout en garantissant que tous les éléments d'interface (HUD) restent intégralement visibles et respirent confortablement[cite: 1, 3].
-2. **Étirement horizontal maîtrisé (Horizontal Stretching) :** Élargissement du Pixel Aspect Ratio (PAR) visant ~4,5 % (et plafonné strictement sous le seuil de perception de 5 %) afin de réduire les bandes noires sans déformation géométrique perceptible[cite: 1, 3]. Fixer ainsi les viewports permet en outre d'absorber les changements dynamiques de résolution interne de certaines consoles en maintenant un cadre d'affichage parfaitement stable[cite: 1, 2].
+To maximize screen real estate, the following configurations rely on a double approach[cite: 3]:
+1. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible and breathe comfortably[cite: 1, 3].
+2. **Horizontal Stretching:** Expanding the Pixel Aspect Ratio (PAR) aiming at ~4.5% (and strictly capped below the commonly accepted perception threshold of 5%) to reduce black bars without perceptible geometric distortion. Fixing viewports this way also frees you from the fluctuating multi-resolution carousel of certain consoles, guaranteeing high display consistency.
 
-**L'exception de correction cathodique historique :**
-Pour les plateformes dotées de résolutions natives plus étroites qui subissaient déjà un fort étirement horizontal sur les téléviseurs CRT 4:3 d'époque (comme la NES en 16:15 ou la SNES en 8:7), nous dépassons délibérément la limite des 5 % sur le PAR 1:1[cite: 1, 3]. En visant le point médian exact entre le Display Aspect Ratio (DAR) 4:3 historique et le Pixel Aspect Ratio (PAR) 1:1 mathématique (+8,33 % sur SNES et +12,50 % sur NES/PCE), nous réduisons la distorsion géométrique d'origine tout en flattant la mémoire visuelle[cite: 1, 2, 3].
+**The Historical Cathodic Correction Exception:**
+For platforms featuring narrower native resolutions that already suffered from severe horizontal stretching on historical 4:3 CRT televisions (like the NES and PC Engine in 16:15 or the SNES in 8:7), we deliberately exceed the 5% limit on the PAR 1:1. By aiming for the midpoint between the historical 4:3 Display Aspect Ratio (DAR) and the mathematical 1:1 Pixel Aspect Ratio (PAR) (+8.33% on SNES and up to +12.50% on NES/PCE), we reduce the original geometric distortion while flattering visual memory[cite: 1, 2, 3].
 
-### Résumé de référence rapide (Quick Reference Summary)
+### Quick Reference Summary
 
-Pour tous les systèmes ci-dessous, les paramètres de base suivants sont **strictement obligatoires** pour garantir la justesse de l'auto-centrage mathématique (les cœurs restant sur leur configuration par défaut)[cite: 1, 3] :
-- **Integer Scale :** `OFF`[cite: 3]
-- **Aspect Ratio :** `Custom`[cite: 3]
-- **Custom Aspect Ratio (X Position) :** `0`[cite: 3]
-- **Custom Aspect Ratio (Y Position) :** `0`[cite: 3]
-- **Crop Overscan :** `OFF`[cite: 3]
+For all systems below, the following baseline settings are **strictly mandatory** to ensure the accuracy of mathematical auto-centering (with cores remaining on their default configuration)[cite: 1, 3]:
+- **Integer Scale:** `OFF`[cite: 3]
+- **Aspect Ratio:** `Custom`[cite: 3]
+- **Custom Aspect Ratio (X Position):** `0`[cite: 3]
+- **Custom Aspect Ratio (Y Position):** `0`[cite: 3]
+- **Crop Overscan:** `OFF`[cite: 3]
 
-| Plateforme (Cœur) | Résolution de sortie du cœur (DAR) | Tolérance en px natifs (par côté) | Résolution affichée native restante | Viewport : arrondis pairs (`W × H`) | % d'étirement horizontal appliqué au PAR |
+| Platform (Core) | Core Output Resolution (DAR) | Native Tolerance (per side) | Remaining Native Displayed Resolution | Viewport: Even Pair Roundings (`W × H`) | Horizontal Stretch % Applied to PAR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Atari 2600** (`Stella`) | `160 × 210 (4:3)` | **7 px** | `160 × 196` | **956 × 686** | **+4,52 %** |
-| **NES** (`Mesen`) | `256 × 240 (16:15)`[cite: 2] | **12 px** | `256 × 216` | **852 × 710** | **+12,50 %**[cite: 2, 3] |
-| **Master System** (`Genesis Plus GX`) | `256 × 192 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `256 × 192`[cite: 2] | **892 × 640** | **+4,53 %** |
-| **PC Engine** (`Beetle PCE Fast`) | `256 × 240 (16:15)`[cite: 2] | **12 px** | `256 × 216` | **852 × 710** | **+12,50 %**[cite: 2, 3] |
-| **Super Nintendo** (`Snes9x`) | `256 × 224 (8:7)`[cite: 2] | **5,33 px**[cite: 2] | `256 × 213,3`[cite: 2] | **832 × 672**[cite: 2, 3] | **+8,33 %**[cite: 2, 3] |
-| **Mega Drive** (`Genesis Plus GX`) | `320 × 224 (10:7)`[cite: 2] | **0 px**[cite: 1, 2] | `320 × 224`[cite: 2] | **960 × 640**[cite: 2, 3] | **+5,00 %**[cite: 2, 3] |
-| **Sega Saturn** (`YabaSanshiro`) | `320 × 240 (4:3)`[cite: 2] | **2 px** | `320 × 236` | **906 × 650** | **+4,54 %** |
-| **PlayStation 1** (`SwanStation`) | `320 × 240 (4:3)`[cite: 2] | **2 px** | `320 × 236` | **906 × 650** | **+4,54 %** |
-| **Nintendo 64** (`Mupen64Plus-Next`) | `320 × 240 (4:3)`[cite: 2] | **6 px**[cite: 1, 2] | `320 × 228` | **940 × 674** | **+4,60 %** |
-| **Dreamcast** (`Flycast`) | `640 × 480 (4:3)`[cite: 2] | **0 px**[cite: 2] | `640 × 480`[cite: 2] | **892 × 640** | **+4,53 %** |
-| **Arcade** (`FBNeo`) | `Var. × 224 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `Var. × 224`[cite: 2] | **892 × 640** | **+4,53 %** |
-| **Neo Geo** (`FBNeo`) | `320 × 224 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `320 × 224`[cite: 2] | **892 × 640** | **+4,53 %** |
-| **Amiga** (`PUAE`) | `320 × 256 (4:3)`[cite: 2] | **0 px**[cite: 2] | `320 × 256`[cite: 2] | **892 × 640** | **+4,53 %** |
+| **Atari 2600** (`Stella`) | `160 × 210 (4:3)` | **7 px** | `160 × 196` | **956 × 686** | **+4.52%** |
+| **NES** (`Mesen`) | `256 × 240 (16:15)`[cite: 2] | **12 px** | `256 × 216` | **852 × 710** | **+12.50%**[cite: 2, 3] |
+| **Master System** (`Genesis Plus GX`) | `256 × 192 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `256 × 192`[cite: 2] | **892 × 640** | **+4.53%** |
+| **PC Engine** (`Beetle PCE Fast`) | `256 × 240 (16:15)`[cite: 2] | **8 px** | `256 × 224`[cite: 2] | **822 × 686** | **+12.34%**[cite: 2, 3] |
+| **Super Nintendo** (`Snes9x`) | `256 × 224 (8:7)`[cite: 2] | **5.33 px**[cite: 2] | `256 × 213.3`[cite: 2] | **832 × 672**[cite: 2, 3] | **+8.33%**[cite: 2, 3] |
+| **Mega Drive** (`Genesis Plus GX`) | `320 × 224 (10:7)`[cite: 2] | **0 px**[cite: 1, 2] | `320 × 224`[cite: 2] | **960 × 640**[cite: 2, 3] | **+5.00%**[cite: 2, 3] |
+| **Sega Saturn** (`YabaSanshiro`) | `320 × 240 (4:3)`[cite: 2] | **2 px** | `320 × 236` | **906 × 650** | **+4.54%** |
+| **PlayStation 1** (`SwanStation`) | `320 × 240 (4:3)`[cite: 2] | **2 px** | `320 × 236` | **906 × 650** | **+4.54%** |
+| **Nintendo 64** (`Mupen64Plus-Next`) | `320 × 240 (4:3)`[cite: 2] | **6 px**[cite: 1, 2] | `320 × 228` | **940 × 674** | **+4.60%** |
+| **Dreamcast** (`Flycast`) | `640 × 480 (4:3)`[cite: 2] | **0 px**[cite: 2] | `640 × 480`[cite: 2] | **892 × 640** | **+4.53%** |
+| **Arcade** (`FBNeo`) | `Var. × 224 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `Var. × 224`[cite: 2] | **892 × 640** | **+4.53%** |
+| **Neo Geo** (`FBNeo`) | `320 × 224 (4:3)`[cite: 2] | **0 px**[cite: 1, 2] | `320 × 224`[cite: 2] | **892 × 640** | **+4.53%** |
+| **Amiga** (`PUAE`) | `320 × 256 (4:3)`[cite: 2] | **0 px**[cite: 2] | `320 × 256`[cite: 2] | **892 × 640** | **+4.53%** |
 
-### Métriques d'affichage réelles (Surface vs Taille perçue)
+### Real-World Display Metrics (Surface vs. Perceived Size)
 
-Comme nous utilisons un écran 3:2 de 3,5 pouces (960 × 640) pour afficher principalement des contenus 4:3, mesurer l'image uniquement par sa diagonale physique affichée est mathématiquement trompeur[cite: 3]. En repoussant les marges d'overscan verticales hors du cadre physique de l'écran, nous agrandissons la fenêtre de rendu au-delà des limites matérielles[cite: 1, 3].
+Because we are using a 3.5-inch 3:2 screen (960 × 640) to display primarily 4:3 legacy content, measuring the image solely by its displayed physical diagonal is mathematically misleading[cite: 3]. By pushing vertical overscan margins outside the physical screen bezel, we enlarge the rendering window beyond hardware limits[cite: 1, 3].
 
-Ce tableau unifié distingue deux réalités complémentaires[cite: 3] :
-1. **La surface affichée (Displayed Surface) :** Ce qui est effectivement allumé sur l'écran physique de la KPA[cite: 3].
-2. **Le canevas sous-jacent (Underlying Canvas) :** La taille complète de la fenêtre de jeu rendue (incluant les lignes rognées hors écran)[cite: 3]. En convertissant cette surface sous-jacente en une **diagonale 4:3 équivalente**, on mesure le véritable gain optique de cette approche : *la taille réelle des sprites telle que perçue par l'œil* comparée à une console portable 4:3 standard[cite: 1, 3].
+This unified table distinguishes two complementary realities[cite: 3]:
+1. **The Displayed Surface:** What is actually lit up on the physical screen of the KPA[cite: 3].
+2. **The Underlying Canvas:** The full size of the rendered game window (including cropped lines off-screen)[cite: 3]. By converting this underlying surface into an **equivalent 4:3 diagonal**, we measure the true optical gain of this approach: *the actual sprite size as perceived by the eye* compared to a standard 4:3 handheld console[cite: 1, 3].
+
+| System(s) | Displayed AR | Displayed Diagonal | Screen Surface | Underlying AR (crop incl.) & PAR Stretch | Underlying Diagonal | Equivalent 4:3 Diagonal |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mega Drive** | 1.50 (3:2)[cite: 3] | **3.50"**[cite: 3] | 100.0%[cite: 3] | 1.50 (3:2) + 5.00% stretch[cite: 3] | 3.50"[cite: 3] | **3.43"**[cite: 3] |
+| **Atari 2600** | 1.49 (~3:2) | **3.49"** | 99.6% | 1.39 (~7:5) + 4.52% stretch | 3.57" | **3.55"** |
+| **Nintendo 64** | 1.47 (~47:32) | **3.45"** | 97.9% | 1.39 (~7:5) + 4.60% stretch | 3.51" | **3.49"**[cite: 3] |
+| **PS1 & Saturn** | 1.42 (~7:5) | **3.36"** | 94.4% | 1.39 (~7:5) + 4.54% stretch | 3.38" | **3.36"** |
+| **SMS / DC / Arcade / Neo Geo / Amiga** | 1.39 (~7:5) | **3.33"** | 92.9% | 1.39 (~7:5) + 4.53% stretch | 3.33" | **3.31"** |
+| **NES** | 1.33 (4:3) | **3.23"** | 88.8% | 1.20 (6:5) + 12.50% stretch[cite: 3] | 3.36" | **3.41"** |
+| **Super Nintendo** | 1.30 (13:10)[cite: 3] | **3.18"**[cite: 3] | 86.7%[cite: 3] | 1.24 (~11:9) + 8.33% stretch[cite: 3] | 3.24"[cite: 3] | **3.27"**[cite: 3] |
+| **PC Engine** | 1.28 (~9:7) | **3.16"** | 85.6% | 1.20 (6:5) + 12.34% stretch | 3.25" | **3.29"** |
+
+**The Verdict:**
+Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effectively neutralizes the aspect ratio penalty[cite: 3]. By leveraging extra screen width to safely zoom and crop unnecessary vertical margins, systems like the Atari 2600, N64, or NES display 3D models and sprites equivalent in size to a **3.41 to 3.55-inch 4:3 screen**[cite: 3]. Even systems with zero vertical cropping (3.31") or narrower ones like the PC Engine (3.29") and Super Nintendo (3.27") retain a perceived size very close to a native 3.5-inch 4:3 screen[cite: 3].
 
 | Système(s) | AR affiché | Diagonale affichée | Surface d'écran | AR sous-jacent (crop incl.) & Étirement PAR | Diagonale sous-jacente | Diagonale 4:3 équivalente |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
