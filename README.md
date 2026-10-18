@@ -37,7 +37,9 @@ For platforms featuring narrower native resolutions that already suffered from s
 
 | [![megaman-87.png](screenshots/megaman-87.png)](screenshots/megaman-87.png) | [![megaman-custom.png](screenshots/megaman-custom.png)](screenshots/megaman-custom.png) | [![megaman-43.png](screenshots/megaman-43.png)](screenshots/megaman-43.png) |
 | :---: | :---: | :---: |
-| PAR 1:1... balanced shapes but small | DAR 4:3... almost an aspect ratio  crime | Custom tradeoff |
+| PAR 1:2... small | DAR 4:3... too much stretch | Custom tradeoff |
+| [![mario-87.png](screenshots/mario-87.png)](screenshots/mario-87.png) | [![mario-custom.png](screenshots/mario-custom.png)](screenshots/mario-custom.png) | [![mario-43.png](screenshots/mario-43.png)](screenshots/mario-43.png) |
+| PAR 1:2... small | DAR 4:3... too much stretch | Custom tradeoff |
 
 <p align="center"><em>Examples of screen ratios for SNES</em></p>
 
