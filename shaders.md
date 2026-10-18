@@ -17,6 +17,12 @@ For the KPA, shaders need to handle non-integer scaling gracefully on a modest 6
 
 I also use a very simple mask shader preset, `crt-noscan.slangp`, to give the Dreamcast a more organic look. It relies on the stock `dotmask.slang` (for the shadow mask) and `image-adjustment.slang` (for controlled bilinear smoothing and color/luminance compensation). To work properly, `crt-noscan.slangp` must be placed in the root of RetroArch's shader folder, alongside `noscan-pipeline.slangp` and `crt-noscan.params` (the latter is easily tweakable to adjust the look).
 
+| [![dc-raw1x.png](screenshots/dc-raw1x.png)](screenshots/dc-raw1x.png) | [![dc-custom.png](screenshots/dc-custom.png)](screenshots/dc-custom.png) | [![dc-raw2x.png](screenshots/dc-raw2x.png)](screenshots/dc-raw2x.png) |
+| :---: | :---: | :---: |
+| Raw 1x | Custom shader with no scanline | Clinical 2x |
+
+<p align="center"><em>Custom <code>crt-noscan.slangp</code></em></p>
+
 Following the same modular structure, my other presets are:
 
 - The super lightweight `crt-easy.slangp` paired with `crt-easy.params` for tweaking (based on the regular stock `crt-easymode`).
