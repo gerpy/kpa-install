@@ -29,8 +29,24 @@ To make this work, we need an NDS core override for scaling and set the viewport
 The Konkr Pocket Advance (KPA) features a 3:2 aspect ratio screen (960 × 640). While ideal for the Game Boy Advance, playing standard 4:3 legacy consoles with default settings results in massive black borders (pillarboxing).
 
 To maximize screen real estate, the following configurations rely on a dual approach:
-1. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible and comfortable.
-2. **Horizontal Stretching:** Expanding the Pixel Aspect Ratio (PAR) aiming around ~4.5% (and strictly capped below the commonly accepted human perception threshold of 5%) to reduce black bars without noticeable geometric distortion. Fixing viewports in this manner also abstracts away the multi-resolution switching chaos of certain consoles, guaranteeing high display consistency.
+
+1. **Horizontal Stretching:** Expanding the Pixel Aspect Ratio (PAR) aiming around ~4.5% (and strictly capped below the commonly accepted human perception threshold of 5%) to reduce black bars without noticeable geometric distortion. Fixing viewports in this manner also abstracts away the multi-resolution switching chaos of certain consoles, guaranteeing high display consistency.
+
+| [![mslug-43.png](screenshots/mslug-43.png)](screenshots/mslug-43.png) | [![mslug-custom.png](screenshots/mslug-custom.png)](screenshots/mslug-custom.png) |
+| :---: | :---: |
+| DAR 4:3... fine | Stretch for better screen real estate |
+
+<p align="center"><em>4.5% stretch for Neo-Geo</em></p>
+
+2. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible and comfortable.
+
+| [![wipeout-2x.png](screenshots/wipeout-2x.png)](screenshots/wipeout-2x.png) | [![wipeout-43.png](screenshots/wipeout-43.png)](screenshots/wipeout-43.png) |
+| :---: | :---: |
+| DAR 4:3... fine | Custom tradeoff |
+
+<p align="center"><em>Strech plus a tiny crop for PS1</em></p>
+
+
 
 **The Historical Stretch Exception:**
 For platforms featuring narrower native resolutions that already suffered from severe horizontal stretching on original 4:3 CRT televisions (such as the NES and PC Engine in 16:15 or the SNES in 8:7), we deliberately exceed the 5% limit on the PAR 1:1. By targeting the midpoint between the historical 4:3 Display Aspect Ratio (DAR) and the mathematical 1:1 Pixel Aspect Ratio (+8.33% on SNES and up to +12.50% on NES/PCE), we reduce the original geometric distortion while flattering visual memory.
