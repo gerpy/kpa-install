@@ -22,8 +22,6 @@ Following the same modular structure, my other presets are:
 
 ### LCD Shaders
 
-### LCD Shaders
-
 Some handheld consoles had backlit screens, while others used unlit reflective or front-lit screens. Reflective and front-lit screens rely on a light-colored backing to bounce light back to the viewer, so shaders with bright grid lines make more sense. Conversely, for consoles with backlit screens, dark grid lines are more accurate.
 
 | Console | Original Screen Technology | Emulation Grid / Lighting Style |
