@@ -36,6 +36,7 @@ To maximize screen real estate, the following configurations rely on a dual appr
 For platforms featuring narrower native resolutions that already suffered from severe horizontal stretching on original 4:3 CRT televisions (such as the NES and PC Engine in 16:15 or the SNES in 8:7), we deliberately exceed the 5% limit on the PAR 1:1. By targeting the midpoint between the historical 4:3 Display Aspect Ratio (DAR) and the mathematical 1:1 Pixel Aspect Ratio (+8.33% on SNES and up to +12.50% on NES/PCE), we reduce the original geometric distortion while flattering visual memory.
 
 | [![megaman-87.png](screenshots/megaman-87.png)](screenshots/megaman-87.png) | [![megaman-custom.png](screenshots/megaman-custom.png)](screenshots/megaman-custom.png) | [![megaman-43.png](screenshots/megaman-43.png)](screenshots/megaman-43.png) |
+| :---: | :---: | :---: |
 | [![mario-87.png](screenshots/mario-87.png)](screenshots/mario-87.png) | [![mario-custom.png](screenshots/mario-custom.png)](screenshots/mario-custom.png) | [![mario-43.png](screenshots/mario-43.png)](screenshots/mario-43.png) |
 | PAR 1:2... small | DAR 4:3... too much stretch | Custom tradeoff |
 
