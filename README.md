@@ -37,7 +37,7 @@ For platforms featuring narrower native resolutions that already suffered from s
 
 | [![megaman-87.png](screenshots/megaman-87.png)](screenshots/megaman-87.png) | [![megaman-custom.png](screenshots/megaman-custom.png)](screenshots/megaman-custom.png) | [![megaman-43.png](screenshots/megaman-43.png)](screenshots/megaman-43.png) |
 | :---: | :---: | :---: |
-| PAR 1:1... small | DAR 4:3... too much strech | Custom tradeoff |
+| PAR 1:1... balanced shapes but small | DAR 4:3... almost an aspect ratio  crime | Custom tradeoff |
 
 <p align="center"><em>Examples of screen ratios for SNES</em></p>
 
@@ -66,6 +66,12 @@ For all systems below, the following baseline settings are **strictly mandatory*
 | **Arcade** (`FBNeo`) | `Var. × 224 (4:3)` | **0 px** | `Var. × 224` | **892 × 640** | **+4.53%** |
 | **Neo Geo** (`FBNeo`) | `320 × 224 (4:3)` | **0 px** | `320 × 224` | **892 × 640** | **+4.53%** |
 | **Amiga** (`PUAE`) | `320 × 256 (4:3)` | **0 px** | `320 × 256` | **892 × 640** | **+4.53%** |
+
+| [![turican-43.png](screenshots/turican-43.png)](screenshots/turican-43.png) | [![turican-custom.png](screenshots/turican-custom.png)](screenshots/turican-custom.png) | [![turican-107.png](screenshots/turican-107.png)](screenshots/turican-107.png) |
+| :---: | :---: | :---: |
+| DAR 4:3... narrowish shapes | Custom tradeoff | PAR 10:7... balanced shapes with small black bars |
+
+<p align="center"><em>Perfect fit with only strech for Mega Drive</em></p>
 
 ### Real-World Display Metrics (Surface vs. Perceived Size)
 
