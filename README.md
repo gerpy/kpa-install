@@ -22,7 +22,7 @@ To make this work, we need an NDS core override for scaling and set the viewport
 - **Custom Aspect Ratio (Width):** `960` (Justification: fill the whole width to maximize the thumbnail size)
 - **Custom Aspect Ratio (Height):** `576` (Justification: 3x the NDS vertical resolution of 192)
 
-> More in the [shaders dedicated page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
+> More in the [shaders dedicated page](shaders.md).
 
 ## RetroArch CRT Scaling Doctrine
 
@@ -100,10 +100,10 @@ My non-negotiable prerequisite is to do things properly, which means:
 
 I don't like overcooked shaders, but I want them to help expand the perceived color palette of 2D games, smooth out dithering a bit, and reduce aliasing in 3D games. With these preferences in mind—and considering the KPA's processing power, screen size, resolution, and non-integer scaling ratios—I focused on the `crt-easymode` suite (both regular and `halation`). The `halation` version is too heavy for N64 (`ParaLLEl`) or PS1 (`SwanStation` at 2x resolution), where the regular `crt-easymode` works just fine. For 2D platforms, however, `halation` is a must to get a decent look. I simply tinkered with the parameters to find balanced settings, and I must admit I'm impressed by what can be achieved with only 640 vertical lines.
 
-> More details on the [dedicated shaders page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
+> More details on the [dedicated shaders page](shaders.md).
 
 ### LCD Shaders
 
 For LCD handhelds, I don't think advanced grid shaders with RGB subpixel separation matter on the KPA screen, so I keep it simple with `lcd1x` (dark grid for backlit handhelds) and `simpletex_lcd` (light grid for earlier reflective handhelds such as the Game Boy). All I did was tweak the parameters to roughly match the core's native luminance and colors, avoiding heavy darkening or over-brightening.
 
-> More details on the [dedicated shaders page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
+> More details on the [dedicated shaders page](shaders.md).
