@@ -56,7 +56,21 @@ Hence, I use two shader families:
 - `lcd-dark`, `lcd-nds` (`lcd-nds-color` / `lcd-nds-raw`), and `lcd-psp` provide a dark grid. These presets are all based on `lcd1x`, with their parameters factorized into `lcd-dark.params`. I ruled out `lcd-grid-v2` for dark grids because it is too heavy for the KPA, and I was not convinced by the usefulness of `lcd3x`'s RGB subpixel separation on the KPA's small, low-res screen.
 - `lcd-light` provides a light grid. This preset is based on `simpletex_lcd` with its parameters stored in `lcd-light.params`. The paper background texture is disabled because it looks coarse on the low-res KPA screen.
 
+| [![gba-raw.png](screenshots/gba-raw.png)](screenshots/gba-raw.png) | [![gba-light.png](screenshots/gba-light.png)](screenshots/gba-light.png) | [![gba-dark.png](screenshots/gba-dark.png)](screenshots/gba-dark.png) |
+| :---: | :---: | :---: |
+| Raw pixels | Light preset | Dark preset |
+
+<p align="center"><em>Dark and light presets for GBA</em></p>
+
 Inside `lcd-dark.params` and `lcd-light.params`, parameters are tuned so that the overall luminance and colors roughly match the raw input image, ensuring visual consistency across platforms. For best results, remember to enable color correction in the core options (or use the dedicated color-corrected preset when available).
+
+| [![gb-raw.png](screenshots/gb-raw.png)](screenshots/gb-raw.png) | [![gb-light.png](screenshots/gb-light.png)](screenshots/gb-light.png) |
+| :---: | :---: |
+| GB Raw | GB Light |
+| [![gbc-raw.png](screenshots/gbc-raw.png)](screenshots/gbc-raw.png) | [![gbc-light.png](screenshots/gbc-light.png)](screenshots/gbc-light.png) |
+| GBC Raw | GBC Light |
+
+<p align="center"><em>Light preset for GB and GBC</em></p>
 
 ### Nintendo DS
 
@@ -64,6 +78,14 @@ The Nintendo DS is a special case since the `melonDS DS` core cannot natively ou
 
 - The viewport must be set to `960x576` in RetroArch's video scaling options (and saved as a Core Override).
 - The core must be configured with a `Top/Bottom` or `Bottom/Top` screen layout, a screen gap of `0`, and `1x` native resolution (nothing else).
+
+This way, the main screen is 2x integer scaled.
+
+| [![nds-tb.png](screenshots/nds-tb.png)](screenshots/nds-tb.png) | [![nds-bt.png](screenshots/nds-bt.png)](screenshots/nds-bt.png) |
+| :---: | :---: |
+| Top / Bottom | Bottom / Top |
+
+<p align="center"><em>Both Nintendo DS screen possible layouts</em></p>
 
 The following files from [the shaders repository](https://github.com/gerpy/kpa-install/tree/main/shaders) must be placed in RetroArch's root `shaders` folder:
 
