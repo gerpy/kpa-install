@@ -87,23 +87,23 @@ Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effe
 
 ### CRT Shaders
 
-The KPA doesn't have a high resolution wrt decent shaders standards, and its processor isn't strong enough to calculate complex shaders. A small resolution is not a big deal when you integer scale but unfortunately, as one may see above, many systems are scaled in a non integer way. So one needs to find and carefuly setup shaders that are known to be robust wrt fractional scaling :
+The KPA doesn't have a high resolution by modern shader standards, and its processor isn't powerful enough to handle complex multi-pass shaders. A modest resolution isn't a big deal when using integer scaling, but unfortunately, as shown above, many systems require non-integer scaling. Therefore, one needs to find and carefully set up shaders that are known to be robust to fractional scaling:
 
-- I have tried my best with `hyllian` but I failed at finding decent parameters that show a nice look and zero to very little moire an artifacts
-- I had good results with `crt-guest-advanced-fast` despite the 640 vertical resolution of the KPA. However, even in its `fast` version, `guest` is too heavy, be to older and easy to emulate older platforms. But even so, it draine too much battery to justify the look.
+- I tried my best with `hyllian`, but I failed to find decent parameters that deliver a nice look with zero (or very little) moiré and artifacts.
+- I got good results with `crt-guest-advanced-fast` despite the KPA's 640p vertical resolution. However, even in its `fast` variant, `guest` is too heavy—even when restricted to older, easy-to-emulate platforms, it drains too much battery to justify the visual upgrade.
 
-My non negocialble prerequisite is to make things properly, which means :
+My non-negotiable prerequisite is to do things properly, which means:
 
-- **Scanlines** have to correspond to native pixel lines and not with the device screen (many shaders "cheat" and it is ugly once you notice it)
-- **Masks** however have to take the device screen as a reference
+- **Scanlines** must align with the game's native pixel rows, not the device's physical screen (many shaders "cheat" here, and it looks terrible once you notice it).
+- **Masks**, on the other hand, must use the device's physical subpixels/pixels as a reference.
 - Scanlines make no sense past 240p (NTSC).
 
-I don't like overcooked shaders but I want them to help increasing perceived color palettes of 2D games, smooth dithering a bit and lower aliasing in 3D games. With such tastes in mind, considering the processing power, the KPA screen resolution and size, as well as the non integer scalings, I did my best with the `easymode` suite (regular and `halation`). The `halation` version is too heavy with N64 (Parallel) or with the PS1 Swannstation core at 2x, but the regular `crt-easymode` is just fine. For 2D platforms, `halation` is a must to get a decent look. I have ony tinkered with parameters to find decent settings. And I have to admit that I'm impressed by what it is possible to achieve with only 640 lines. 
+I don't like overcooked shaders, but I want them to help expand the perceived color palette of 2D games, smooth out dithering a bit, and reduce aliasing in 3D games. With these preferences in mind—and considering the KPA's processing power, screen size, resolution, and non-integer scaling ratios—I focused on the `crt-easymode` suite (both regular and `halation`). The `halation` version is too heavy for N64 (`ParaLLEl`) or PS1 (`SwanStation` at 2x resolution), where the regular `crt-easymode` works just fine. For 2D platforms, however, `halation` is a must to get a decent look. I simply tinkered with the parameters to find balanced settings, and I must admit I'm impressed by what can be achieved with only 640 vertical lines.
 
-> More in the [shaders dedicated page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
+> More details on the [dedicated shaders page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
 
 ### LCD Shaders
 
-For LCD plaforms, I don't think that advanced grid shaders with RGB separation matter on the KPA screen, so I keep it simple with `lcd1x` (dark grid for backlit handhelds) and `simpletex` (for earlier handhelds such as GB for instance). All I did is tweaking parameters to roughly match the colors from the core, without heavy darkening or enlihting. 
+For LCD handhelds, I don't think advanced grid shaders with RGB subpixel separation matter on the KPA screen, so I keep it simple with `lcd1x` (dark grid for backlit handhelds) and `simpletex_lcd` (light grid for earlier reflective handhelds such as the Game Boy). All I did was tweak the parameters to roughly match the core's native luminance and colors, avoiding heavy darkening or over-brightening.
 
-> More in the [https://github.com/gerpy/kpa-install/blob/main/shaders.md|shaders dedicated page].
+> More details on the [dedicated shaders page](https://github.com/gerpy/kpa-install/blob/main/shaders.md).
