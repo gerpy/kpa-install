@@ -20,7 +20,20 @@ I also use a very simple mask shader preset, `crt-noscan.slangp`, to give the Dr
 Following the same modular structure, my other presets are:
 
 - The super lightweight `crt-easy.slangp` paired with `crt-easy.params` for tweaking (based on the regular stock `crt-easymode`).
+
+| [![ctr-2x.png](screenshots/ctr-2x.png)](screenshots/ctr-2x.png) | [![ctr-custom.png](screenshots/ctr-custom.png)](screenshots/ctr-custom.png) |
+| :---: | :---: |
+| Clinical 2x | With `easymode` |
+
+<p align="center"><em>Custom <code>crt-easy.slangp</code></em></p>
+
 - The reasonably lightweight `crt-halation.slangp` paired with `crt-halation.params` for tweaking (based on `crt-easymode-halation`).
+
+| [![turican-raw.png](screenshots/turican-raw.png)](screenshots/turican-raw.png) | [![turican-custom.png](screenshots/turican-custom.png)](screenshots/turican-custom.png) |
+| :---: | :---: |
+| Raw pixels | With `easymode-halation` |
+
+<p align="center"><em>Custom <code>crt-halation.slangp</code></em></p>
 
 ### LCD Shaders
 
