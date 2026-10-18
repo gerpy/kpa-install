@@ -1,4 +1,8 @@
+> **Author's Note:** The recommendations and technical choices presented here are my own. Because English is not my native language, I used Gemini to translate and format my personal notes, as well as to assist with some of the mathematical calculations and code.
+
 # Shaders on the KPA
+
+> All aftermentioned files can be found in the [my custom shader collection directory](https://github.com/gerpy/kpa-install/tree/main/shaders).
 
 ## Shaders for Retroarch
 
