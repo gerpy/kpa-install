@@ -64,7 +64,7 @@ Hence, I use two shader families:
 
 | [![gba-raw.png](screenshots/gba-raw.png)](screenshots/gba-raw.png) | [![gba-light.png](screenshots/gba-light.png)](screenshots/gba-light.png) | [![gba-dark.png](screenshots/gba-dark.png)](screenshots/gba-dark.png) |
 | :---: | :---: | :---: |
-| Raw pixels | Light preset | Dark preset |
+| Raw pixels | Dark grid preset | Light grid preset |
 
 <p align="center"><em>Dark and light presets for GBA</em></p>
 
