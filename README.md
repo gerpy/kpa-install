@@ -37,7 +37,9 @@ For platforms featuring narrower native resolutions that already suffered from s
 
 | [![megaman-87.png](screenshots/megaman-87.png)](screenshots/megaman-87.png) | [![megaman-custom.png](screenshots/megaman-custom.png)](screenshots/megaman-custom.png) | [![megaman-43.png](screenshots/megaman-43.png)](screenshots/megaman-43.png) |
 | :---: | :---: | :---: |
-| Légende 1 | Légende 2 | Légende 3 |
+| PAR 1:2... small | DAR 4:3... too much strech | Custom tradeoff |
+
+<p align="center"><em>Examples of screen ratios for SNES</em></p>
 
 ### Quick Reference Summary
 
