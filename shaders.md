@@ -68,6 +68,6 @@ The built-in shaders don't help much. I had Gemini adapt my multi-pass Slang pre
 
 ARMSX2 natively supports RetroArch Slang shaders. It still requires further testing, so for now I'm simply trying to import my `crt-noscan.slangp` preset into ARMSX2. If multi-pass references cause issues, I also had Gemini merge the required passes into a single-pass `crt-armsx2.slangp` preset paired with a standalone `crt-armsx2.slang` shader.
 
-### melonDS
+### MelonDS
 
 Standalone melonDS includes a built-in **`LCD`** post-processing shader, but it darkens the image way too much. I stick with the RetroArch `melonDS DS` core and my custom LCD grid shaders instead.
