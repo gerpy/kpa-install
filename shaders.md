@@ -2,23 +2,23 @@
 
 # Shaders on the KPA
 
-> All aftermentioned files can be found in the [my custom shader collection directory](https://github.com/gerpy/kpa-install/tree/main/shaders).
+> All the files mentioned below can be found in [my custom shader collection directory](https://github.com/gerpy/kpa-install/tree/main/shaders).
 
-## Shaders for Retroarch
+## Shaders for RetroArch
 
 ### CRT Shaders
 
-For the KPA, the shaders need to be robust to non integer scaling with a modest 640p resolution. They also need to run on the mid range processor and not drain the battery too much. The `crt-guest-advance-fast` shader runs on the KPA with easy to emulate platforms but at the expense of heat and battery. I was unable to get balanced scanlines out of `hyllian` and I have focused on the `easymode` familly instead :
+For the KPA, shaders need to handle non-integer scaling gracefully on a modest 640p screen. They also need to run smoothly on its mid-range processor without draining the battery too quickly. The `crt-guest-advanced-fast` shader runs fine on easy-to-emulate platforms, but at the expense of heat and battery life. Since I was unable to get balanced scanlines out of `hyllian`, I focused on the `easymode` family instead:
 
-- `easymode-halation` for 8-16bit systems to get the enhanced color gradients, de-dethering and organic look
-- the more clinical regular `easymode` to smooth 32-64bit 3D a bit while retaining details and not emphasing the poor textures contrasting with ugly upsclaed renders
+- `easymode-halation` for 8/16-bit systems, to get enhanced color gradients, de-dithering, and an organic look.
+- The more clinical regular `easymode` to slightly smooth out 32/64-bit 3D graphics while retaining detail—avoiding the jarring contrast between low-res textures and overly sharp upscaled polygons.
 
-I also use a super simple mask shader preset `crt-noscan.slangp` to provide Dreamcast a more organic look, based on stock `dotmask` (for the dot mask) and `image-adjustment.slang` (to adjust colorimetry). So as to work, `crt-noscan.slangp` musy be installed on the Retroarch base shader folder, along with the `crt-noscan.slangp` and `crt-noscan.params` (the latter is easily tweakable to change the look).
+I also use a very simple mask shader preset, `crt-noscan.slangp`, to give the Dreamcast a more organic look. It relies on the stock `dotmask.slang` (for the shadow mask) and `image-adjustment.slang` (for controlled bilinear smoothing and color/luminance compensation). To work properly, `crt-noscan.slangp` must be placed in the root of RetroArch's shader folder, alongside `noscan-pipeline.slangp` and `crt-noscan.params` (the latter is easily tweakable to adjust the look).
 
-In the same way, my other presets are :
+Following the same modular structure, my other presets are:
 
-- The super light `crt-easy.slangp` with `crt-easy.params` for tweaking (based on regular stock `easymode`)
-- The reasonably light `crt-halation.slangp` with `crt-halation.params` for tweaking (bsed on `easymode-halation`)
+- The super lightweight `crt-easy.slangp` paired with `crt-easy.params` for tweaking (based on the regular stock `crt-easymode`).
+- The reasonably lightweight `crt-halation.slangp` paired with `crt-halation.params` for tweaking (based on `crt-easymode-halation`).
 
 ### LCD Shaders
 
