@@ -2,6 +2,8 @@
 
 # Shaders on the KPA
 
+The general approach is described on the [main page](https://github.com/gerpy/kpa-install/blob/main/README.md#shaders-for-the-kpa).
+
 > **All the files mentioned below can be found in [my custom shader collection directory](https://github.com/gerpy/kpa-install/tree/main/shaders).**
 
 ## Shaders for RetroArch
