@@ -40,13 +40,11 @@ To maximize screen real estate, the following configurations rely on a dual appr
 
 2. **Vertical Overscan Cropping:** Surgically cutting unused top and bottom margins to enlarge the image, while strictly ensuring all in-game UI elements and HUDs remain fully visible and comfortable.
 
-| [![wipeout-2x.png](screenshots/wipeout-2x.png)](screenshots/wipeout-2x.png) | [![wipeout-43.png](screenshots/wipeout-43.png)](screenshots/wipeout-43.png) |
+| [![wipeout-2x.png](screenshots/wipeout-43.png)](screenshots/wipeout-43.png) | [![wipeout-custom.png](screenshots/wipeout-custom.png)](screenshots/wipeout-custom.png) |
 | :---: | :---: |
 | DAR 4:3... fine | Custom tradeoff |
 
 <p align="center"><em>Strech plus a tiny crop for PS1</em></p>
-
-
 
 **The Historical Stretch Exception:**
 For platforms featuring narrower native resolutions that already suffered from severe horizontal stretching on original 4:3 CRT televisions (such as the NES and PC Engine in 16:15 or the SNES in 8:7), we deliberately exceed the 5% limit on the PAR 1:1. By targeting the midpoint between the historical 4:3 Display Aspect Ratio (DAR) and the mathematical 1:1 Pixel Aspect Ratio (+8.33% on SNES and up to +12.50% on NES/PCE), we reduce the original geometric distortion while flattering visual memory.
