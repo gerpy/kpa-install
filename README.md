@@ -79,6 +79,9 @@ This unified table distinguishes two complementary realities:
 | **Super Nintendo** | 1.30 (13:10) | **3.18"** | 86.7% | 1.24 (~11:9) + 8.33% stretch | 3.24" | **3.27"** |
 | **PC Engine** | 1.28 (~9:7) | **3.16"** | 85.6% | 1.20 (6:5) + 12.34% stretch | 3.25" | **3.29"** |
 
+**The Verdict:**
+Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effectively neutralizes the screen ratio penalty. By utilizing extra screen width to safely zoom and crop unneeded vertical margins, systems like the Atari 2600, N64, or NES render 3D models and sprites at a size equivalent to a **3.41 to 3.55-inch 4:3 screen**. Even systems with zero vertical crop (3.31") or narrower ratios like the PC Engine (3.29") and Super Nintendo (3.27") retain a perceived size very close to a native 3.5-inch 4:3 display.
+
 ## Shaders for the KPA
 
 ### CRT Shaders
