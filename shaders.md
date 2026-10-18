@@ -22,7 +22,9 @@ Following the same modular structure, my other presets are:
 
 ### LCD Shaders
 
-Some consoles had backlit screens and others front lit screens. The front lit screen have a light back that reflects the front light, and shaders with light grid lines make more senses. Other consoles have a backlit screen and in that case, dark grid lines are more accurate. 
+### LCD Shaders
+
+Some handheld consoles had backlit screens, while others used unlit reflective or front-lit screens. Reflective and front-lit screens rely on a light-colored backing to bounce light back to the viewer, so shaders with bright grid lines make more sense. Conversely, for consoles with backlit screens, dark grid lines are more accurate.
 
 | Console | Original Screen Technology | Emulation Grid / Lighting Style |
 | :--- | :--- | :--- |
@@ -36,38 +38,38 @@ Some consoles had backlit screens and others front lit screens. The front lit sc
 | **PlayStation Portable (PSP)** | Backlit TFT LCD | **Dark grid** (standard backlit display) |
 | **Nintendo DS (Phat / Lite)** | Backlit TFT LCD | **Dark grid** (standard backlit display) |
 
-Hence, I have 2 shaders families :
+Hence, I use two shader families:
 
-- `lcd-dark` and `lcd-nds` and `lcd-psp` provide a dark grid. The shaders are all based on `lcd1x` and the parameters are factorized in `lcd-dark.params`. I didn't choose `lcd-grid-v2` for dark grids because it is too heavy for the KPA. And I was not convinced by the usefullness of the RGB separation of `lcd3x` on the small and low res KPA screen. 
-- `lcd-light` provide a light grid. The shader is based on `simpletex` with the parameters in `lcd-light.params`. The paper background is didabled because on the low res KPA screen, it looks gross. 
+- `lcd-dark`, `lcd-nds` (`lcd-nds-color` / `lcd-nds-raw`), and `lcd-psp` provide a dark grid. These presets are all based on `lcd1x`, with their parameters factorized into `lcd-dark.params`. I ruled out `lcd-grid-v2` for dark grids because it is too heavy for the KPA, and I was not convinced by the usefulness of `lcd3x`'s RGB subpixel separation on the KPA's small, low-res screen.
+- `lcd-light` provides a light grid. This preset is based on `simpletex_lcd` with its parameters stored in `lcd-light.params`. The paper background texture is disabled because it looks coarse on the low-res KPA screen.
 
-Other parameters are tuned so that the global luminance and colors roughly match the input picture, to ensure homogeneity between platforms. Thonk about enabling color corrections in core for best results. To do so, the LCD shaders also use the following files : `lcd-dark.params` and `lcd-light.params`.
+Inside `lcd-dark.params` and `lcd-light.params`, parameters are tuned so that the overall luminance and colors roughly match the raw input image, ensuring visual consistency across platforms. For best results, remember to enable color correction in the core options (or use the dedicated color-corrected preset when available).
 
 ### Nintendo DS
 
-The Nintendo DS is a special case since the `MelonDS DS` core cannot output a layout with both screens (one large and one thumbnail) in an integer scale, thus ruining balanced grid shaders. So we need to prepend a shader that takes a flow with screens on top of eachother, splits both screens and rearranges them in different layout. For the KPA :
+The Nintendo DS is a special case since the `melonDS DS` core cannot natively output a hybrid layout (one large screen and one thumbnail) at an exact integer scale, which ruins balanced LCD grid shaders. To solve this, we prepend a custom layout shader that takes a standard vertical feed (both screens stacked on top of each other), splits them, and rearranges them into a custom side-by-side layout. For the KPA:
 
-- The viewport needs to be setup to `960`x`576` (video options of Retroarch, save with a core override)
-- The core needs to be setup with a `top/bottom` or `bottom/top` screen layout (nothing else)
+- The viewport must be set to `960x576` in RetroArch's video scaling options (and saved as a Core Override).
+- The core must be configured with a `Top/Bottom` or `Bottom/Top` screen layout, a screen gap of `0`, and `1x` native resolution (nothing else).
 
-The following files in [https://github.com/gerpy/kpa-install/tree/main/shaders|the shaders reporitory] need to be placed in the `shaders` folder of Retroarch :
-- `lcd-dark.params` (with the grid parameters from `lcd1x.slangp`)
-- `lcd-nds.slangp`
-- `nds-layout-gap.slang`
-- `nds-pipeline-color.slangp`
-- `nds-pipeline-raw.slangp`
+The following files from [the shaders repository](https://github.com/gerpy/kpa-install/tree/main/shaders) must be placed in RetroArch's root `shaders` folder:
 
-## Shaders for standalone emulators
+- `lcd-dark.params` (holds the grid parameters for `lcd1x-sourcesize.slang`)
+- `lcd-nds-color.slangp` and/or `lcd-nds-raw.slangp` (the main presets to load)
+- `nds-pipeline-color.slangp` and `nds-pipeline-raw.slangp` (the 3-pass and 2-pass technical pipelines)
+- `nds-layout-gap.slang` (splits the screens, scales the main screen to 3x, and creates the 1px gap and 0.25x thumbnail)
+- `lcd1x-sourcesize.slang` (modified `lcd1x` shader that reads `SourceSize` instead of `OriginalSize`)
+
+## Shaders for Standalone Emulators
 
 ### Dolphin
 
-Built-in shaders don't help much. I have asked Gemini to adapt my above slang shader to the synthetic single pass glsl shader `crt-dolphin.glsl`.
+The built-in shaders don't help much. I had Gemini adapt my multi-pass Slang preset above into a self-contained, single-pass GLSL shader: `crt-dolphin.glsl`.
 
 ### ARMSX2
 
-ARMSX2 is supposed to run Retroarch shaders. It needs further testing but so far, I 'm just trying with my above `crt-noscan.slangp`, to import in ARMSX2. If it doesn't work, I'll also ask Gemini to synthetise the required files in one single `crt-armsx2.slangp` preset with a corresponding `crt-armsx2.slang` shader.
+ARMSX2 natively supports RetroArch Slang shaders. It still requires further testing, so for now I'm simply trying to import my `crt-noscan.slangp` preset into ARMSX2. If multi-pass references cause issues, I also had Gemini merge the required passes into a single-pass `crt-armsx2.slangp` preset paired with a standalone `crt-armsx2.slang` shader.
 
-### MelonDS
+### melonDS
 
-There is a built-in **`LCD`** postprocessing video shader but is darkens the picture way too much. I stand with the Retroarch `MelonDS DS` core and custom grid shaders.
-
+Standalone melonDS includes a built-in **`LCD`** post-processing shader, but it darkens the image way too much. I stick with the RetroArch `melonDS DS` core and my custom LCD grid shaders instead.
