@@ -32,7 +32,7 @@ Graphical interpretations and interpolations lead me to consider these points, b
 
 ## Custom fan curve
 
-The KPA permits to define 6 points at resolutions of  5°C and 5%, the first one for 40°C and the last one for 100°C. The better match I could find with these 6 points, allowing for curve smoothing, is :
+The KPA permits to define 6 points at resolutions of  5°C and 5%, the first one for 40°C and the last one for 100°C. The better match I could find with these 6 points, including both ends and allowing for curve smoothing, is :
 
 1. **40°C $\rightarrow$ 5%**
 2. **b**
