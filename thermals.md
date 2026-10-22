@@ -34,9 +34,11 @@ Graphical interpretations and interpolations lead me to consider these points, b
 
 The KPA permits to define 6 points at a resolution of _(5°C, 5%)_, the first one for 40°C and the last one for 100°C. The better match I could find with these 6 points, allowing for curve smoothing, is :
 
+**
 1. 40°C $\rightarrow$ 5%
 2. b
 3. c
 4. 90°C $\rightarrow$ 65%
 5. 95°C $\rightarrow$ 80%
 6. 100°C $\rightarrow$ 100%
+**
