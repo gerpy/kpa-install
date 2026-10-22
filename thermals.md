@@ -42,3 +42,5 @@ The KPA permits to define 6 points at resolutions of  5°C and 5%, the first one
 4. **85°C $\rightarrow$ 45%**
 5. **95°C $\rightarrow$ 85%**
 6. **100°C $\rightarrow$ 100%**
+
+![Custom fan curve](images/kpa-custom-fan-curve.png)
