@@ -21,7 +21,7 @@ Emulators don't saturate GPU and CPU because they cannot run every single core f
 
 > My results show that even when the CPU/GPU temperature is under control, past a certain CPU/GPU temperature, heat only accumulates and the shell cannot dissipate it, occuring battery temperature reaching unsafe levels (I didn't try to go beyond 45°C but some curves don't look asymptotic at this point). So better run most demanding games during limited periods of time.
 
-Graphical interpretations and interpolations lead me to consider these points, based or raw experiments :
+Graphical interpretations for tradeoffs and interpolations lead me to consider these points, based or raw experiments :
 
 1. 46°C $\rightarrow$ 5% for an averaged n.nW power draw (excuding the fan consumtion)
 2. 66°C $\rightarrow$ 18% for an averaged n.nW power draw (excuding the fan consumtion)
