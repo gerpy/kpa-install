@@ -32,6 +32,8 @@ Graphical interpretations for tradeoffs and interpolations lead me to consider t
 
 I didn't test fanless at all since I plan to always keep a gentle airflow.
 
+![Custom fan curve](images/kpa-custom-fan-curve.png "Empirical target curve vs Custom curve")
+
 ## Custom fan curve
 
 The KPA permits defining 6 points at resolutions of 5°C and 5%, with the first one at 40°C and the last one at 100°C. The best match I could find with these 6 points—including both ends and allowing for curve smoothing—is:
@@ -43,4 +45,4 @@ The KPA permits defining 6 points at resolutions of 5°C and 5%, with the first 
 5. **95°C $\rightarrow$ 85%**
 6. **100°C $\rightarrow$ 100%**
 
-![Custom fan curve](images/kpa-custom-fan-curve.png "Empirical target curve vs Custom curve")
+![KPA fan curve](images/kpa-fan-curve-screenshot.png "KPA custom fan curve")
