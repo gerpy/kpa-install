@@ -25,7 +25,7 @@ Graphical interpretations for tradeoffs and interpolations lead me to consider t
 
 1. **46°C SoC $\rightarrow$ 5% fan** for an averaged ~2.00W power draw (excluding fan consumption). Internal battery temperature after 30 min: 33.0°C (fully stable).
 2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.48W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~36.5°C (fully stable).
-3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.76W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42.0°C. (almost stable).
+3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.76W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42.0°C. (roughly stable).
 4. **88°C SoC $\rightarrow$ 64% fan** for an averaged ~5.52W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~44.4°C (not fully stabilized).
 5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.35W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~47.6°C (continues growing).
 6. **97°C SoC $\rightarrow$ 95% fan** for an averaged >7.00W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~50.9°C (out of control)
