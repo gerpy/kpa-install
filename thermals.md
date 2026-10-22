@@ -1,6 +1,6 @@
 # KPA Thermals
 
-> These are my very own tests on my own unit and I'm not responsible of any damage to yours : take your own risks. That beeing said, I took care of defining a 100% fan speed before the throttling threshold.
+> These are my very own tests on my own unit in my own home at my own ambiant temperature and I'm not responsible of any damage to yours : take your own risks. That beeing said, I took care of defining a 100% fan speed before the throttling threshold.
 
 ## Test setup
 
