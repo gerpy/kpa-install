@@ -23,12 +23,12 @@ Emulators don't saturate GPU and CPU because they cannot run every single core f
 
 Graphical interpretations and interpolations lead me to consider these points, based or raw experiments :
 
-1. 46°C $\rightarrow$ 5%
-2. 66°C $\rightarrow$ 18%
-3. c
-4. 88°C $\rightarrow$ 62%
-5. 93°C $\rightarrow$ 78%
-6. 97°C $\rightarrow$ 95%
+1. 46°C $\rightarrow$ 5% for an averaged n.nW power draw (excuding the fan consumtion)
+2. 66°C $\rightarrow$ 18% for an averaged n.nW power draw (excuding the fan consumtion)
+3. XX°C $\rightarrow$ YY% for an averaged n.nW power draw (excuding the fan consumtion)
+4. 88°C $\rightarrow$ 62% for an averaged n.nW power draw (excuding the fan consumtion)
+5. 93°C $\rightarrow$ 78% for an averaged n.nW power draw (excuding the fan consumtion)
+6. 97°C $\rightarrow$ 95% for an averaged n.nW power draw (excuding the fan consumtion)
 
 ## Custom fan curve
 
