@@ -23,12 +23,12 @@ Emulators don't saturate the GPU and CPU because they cannot run every single co
 
 Graphical interpretations for tradeoffs and interpolations lead me to consider these points, based on raw experiments:
 
-1. **46°C $\rightarrow$ 5%** for an averaged ~2.0W power draw (excluding fan consumption).
-2. **66°C $\rightarrow$ 15%** for an averaged ~3.5W power draw (excluding fan consumption).
-3. **85°C $\rightarrow$ 40%** for an averaged ~4.8W power draw (excluding fan consumption).
-4. **88°C $\rightarrow$ 64%** for an averaged ~5.5W power draw (excluding fan consumption).
-5. **93°C $\rightarrow$ 78%** for an averaged ~6.4W power draw (excluding fan consumption).
-6. **97°C $\rightarrow$ 95%** for an averaged >7.0W power draw (excluding fan consumption).
+1. **46°C SoC $\rightarrow$ 5% fan** for an averaged ~2.00W power draw (excluding fan consumption). Internal battery temperature after 30 min: 33.0°C (fully stable).
+2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.48W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~36.5°C (fully stable).
+3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.76W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42.0°C. (almost stable).
+4. **88°C SoC $\rightarrow$ 64% fan** for an averaged ~5.52W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~44.4°C (not fully stabilized).
+5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.35W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~47.6°C (continues growing).
+6. **97°C SoC $\rightarrow$ 95% fan** for an averaged >7.00W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~50.9°C (out of control)
 
 I didn't test fanless at all since I plan to always keep a gentle airflow.
 
