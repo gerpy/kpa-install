@@ -24,7 +24,7 @@ Emulators don't saturate GPU and CPU because they cannot run every single core f
 Graphical interpretations and interpolations lead me to consider these points, based or raw experiments :
 
 1. 46°C $\rightarrow$ 5%
-2. b
+2. 66°C $\rightarrow$ 18%
 3. c
 4. 88°C $\rightarrow$ 62%
 5. 93°C $\rightarrow$ 78%
