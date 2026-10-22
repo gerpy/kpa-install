@@ -30,6 +30,8 @@ Graphical interpretations and interpolations lead me to consider these points, b
 5. 93°C $\rightarrow$ 78% for an averaged n.nW power draw (excuding the fan consumtion)
 6. 97°C $\rightarrow$ 95% for an averaged n.nW power draw (excuding the fan consumtion)
 
+I didn't test fanless at all since I plan to always keep a gentle air flow.
+
 ## Custom fan curve
 
 The KPA permits to define 6 points at resolutions of  5°C and 5%, the first one for 40°C and the last one for 100°C. The better match I could find with these 6 points, including both ends and allowing for curve smoothing, is :
