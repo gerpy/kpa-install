@@ -8,11 +8,11 @@ The KPA permits to setup a custom fan curve with _(temperature, % fan)_ points. 
 
 I'm using the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr) app to test because it is the only one letting to enable both CPU and GPU burn at the same time, or just one and not the other. I have tested the following setting, each time with 3 or 4 constant fan speeds :
 
-1. 1/2 GPU only (global drawn power similar to easy 2D games with shaders)
-2. Full GPU only (global drawn power similar to more demanding 2D games with shaders) 
-3- Off GPU and CPU with performance cores at 774MHz (global drawn power similar to demanding 3D gaming)
-4. 1/2 GPU and CPU with performance cores at 774MHz (global drawn power similar to high end PS2/GC games)
-5. Full GPU with performance cores at 774MHz 
+1. 50% GPU only (global drawn power roughly similar to easy 2D games with shaders)
+2. 100% GPU only (global drawn power roughly similar to more demanding 2D games with shaders) 
+3- GPU Off and CPU performance cores at 774MHz (global drawn power roughly similar to demanding 3D gaming)
+4. 50% GPU and CPU performance cores at 774MHz (global drawn power roughly similar to high end PS2/GC games)
+5. 100¨% GPU and CPU performance cores at 774MHz (roughly similar to PC games, perhaps)
 6. Throttling point (about 99°C) requiring to max security and a 100% fan speed, the point of other points beeing to avoid getting there while not beeing too noisy
 
 Emulators don't saturate GPU and CPU because they cannot run every single core full speed as a dedicated torture tool like Burnout Throttle does, hence the limited CPU performance cores and GPU settings to mimick actual thermals at Max mode. I have tested several fan speeds 30 min for each use case and recorded temperatures (CPU/GPU and battery) to discover the lowest fan speed that a) has an asymptotic shape ensuring that the CPU/GPU temperature is under control at this point and b) the battery temperature doesn't explode.
