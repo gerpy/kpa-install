@@ -9,7 +9,7 @@ The KPA permits to setup a custom fan curve with _(temperature, % fan)_ points. 
 I'm using the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr) app to test because it is the only one letting to enable both CPU and GPU burn at the same time, or just one and not the other. I have tested the following setting, each time with 3 or 4 constant fan speeds :
 
 1. 1/2 GPU only (global drawn power similar to easy 2D games with shaders)
-2. Full GPU only (global drawn power similar to demanding 2D games with shaders) 
+2. Full GPU only (global drawn power similar to more demanding 2D games with shaders) 
 3- Off GPU and CPU with performance cores at 774MHz (global drawn power similar to demanding 3D gaming)
 4. 1/2 GPU and CPU with performance cores at 774MHz (global drawn power similar to high end PS2/GC games)
 5. Full GPU with performance cores at 774MHz 
