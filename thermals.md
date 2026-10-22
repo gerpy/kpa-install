@@ -24,9 +24,9 @@ Emulators don't saturate GPU and CPU because they cannot run every single core f
 Graphical interpretations for tradeoffs and interpolations lead me to consider these points, based or raw experiments :
 
 1. 46°C $\rightarrow$ 5% for an averaged n.nW power draw (excuding the fan consumtion)
-2. 66°C $\rightarrow$ 18% for an averaged n.nW power draw (excuding the fan consumtion)
-3. XX°C $\rightarrow$ YY% for an averaged n.nW power draw (excuding the fan consumtion)
-4. 88°C $\rightarrow$ 62% for an averaged n.nW power draw (excuding the fan consumtion)
+2. 66°C $\rightarrow$ 15% for an averaged n.nW power draw (excuding the fan consumtion)
+3. 85°C $\rightarrow$ 40% for an averaged n.nW power draw (excuding the fan consumtion)
+4. 88°C $\rightarrow$ 64% for an averaged n.nW power draw (excuding the fan consumtion)
 5. 93°C $\rightarrow$ 78% for an averaged n.nW power draw (excuding the fan consumtion)
 6. 97°C $\rightarrow$ 95% for an averaged n.nW power draw (excuding the fan consumtion)
 
@@ -37,8 +37,8 @@ I didn't test fanless at all since I plan to always keep a gentle air flow.
 The KPA permits to define 6 points at resolutions of  5°C and 5%, the first one for 40°C and the last one for 100°C. The better match I could find with these 6 points, including both ends and allowing for curve smoothing, is :
 
 1. **40°C $\rightarrow$ 5%**
-2. **70°C $\rightarrow$ 20%**
-3. **c**
-4. **90°C $\rightarrow$ 65%**
-5. **95°C $\rightarrow$ 80%**
+2. **55°C $\rightarrow$ 10%**
+3. **70°C $\rightarrow$ 20%**
+4. **85°C $\rightarrow$ 45%**
+5. **95°C $\rightarrow$ 85%**
 6. **100°C $\rightarrow$ 100%**
