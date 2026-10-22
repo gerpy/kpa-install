@@ -1,6 +1,6 @@
 The KPA permits to setup a custom fan curve with _(temperature, % fan)_ points. I have conducted tests to discover adequate points and shape the curve. Each point corresponds to a use case such as heavy use, moderate use, light use, each leading to a different power draw and thus a different amount to dissipate and thus a different adequate fan speed. The more controled the tests, the best. Fortunately, the KPA permits to limit CPU and GPU frequencies, thus bounding the drawn power.
 
-I'm using the (Burnout Benchmark)[https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr] app to test because it is the only one letting to enable both CPU and GPU burn at the same time, on just one or te other. I have tested the following setting, each time with 3 or 4 constant fan speeds :
+I'm using the [https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr](Burnout Benchmark) app to test because it is the only one letting to enable both CPU and GPU burn at the same time, on just one or te other. I have tested the following setting, each time with 3 or 4 constant fan speeds :
 
 - Throttling point (about 99°C) requiring to max security and a 100% fan speed, the point of other points beeing to avoid getting there while not beeing too noisy
 - Full GPU with performance cores at 774MHz 
