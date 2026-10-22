@@ -27,8 +27,8 @@ Graphical interpretations for tradeoffs and interpolations lead me to consider t
 2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.5W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~36°C (fully stable).
 3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.8W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42°C. (roughly stable).
 4. **88°C SoC $\rightarrow$ 64% fan** for an averaged ~5.5W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~44°C (not fully stabilized).
-5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.4W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~48°C (continues growing, very uncomfortable).
-6. **97°C SoC $\rightarrow$ 95% fan** for an averaged >7.0W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~51°C (out of control, drop the console)
+5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.4W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~48°C (continues growing, uncomfortable).
+6. **97°C SoC $\rightarrow$ 95% fan** for an averaged >7.0W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~51°C (out of control, highly uncomfortable)
 
 I didn't test fanless at all since I plan to always keep a gentle airflow.
 
