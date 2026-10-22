@@ -24,7 +24,7 @@ Emulators don't saturate the GPU and CPU because they cannot run every single co
 Graphical interpretations for tradeoffs and interpolations lead me to consider these points, based on raw experiments:
 
 1. **46°C SoC $\rightarrow$ 5% fan** for an averaged ~2.00W power draw (excluding fan consumption). Internal battery temperature after 30 min: 33.0°C (fully stable).
-2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.48W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~37°C (fully stable).
+2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.48W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~36°C (fully stable).
 3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.76W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42°C. (roughly stable).
 4. **88°C SoC $\rightarrow$ 64% fan** for an averaged ~5.52W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~44°C (not fully stabilized).
 5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.35W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~48°C (continues growing).
