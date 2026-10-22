@@ -8,10 +8,10 @@ The KPA permits to setup a custom fan curve with _(temperature, % fan)_ points. 
 
 I'm using the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr) app to test because it is the only one letting to enable both CPU and GPU burn at the same time, or just one and not the other. I have tested the following setting, each time with 3 or 4 constant fan speeds :
 
-1. **50% GPU only** (global drawn power roughly similar to easy 2D games with shaders)
-2. **100% GPU only** (global drawn power roughly similar to more demanding 2D games with shaders) 
-3- **GPU Off and and reduced CPU** performance at 774MHz (global drawn power roughly similar to demanding 3D gaming)
-4. **50% GPU and reduced CPU** performance at 774MHz (global drawn power roughly similar to high end PS2/GC games)
+1. **50% GPU only** (global drawn power roughly similar to easy 2D games with shaders such as GBA with my grid shader preset)
+2. **100% GPU only** (global drawn power roughly similar to more demanding 2D games with shaders such as SF-III FBNeo with my `halation` shader) 
+3- **GPU Off and and reduced CPU** performance at 774MHz (global drawn power roughly similar to regular 3D gaming such as PS1 1X with SAA and an `easy` shader)
+4. **50% GPU and reduced CPU** performance at 774MHz (global drawn power roughly similar to high end PS2/GC games succh as GoW in ARMSX2)
 5. **100¨% GPU and reduced CPU** performance cores at 774MHz (roughly similar to PC games, perhaps)
 6. **Throttling point** (about 99°C) requiring to max security and a 100% fan speed, the point of other points beeing to avoid getting there while not beeing too noisy
 
