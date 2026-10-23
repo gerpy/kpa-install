@@ -35,7 +35,7 @@ Based on these raw stress tests, analyzing the exact thermal slopes leads to the
 | **CPU Off / GPU 806 MHz** | ~3.5 W | **66.0°C @ 21.0%** | 36.7°C | Fully stable, very quiet. |
 | **CPU 774 MHz / GPU Off** | ~4.8 W | **85.0°C @ 50.0%** | 41.9°C | Stable, safe battery limits. |
 | **CPU 774 MHz / GPU 420 MHz** | ~5.5 W | **88.6°C @ 61.0%** | 44.6°C | SoC stabilized, battery nearing 45.0°C limit. |
-| **CPU 774 MHz / GPU 806 MHz** | ~6.4 W | **94.0°C @ 77.0%** | 47.8°C | SoC stable, but battery overheats (internal $I^2R$ heating). |
+| **CPU 774 MHz / GPU 806 MHz** | ~6.4 W | **94.0°C @ 77.0%** | 47.8°C | SoC stable, but battery overheats (internal Ohm heating). |
 | **Maximum SoC Load** | > 7.0 W | **100.0°C @ 100.0%** | > 48.0°C | Safety shield. |
 
 *(I didn't test a strictly fanless setup at 0.0% since I plan to always keep a gentle baseline airflow).*
