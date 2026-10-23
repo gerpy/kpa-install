@@ -110,6 +110,16 @@ This unified table distinguishes two complementary realities:
 **The Verdict:**
 Even though the Konkr Pocket Advance is a 3:2 device, this scaling doctrine effectively neutralizes the screen ratio penalty. By utilizing extra screen width to safely zoom and crop unneeded vertical margins, systems like the Atari 2600, N64, or NES render 3D models and sprites at a size equivalent to a **3.41 to 3.55-inch 4:3 screen**. Even systems with zero vertical crop (3.31") or narrower ratios like the PC Engine (3.29") and Super Nintendo (3.27") retain a perceived size very close to a native 3.5-inch 4:3 display.
 
+## Scaling for Standalone Emulators
+
+### ARMSX2
+
+ARMSX2 conveniently supports custom aspect ratios directly within its interface. I opted for a **1.39** ratio, which provides a subtle horizontal enlargement that safely stays just below the 5% threshold to avoid any "aspect ratio crimes."
+
+### Dolphin
+
+Dolphin is significantly less flexible than ARMSX2, completely lacking a native custom aspect ratio toggle for a clean 5% stretch. While forcing a custom ratio by modifying the `GFX.ini` file is technically possible, it proved too buggy and inconsistent. Fortunately, Nintendo interfaces are generally very crop-friendly. Applying a **7-pixel native crop to both the top and bottom** successfully increases screen real estate without cutting into essential HUD elements, making it the most reliable workaround.
+
 ## Shaders for the KPA
 
 ### CRT Shaders
