@@ -118,7 +118,7 @@ ARMSX2 conveniently supports custom aspect ratios directly within its interface.
 
 ### Dolphin
 
-Dolphin is significantly less flexible than ARMSX2, completely lacking a native custom aspect ratio toggle for a clean 5% stretch. While forcing a custom ratio by modifying the `GFX.ini` file is technically possible, it proved too buggy and inconsistent. Fortunately, Nintendo interfaces are generally very crop-friendly. Applying a **7-pixel native crop to both the top and bottom** successfully increases screen real estate without cutting into essential HUD elements, making it the most reliable workaround.
+Dolphin is significantly less flexible than ARMSX2, completely lacking a native custom aspect ratio toggle for a clean 4-5% stretch. While forcing a custom ratio by modifying the `GFX.ini` file is technically possible, it proved too buggy and inconsistent. Fortunately, Nintendo interfaces are generally very crop-friendly. Applying a **7-pixel native crop to both the top and bottom** successfully increases screen real estate without cutting into essential HUD elements, making it the most reliable workaround.
 
 ## Shaders for the KPA
 
