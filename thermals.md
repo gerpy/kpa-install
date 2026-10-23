@@ -1,46 +1,58 @@
 # KPA Thermals
 
-> These are my very own tests on my own unit in my own home at my own ambient temperature, and I am not responsible for any damage to yours—take your own risks. That being said, I took care to set the fan speed to 100% before reaching the throttling threshold.
+> These are my own tests conducted on my personal unit, in my own home, at my typical ambient temperature. I am not responsible for any damage to your device—proceed at your own risk. That being said, I took care to push the fan speed to 100% before reaching any critical throttling thresholds.
 
 ## Test setup
 
-The KPA allows setting up a custom fan curve with _(temperature, % fan)_ points. I have conducted tests to find adequate points and shape the curve. Each point corresponds to a use case—such as heavy, moderate, or light usage—each leading to a different power draw, a varying amount of heat to dissipate, and an adequate fan speed to keep things under control. The more controlled the tests, the better. Fortunately, the KPA allows limiting CPU and GPU frequencies, thus bounding the power draw.
+The KPA allows users to define a custom fan curve using six _(temperature, % fan speed)_ coordinates. I conducted empirical tests to find the optimal points and shape the most efficient curve. Each point corresponds to a specific use case—ranging from light to heavy workloads—which translates to different power draws and varying amounts of heat to dissipate.
 
-I'm using the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org.ai.throttling&hl=fr) app for testing because it is the only one that lets you enable both CPU and GPU burn simultaneously, or just one independently. I have tested the following settings, each time with 3 or 4 constant fan speeds:
+The more controlled the tests, the better. Fortunately, the KPA allows limiting both CPU and GPU frequencies, effectively capping the maximum power draw for each scenario.
 
-1. **50% GPU only** (global drawn power roughly similar to easy 2D games with shaders, such as GBA with my grid shader preset).
-2. **100% GPU only** (global drawn power roughly similar to more demanding 2D games with shaders, such as SF-III FBNeo with my `halation` shader). 
-3. **GPU Off and reduced CPU** performance at 774MHz (global drawn power between the above and below use cases).
-4. **50% GPU and reduced CPU** performance at 774MHz (global drawn power roughly similar to high-end PS2/GC games, such as GoW in ARMSX2).
-5. **100% GPU and reduced CPU** performance cores at 774MHz (roughly similar to PC games, perhaps).
-6. **Throttling point** (about 99°C) requiring maximum security and a 100% fan speed; the purpose of the other points is to avoid getting there while keeping noise levels reasonable.
+I used the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org.ai.throttling&hl=en) app because it is one of the few tools that allows enabling CPU and GPU stress tests either simultaneously or independently. I tested the following configurations, recording thermal data across 3 or 4 constant fan speeds per scenario:
 
-Emulators don't saturate the GPU and CPU because they cannot run every single core at full speed like a dedicated torture tool such as Burnout Benchmark does. Hence, the limited CPU performance cores and GPU settings are used to mimic actual thermals at Max mode. I have tested several fan speeds for 30 minutes for each use case and recorded temperatures (CPU/GPU and battery) to determine the lowest fan speed that ensures a) an asymptotic shape indicating that the CPU/GPU temperature is under control, and b) that the battery temperature does not spike excessively.
+1. **CPU Off / GPU 420 MHz** (~2.0 W net power draw): Similar to easy 2D games.
+2. **CPU Off / GPU 806 MHz** (~3.5 W net power draw): Similar to demanding 2D games with heavy CRT shaders (e.g., SF-III FBNeo).
+3. **CPU 774 MHz / GPU Off** (~4.8 W net power draw): CPU-heavy emulation (e.g., Sega Saturn).
+4. **CPU 774 MHz / GPU 420 MHz** (~5.5 W net power draw): High-end 3D emulation (e.g., God of War on AetherSX2).
+5. **CPU 774 MHz / GPU 806 MHz** (~6.4 W net power draw): Maximum GPU load (e.g., PC ports).
+6. **Maximum SoC Load** (>7.0 W): The throttling threshold (around 99°C), requiring a 100% fan speed as an absolute safety net.
+
+Emulators rarely saturate the SoC completely like a dedicated synthetic torture tool does. Limiting the CPU performance cores and GPU clock speeds mimics realistic, sustained heavy gaming loads. I ran each configuration for 30 minutes at various fixed fan speeds, recording the SoC and battery temperatures to find the lowest fan speed that ensures:
+a) An asymptotic temperature curve (indicating the SoC is thermally stabilized).
+b) Safe internal battery temperatures.
 
 ## Test results
 
-> My results show that even when the CPU/GPU temperature is under control, past a certain point, heat accumulates and the shell cannot dissipate it, causing battery temperature to reach unsafe levels (I didn't try to go beyond 45°C, and some curves do not look asymptotic at this point). Therefore, it is best to run the most demanding games for limited periods.
+> **Note:** My results demonstrate that even when the SoC temperature appears stabilized, heat can accumulate within the chassis beyond a certain power draw. When the shell can no longer dissipate this soak naturally, the battery temperature rises to unsafe levels (I advise keeping it below 45°C). Therefore, it is best to run the most demanding games in relatively shorter bursts.
 
-Graphical interpretations for tradeoffs and interpolations lead me to consider these points, based on raw experiments:
+Based on these raw 30-minute stress tests, analyzing the exact thermal slopes (°C/h) leads to the following underlying **equilibrium points** (the sweet spots where the SoC stabilizes without over-ventilating and generating useless noise):
 
-1. **46°C SoC $\rightarrow$ 5% fan** for an averaged ~2.0W power draw (excluding fan consumption). Internal battery temperature after 30 min: 33°C (fully stable).
-2. **66°C SoC $\rightarrow$ 15% fan** for an averaged ~3.5W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~36°C (fully stable).
-3. **85°C SoC $\rightarrow$ 40% fan** for an averaged ~4.8W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~42°C. (roughly stable).
-4. **88°C SoC $\rightarrow$ 64% fan** for an averaged ~5.5W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~44°C (not fully stabilized).
-5. **93°C SoC $\rightarrow$ 78% fan** for an averaged ~6.4W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~48°C (continues growing, uncomfortable).
-6. **97°C SoC $\rightarrow$ 95% fan** for an averaged >7.0W power draw (excluding fan consumption). Internal battery temperature after 30 min: ~51°C (out of control, highly uncomfortable)
+| Workload Target | Net Power | Ideal SoC Equilibrium | Internal Battery Temp (Arrival) | Thermal Status & Notes |
+| :--- | :---: | :---: | :---: | :--- |
+| **1. Light 2D** | ~2.00 W | **46°C @ 5%** *(or 7%)* | 33.0°C | Fully stable, perfectly silent. |
+| **2. 2D + Shaders** | ~3.48 W | **66°C @ 21%** | 36.7°C | Fully stable, very quiet. |
+| **3. CPU Heavy** | ~4.76 W | **85°C @ 50%** | 41.9°C | Stable, safe battery limits. |
+| **4. PS2 / GC** | ~5.52 W | **88.6°C @ 61%** | 44.6°C | SoC stabilized, battery nearing 45°C limit. |
+| **5. GPU Ceiling** | ~6.35 W | **94°C @ 77%** | 47.8°C | SoC stable, but battery overheats (internal $I^2R$ heating). |
+| **6. Anti-Throttling** | >7.00 W | **100°C @ 100%** | >48.0°C | Safety shield to prevent micro-throttling drops at 98.5°C. |
 
-I didn't test fanless at all since I plan to always keep a gentle airflow.
+*(I didn't test a strictly fanless setup at 0% since I plan to always keep a gentle baseline airflow).*
+
+![Empirical Study and Equilibrium Points](kpa-empirical-study.png "Empirical Data & Equilibrium Points")
 
 ## Custom fan curve
 
-The KPA permits defining 6 points at resolutions of 5°C and 5%, with the first one at 40°C and the last one at 100°C. The best match I could find with these 6 points—including both ends and allowing for curve smoothing—is:
+The KPA firmware allows defining exactly 6 points at 5°C and 5% intervals, hard-locked at 40°C for the first node and 100°C for the last. 
 
-1. **40°C $\rightarrow$ 5%**
-2. **55°C $\rightarrow$ 10%**
-3. **70°C $\rightarrow$ 20%**
-4. **85°C $\rightarrow$ 45%**
-5. **95°C $\rightarrow$ 85%**
-6. **100°C $\rightarrow$ 100%**
+To project our physical equilibrium points onto this strict grid without creating erratic fan behaviors (i.e., avoiding unnecessary bumps and maintaining a perfectly smooth, convex progression), the mathematically optimal coordinates are:
 
-![Custom fan curve](images/kpa-custom-fan-curve.png "Empirical target curve vs Custom curve")
+| KPA Node | Temp (°C) | Fan Speed (%) | Progression (Segment Slope) |
+| :---: | :---: | :---: | :--- |
+| **1** | **40°C** | **5%** | Baseline |
+| **2** | **50°C** | **10%** | `+0.50 %/°C` (Matches the 46°C / 7% sweet spot) |
+| **3** | **65°C** | **20%** | `+0.67 %/°C` (Matches the 66°C / 21% sweet spot) |
+| **4** | **85°C** | **50%** | `+1.50 %/°C` (Matches the 85°C / 50% sweet spot exactly) |
+| **5** | **95°C** | **80%** | `+3.00 %/°C` (Matches the 88°C and 94°C sweet spots) |
+| **6** | **100°C** | **100%** | `+4.00 %/°C` (Absolute safety ceiling) |
+
+![Custom fan curve projection](kpa-custom-fan-curve.png "Final KPA Curve Projection")
