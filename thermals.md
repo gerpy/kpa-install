@@ -40,7 +40,7 @@ Based on these raw stress tests, analyzing the exact thermal slopes leads to the
 
 *(I didn't test a strictly fanless setup at 0.0% since I plan to always keep a gentle baseline airflow).*
 
-![Empirical Study and Equilibrium Points](kpa-empirical-study.png "Empirical Data & Equilibrium Points")
+![Empirical Study and Equilibrium Points](images/kpa-empirical-study.png "Empirical Data & Equilibrium Points")
 
 ## Custom fan curve
 
@@ -57,4 +57,4 @@ To project our physical equilibrium points onto this strict grid without creatin
 | **5** | **95.0°C** | **80.0%** | `+3.0 %/°C` (Matches the 88.6°C and 94.0°C equilibriums) |
 | **6** | **100.0°C** | **100.0%** | `+4.0 %/°C` (Absolute safety ceiling) |
 
-![Custom fan curve projection](kpa-custom-fan-curve.png "Final KPA Curve Projection")
+![Custom fan curve projection](images/kpa-custom-fan-curve.png "Final KPA Curve Projection")
