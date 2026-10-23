@@ -84,7 +84,7 @@ For all systems below, the following baseline settings are **strictly mandatory*
 
 | [![turican-43.png](screenshots/turican-43.png)](screenshots/turican-43.png) | [![turican-custom.png](screenshots/turican-custom.png)](screenshots/turican-custom.png) | [![turican-107.png](screenshots/turican-107.png)](screenshots/turican-107.png) |
 | :---: | :---: | :---: |
-| DAR 4:3... narrowish shapes | Custom tradeoff with a 5% stretch | PAR 10:7... balanced shapes with small black bars |
+| DAR 4:3... narrowish shapes | Custom tradeoff with a 5% stretch |PAR 1:1 / DAR 10:7... balanced shapes with small black bars |
 
 <p align="center"><em>Perfect fit with only strech for Mega Drive</em></p>
 
