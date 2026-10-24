@@ -1,3 +1,5 @@
+> Disclaimer : empirical results below 30% fan speed are so close to eachother that it is actually difficult to draw any conclusion in the 0-30% interval. I have processed low temperatures the same way as the highest but the confidence drops heavily. 
+
 # KPA Thermals
 
 > These are my own tests conducted on my personal unit, in my own home, at my typical ambient temperature. I am not responsible for any damage to your device—proceed at your own risk. That being said, I took care to push the fan speed to 100.0% before reaching any critical throttling thresholds.
