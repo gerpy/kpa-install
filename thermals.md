@@ -1,4 +1,4 @@
-> **Disclaimer : empirical results below 30% fan speed (with CPU/GPU below 65°C) are so close to eachother that it is actually difficult to draw any strong conclusion in the 0-30% (or 0-65°C interval). I have processed low temperatures the same way as the highest but my confidence about conclusions drops heavilly. Some people claim that there is no difference between 5% and 30% and my results in this area are not significant enough to claim the opposite.**
+> **Disclaimer: Empirical results below 30% fan speed (with CPU/GPU below 65°C) are so similar that it is difficult to draw any firm conclusions within the 0-30% (or 0-65°C) range. Although I processed the low-temperature data the same way as the higher temperatures (and setup fan speeds as low as 5%), my confidence in the findings drops significantly in this lower bracket. Some users claim there is no real difference between 5% and 30% fan speeds, and my results in this range are not significant enough to state otherwise.**
 
 # KPA Thermals
 
