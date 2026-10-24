@@ -19,11 +19,11 @@ I used the [Burnout Benchmark](https://play.google.com/store/apps/details?id=org
 
 Emulators rarely saturate the SoC completely like a dedicated synthetic torture tool does. Limiting the CPU performance cores and GPU clock speeds mimics realistic, sustained heavy gaming loads. I ran each configuration for 30.0 minutes at various fixed fan speeds, recording the SoC and battery temperatures to find the lowest fan speed that ensures:
 a) An asymptotic temperature curve (indicating the SoC is thermally stabilized).
-b) Safe internal battery temperatures.
+b) As safe internal battery temperatures as possible.
 
 ## Test results
 
-> **Note:** My results demonstrate that even when the SoC temperature appears stabilized, heat can accumulate within the chassis beyond a certain power draw. When the shell can no longer dissipate this soak naturally, the battery temperature rises to unsafe levels (I advise keeping it below 45.0°C). Therefore, it is best to run the most demanding games in relatively shorter bursts.
+> **Note:** My results demonstrate that even when the SoC temperature appears stabilized, heat can accumulate within the chassis beyond a certain power draw. When the shell can no longer dissipate this soak naturally, the battery temperature rises to unsafe levels (better keep it below 45.0°C IMO). Therefore, it is best to run the most demanding games in relatively shorter sessions.
 
 **The 30.0% physical fan floor:** Comparing 30.0-minute runs between 5.0% and 30.0% across multiple workloads reveals identical temperature trajectories, identical noise levels, and an invariant idle current (-0.19 A). As shown below on the ~4.5 W CPU-only workload, the 10.0% and 30.0% target curves superimpose throughout the entire 30.0-minute test (both ending at 88.5°C on the SoC and 40.2°C vs. 39.9°C on the battery). While the overlay displays simulated RPM values proportional to the software target (~507.0 RPM at 10.0% vs. ~1494.3 RPM at 30.0%), the fan physically spins at a constant minimum floor of 30.0% (~1500.0 RPM) for any setting at or below 30.0%, as is typical for small brushless motors that cannot reliably start below 20.0–30.0%.
 
